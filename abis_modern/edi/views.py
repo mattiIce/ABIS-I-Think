@@ -68,7 +68,7 @@ class EDITransactionViewSet(viewsets.ModelViewSet):
             
             # Prepare shipment data
             shipment_data = {
-                'shipment_id': str(shipment.id),
+                'shipment_identifier': str(shipment.id),
                 'shipment_date': shipment.ship_date or datetime.now(),
                 'bol_number': shipment.bol_number,
                 'carrier_code': shipment.carrier.code if shipment.carrier else '',
@@ -130,7 +130,7 @@ class EDITransactionViewSet(viewsets.ModelViewSet):
                 ship_notice = EDI856ShipNotice.objects.create(
                     transaction=edi_transaction,
                     shipment=shipment,
-                    shipment_id=str(shipment.id),
+                    shipment_identifier=str(shipment.id),
                     shipment_date=shipment.ship_date or datetime.now().date(),
                     carrier_code=shipment_data['carrier_code'],
                     carrier_name=shipment_data['carrier_name'],
@@ -355,7 +355,7 @@ class EDITransactionViewSet(viewsets.ModelViewSet):
                     report_number=order_data['report_number'],
                     report_date=datetime.now().date(),
                     customer_po=order_data['customer_po'],
-                    job_number=job.job_number,
+                    job_number_text=job.job_number,
                     order_status=job.status,
                     quantity_ordered=order_data['quantity_ordered'],
                     quantity_completed=order_data['quantity_completed'],
@@ -493,7 +493,7 @@ class EDI856ShipNoticeViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = EDI856ShipNoticeSerializer
     permission_classes = [IsAuthenticated]
     filterset_fields = ['shipment', 'shipment_date']
-    search_fields = ['bol_number', 'shipment_id']
+    search_fields = ['bol_number', 'shipment_identifier']
     ordering_fields = ['shipment_date', 'sent_at']
     ordering = ['-shipment_date']
 
@@ -517,6 +517,6 @@ class EDI870OrderStatusViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = EDI870OrderStatusSerializer
     permission_classes = [IsAuthenticated]
     filterset_fields = ['job', 'report_date', 'order_status']
-    search_fields = ['report_number', 'job_number', 'customer_po']
+    search_fields = ['report_number', 'job_number_text', 'customer_po']
     ordering_fields = ['report_date', 'sent_at']
     ordering = ['-report_date']

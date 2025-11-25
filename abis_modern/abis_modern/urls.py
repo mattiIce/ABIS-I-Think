@@ -18,6 +18,38 @@ def health_check(request):
     return JsonResponse({'status': 'healthy', 'service': 'abis-modern'})
 
 
+def api_root(request):
+    """Root API endpoint with links to all services."""
+    return JsonResponse({
+        'message': 'ABIS Modern API',
+        'version': '1.0',
+        'endpoints': {
+            'admin': '/admin/',
+            'api_docs': '/api/docs/',
+            'api_schema': '/api/schema/',
+            'health': '/api/health/',
+            'authentication': {
+                'token': '/api/auth/token/',
+                'refresh': '/api/auth/token/refresh/',
+                'user': '/api/auth/user/',
+            },
+            'resources': {
+                'core': '/api/core/',
+                'inventory': '/api/inventory/',
+                'production': '/api/production/',
+                'shipping': '/api/shipping/',
+                'quality': '/api/quality/',
+                'customers': '/api/customers/',
+                'maintenance': '/api/maintenance/',
+                'reports': '/api/reports/',
+                'edi': '/api/edi/',
+                'notifications': '/api/notifications/',
+            }
+        },
+        'frontend': 'http://localhost:3000'
+    })
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def current_user(request):
@@ -33,11 +65,14 @@ def current_user(request):
 
 
 urlpatterns = [
-    # Health check
-    path('api/health/', health_check, name='health_check'),
+    # Root API info
+    path('', api_root, name='api_root'),
     
     # Admin
     path('admin/', admin.site.urls),
+    
+    # Health check
+    path('api/health/', health_check, name='health_check'),
     
     # API Documentation
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
@@ -58,6 +93,7 @@ urlpatterns = [
     path('api/maintenance/', include('maintenance.urls')),
     path('api/reports/', include('reports.urls')),
     path('api/edi/', include('edi.urls')),
+    path('api/notifications/', include('notifications.urls')),
 ]
 
 # Serve media files in development

@@ -106,7 +106,7 @@ class EDI856ShipNotice(models.Model):
     )
     
     # BSN Segment - Beginning Segment for Ship Notice
-    shipment_id = models.CharField(max_length=50, help_text="Shipment identification number")
+    shipment_identifier = models.CharField(max_length=50, help_text="Shipment identification number")
     shipment_date = models.DateField()
     shipment_time = models.TimeField(null=True, blank=True)
     
@@ -132,7 +132,7 @@ class EDI856ShipNotice(models.Model):
         ordering = ['-shipment_date']
     
     def __str__(self):
-        return f"856 - {self.bol_number or self.shipment_id}"
+        return f"856 - {self.bol_number or self.shipment_identifier}"
 
 
 class EDI856Item(models.Model):
@@ -243,7 +243,7 @@ class EDI870OrderStatus(models.Model):
     
     # REF Segment - Reference Identification
     customer_po = models.CharField(max_length=50, blank=True)
-    job_number = models.CharField(max_length=50)
+    job_number_text = models.CharField(max_length=50)
     
     # OID Segment - Order Identification
     order_status = models.CharField(max_length=50)
@@ -263,7 +263,7 @@ class EDI870OrderStatus(models.Model):
         ordering = ['-report_date']
     
     def __str__(self):
-        return f"870 - {self.report_number}"
+        return f"870 - {self.report_number} ({self.job_number_text})"
 
 
 class EDILog(models.Model):

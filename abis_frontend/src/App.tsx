@@ -11,6 +11,12 @@ import JobDetail from './pages/production/JobDetail'
 import ShipmentList from './pages/shipping/ShipmentList'
 import CustomerList from './pages/customers/CustomerList'
 import Reports from './pages/reports/Reports'
+import ProductionAnalytics from './pages/ProductionAnalytics'
+import QualityAnalytics from './pages/QualityAnalytics'
+import InventoryAnalytics from './pages/InventoryAnalytics'
+import CustomerAnalytics from './pages/CustomerAnalytics'
+import NotificationsList from './pages/NotificationsList'
+import NotificationPreferences from './pages/NotificationPreferences'
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated)
@@ -48,6 +54,16 @@ function App() {
         
         {/* Reports Routes */}
         <Route path="reports" element={<Reports />} />
+        
+        {/* Analytics Routes */}
+        <Route path="analytics/production" element={<ProductionAnalytics />} />
+        <Route path="analytics/quality" element={<QualityAnalytics />} />
+        <Route path="analytics/inventory" element={<InventoryAnalytics />} />
+        <Route path="analytics/customer" element={<CustomerAnalytics />} />
+        
+        {/* Notification Routes */}
+        <Route path="notifications" element={<NotificationsList />} />
+        <Route path="notifications/preferences" element={<NotificationPreferences />} />
       </Route>
     </Routes>
   )

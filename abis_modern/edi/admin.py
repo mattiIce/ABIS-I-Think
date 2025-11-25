@@ -62,9 +62,9 @@ class EDI856ItemInline(admin.TabularInline):
 class EDI856ShipNoticeAdmin(admin.ModelAdmin):
     """Admin for 856 ship notices."""
     
-    list_display = ['bol_number', 'shipment_id', 'shipment_date', 'carrier_name', 'sent_at']
+    list_display = ['bol_number', 'shipment_identifier', 'shipment_date', 'carrier_name', 'sent_at']
     list_filter = ['shipment_date', 'sent_at']
-    search_fields = ['bol_number', 'shipment_id', 'carrier_name']
+    search_fields = ['bol_number', 'shipment_identifier', 'carrier_name']
     readonly_fields = ['sent_at', 'acknowledged_at']
     inlines = [EDI856ItemInline]
 
@@ -101,16 +101,16 @@ class EDI863TestReportAdmin(admin.ModelAdmin):
 class EDI870OrderStatusAdmin(admin.ModelAdmin):
     """Admin for 870 order status reports."""
     
-    list_display = ['report_number', 'job_number', 'order_status', 'report_date', 'sent_at']
+    list_display = ['report_number', 'job_number_text', 'order_status', 'report_date', 'sent_at']
     list_filter = ['order_status', 'report_date', 'sent_at']
-    search_fields = ['report_number', 'job_number', 'customer_po']
+    search_fields = ['report_number', 'job_number_text', 'customer_po']
     readonly_fields = ['sent_at']
     fieldsets = (
         ('Report Info', {
             'fields': ('transaction', 'job', 'report_number', 'report_date')
         }),
         ('Order Info', {
-            'fields': ('customer_po', 'job_number', 'order_status')
+            'fields': ('customer_po', 'job_number_text', 'order_status')
         }),
         ('Quantities', {
             'fields': ('quantity_ordered', 'quantity_completed', 'quantity_shipped')

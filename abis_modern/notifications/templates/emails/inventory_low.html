@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #f59e0b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+        .content {
+            background-color: #f9fafb;
+            padding: 30px;
+            border: 1px solid #e5e7eb;
+        }
+        .warning-box {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .info-box {
+            background-color: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #f59e0b;
+            border-radius: 4px;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .label {
+            font-weight: bold;
+            color: #6b7280;
+        }
+        .value {
+            color: #111827;
+        }
+        .footer {
+            background-color: #f3f4f6;
+            padding: 15px;
+            text-align: center;
+            font-size: 12px;
+            color: #6b7280;
+            border-radius: 0 0 8px 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚠ Low Inventory Alert</h1>
+    </div>
+    <div class="content">
+        <div class="warning-box">
+            <strong>WARNING:</strong> Inventory levels are running low for the following item.
+        </div>
+        
+        <div class="info-box">
+            <div class="info-row">
+                <span class="label">Coil ID:</span>
+                <span class="value">{{ coil_id }}</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Heat Number:</span>
+                <span class="value">{{ heat_number }}</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Alloy:</span>
+                <span class="value">{{ alloy }}</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Temper:</span>
+                <span class="value">{{ temper }}</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Current Quantity:</span>
+                <span class="value">{{ quantity }} lbs</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Location:</span>
+                <span class="value">{{ location }}</span>
+            </div>
+        </div>
+        
+        <p><strong>Action Required:</strong> Please review inventory levels and consider placing a new order.</p>
+    </div>
+    <div class="footer">
+        <p>This is an automated notification from the ABIS Production Management System.</p>
+        <p>If you wish to change your notification preferences, please log in to the system.</p>
+    </div>
+</body>
+</html>

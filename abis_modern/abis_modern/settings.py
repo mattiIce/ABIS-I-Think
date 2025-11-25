@@ -23,7 +23,19 @@ ALLOWED_HOSTS = ['*']  # Allow all hosts in development
 # Trust GitHub Codespaces origins for CSRF
 CSRF_TRUSTED_ORIGINS = [
     'https://*.app.github.dev',
+    'http://localhost:8000',
+    'https://localhost:8000',
+    'http://127.0.0.1:8000',
+    'https://127.0.0.1:8000',
+    'https://obscure-zebra-jqq6g47jwjrf9rv-8000.app.github.dev',
 ]
+
+# Disable CSRF for development (temporary)
+if DEBUG:
+    CSRF_COOKIE_SECURE = False
+    CSRF_COOKIE_SAMESITE = 'Lax'
+    SESSION_COOKIE_SECURE = False
+    SESSION_COOKIE_SAMESITE = 'Lax'
 
 # Application definition
 INSTALLED_APPS = [
@@ -54,6 +66,7 @@ INSTALLED_APPS = [
     'maintenance',
     'reports',
     'edi',
+    'notifications',
 ]
 
 MIDDLEWARE = [
@@ -157,6 +170,16 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Email Configuration
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '587'))
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@abis.com')
+SERVER_EMAIL = os.environ.get('SERVER_EMAIL', 'noreply@abis.com')
 
 # REST Framework
 REST_FRAMEWORK = {

@@ -74,7 +74,7 @@ class EDI856ShipNoticeSerializer(serializers.ModelSerializer):
         model = EDI856ShipNotice
         fields = [
             'id', 'transaction', 'transaction_details', 'shipment', 'shipment_number',
-            'shipment_id', 'shipment_date', 'shipment_time',
+            'shipment_identifier', 'shipment_date', 'shipment_time',
             'carrier_code', 'carrier_name', 'bol_number', 'pro_number',
             'ship_from_name', 'ship_from_address',
             'ship_to_name', 'ship_to_address',
@@ -112,7 +112,7 @@ class EDI870OrderStatusSerializer(serializers.ModelSerializer):
         model = EDI870OrderStatus
         fields = [
             'id', 'transaction', 'transaction_details', 'job', 'job_number_display',
-            'report_number', 'report_date', 'customer_po', 'job_number',
+            'report_number', 'report_date', 'customer_po', 'job_number_text',
             'order_status', 'quantity_ordered', 'quantity_completed', 'quantity_shipped',
             'scheduled_ship_date', 'estimated_completion_date',
             'notes', 'sent_at'

@@ -172,7 +172,7 @@ class EDI856Generator(X12Generator):
         return (
             f"BSN{self.element_separator}"
             f"00{self.element_separator}"  # Purpose code (00=Original)
-            f"{data.get('shipment_id', '')}{self.element_separator}"
+            f"{data.get('shipment_identifier', '')}{self.element_separator}"
             f"{shipment_date}{self.element_separator}"
             f"{shipment_time}{self.segment_terminator}\n"
         )
