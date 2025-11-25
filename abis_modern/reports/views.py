@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 
 from inventory.models import Coil, Skid
-from shipping.models import Shipment, BillOfLading
+from shipping.models import Shipment
 from production.models import Job
 
 from .generators import (
@@ -123,50 +123,49 @@ def generate_skid_label(request, skid_id):
 def generate_bol(request, bol_id):
     """Generate Bill of Lading document"""
     try:
-        bol = BillOfLading.objects.select_related(
-            'shipment',
-            'shipment__customer',
+        shipment = Shipment.objects.select_related(
+            'customer',
             'carrier'
-        ).prefetch_related('items').get(id=bol_id)
+        ).prefetch_related('skids').get(id=bol_id)
         
         shipment_data = {
-            'bol_number': bol.bol_number,
-            'ship_date': bol.ship_date.strftime('%Y-%m-%d') if bol.ship_date else 'N/A',
+            'bol_number': shipment.bol_number,
+            'ship_date': shipment.ship_date.strftime('%Y-%m-%d') if shipment.ship_date else 'N/A',
             'shipper_name': 'ABIS',
             'shipper_address': '',  # Add your company address
             'shipper_city_state_zip': '',
             'shipper_phone': '',
-            'customer_name': bol.shipment.customer.name if bol.shipment and bol.shipment.customer else 'N/A',
-            'customer_address': bol.shipment.customer.address if bol.shipment and bol.shipment.customer else '',
-            'customer_city_state_zip': f"{bol.shipment.customer.city}, {bol.shipment.customer.state} {bol.shipment.customer.zip_code}" if bol.shipment and bol.shipment.customer else '',
-            'customer_phone': bol.shipment.customer.phone if bol.shipment and bol.shipment.customer else '',
-            'carrier_name': bol.carrier.name if bol.carrier else 'N/A',
-            'trailer_number': bol.trailer_number or 'N/A',
-            'seal_number': bol.seal_number or 'N/A',
-            'pro_number': bol.pro_number or 'N/A',
+            'customer_name': shipment.customer.company_name if shipment.customer else 'N/A',
+            'customer_address': shipment.destination_address or '',
+            'customer_city_state_zip': f"{shipment.destination_city}, {shipment.destination_state} {shipment.destination_zip}" if shipment.destination_city else '',
+            'customer_phone': shipment.customer.phone if shipment.customer else '',
+            'carrier_name': str(shipment.carrier) if shipment.carrier else 'N/A',
+            'trailer_number': shipment.trailer_number or 'N/A',
+            'seal_number': shipment.seal_number or 'N/A',
+            'pro_number': shipment.pro_number or 'N/A',
             'items': [],
-            'special_instructions': bol.special_instructions or '',
+            'special_instructions': shipment.notes or '',
         }
         
-        # Add items
-        for idx, item in enumerate(bol.items.all(), 1):
+        # Add skids as items
+        for idx, skid in enumerate(shipment.skids.all(), 1):
             shipment_data['items'].append({
                 'item_number': str(idx),
-                'description': item.description or 'Material',
-                'quantity': item.quantity or 0,
-                'weight': float(item.weight) if item.weight else 0,
-                'package_type': 'Coil',
+                'description': f'Skid {skid.skid_number}',
+                'quantity': skid.piece_count or 0,
+                'weight': float(skid.gross_weight) if skid.gross_weight else 0,
+                'package_type': 'Skid',
             })
         
         generator = ShipmentDocumentGenerator()
         pdf_buffer = generator.generate_bill_of_lading(shipment_data)
         
         response = HttpResponse(pdf_buffer.read(), content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="BOL_{bol.bol_number}.pdf"'
+        response['Content-Disposition'] = f'attachment; filename="BOL_{shipment.bol_number}.pdf"'
         return response
         
-    except BillOfLading.DoesNotExist:
-        return Response({'error': 'Bill of Lading not found'}, status=status.HTTP_404_NOT_FOUND)
+    except Shipment.DoesNotExist:
+        return Response({'error': 'Shipment not found'}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
