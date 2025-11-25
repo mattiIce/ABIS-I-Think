@@ -1,0 +1,25 @@
+$PBExportHeader$f_insert_audit.srf
+global type f_insert_audit from function_object
+end type
+
+forward prototypes
+global function integer f_insert_audit (string as_table_name, string as_column_name, string as_value_from, string as_value_to, string as_user_id, datetime ad_event_date, ref integer ai_sqlcode, ref string as_sqlerrtext)
+end prototypes
+
+global function integer f_insert_audit (string as_table_name, string as_column_name, string as_value_from, string as_value_to, string as_user_id, datetime ad_event_date, ref integer ai_sqlcode, ref string as_sqlerrtext);INSERT INTO DBO.AB_AUDIT (TABLE_NAME, COLUMN_NAME, VALUE_FROM, VALUE_TO, USER_ID, EVENT_DATE)
+VALUES (:as_table_name, :as_column_name, :as_value_from, :as_value_to, :as_user_id, :ad_event_date) 
+USING SQLCA;
+
+if sqlca.sqlcode = 0 then
+	commit using sqlca;
+	return 1
+else
+	ai_sqlcode = sqlca.sqlcode
+	as_sqlerrtext = sqlca.sqlerrtext
+	rollback using sqlca;
+	return 0
+end if
+
+
+end function
+

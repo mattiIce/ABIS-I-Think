@@ -1,0 +1,127 @@
+$PBExportHeader$f_is_special_character.srf
+global type f_is_special_character from function_object
+end type
+
+forward prototypes
+global function boolean f_is_special_character (string as_source)
+end prototypes
+
+global function boolean f_is_special_character (string as_source);//Alex Gerlants. 09/19/2018. Print cert label. Begin
+/*
+Function:	f_is_special_character
+Returns:		boolean	True  if as_source is string
+							False if as_source is not string
+Arguments:	value	string	as_source
+*/
+
+Long		ll_count=0
+Long		ll_length
+Char		lc_char[]
+Integer	li_ascii, li_special_charaters[], li_i
+
+	/*
+	Special characters
+	Character	Dec ASCII Code
+	---------	--------------
+	~				126, 152
+	{				123
+	|				124
+	}				125
+	:				 58
+	;				 59
+	<				 60
+	=				 61
+	>				 62
+	?				 63
+	@				 64
+	!				 33
+	"				 34
+	#				 35
+	$			 	 36
+	%				 37
+	&				 38
+	'				 39, 96
+	(				 40
+	)				 41
+	*				 42
+	+				 43
+	,				 44
+	/				 47
+	[				 91
+	\				 92
+	]				 93
+	^				 94
+	_				 95
+	
+	*/
+
+li_special_charaters[1] = 126
+li_special_charaters[2] = 152
+li_special_charaters[3] = 123
+li_special_charaters[4] = 124
+li_special_charaters[5] = 125
+li_special_charaters[6] = 58
+li_special_charaters[7] = 59
+li_special_charaters[8] = 60
+li_special_charaters[9] = 61
+li_special_charaters[10] = 62
+li_special_charaters[11] = 63
+li_special_charaters[12] = 64
+li_special_charaters[13] = 33
+li_special_charaters[14] = 34
+li_special_charaters[15] = 35
+li_special_charaters[16] = 36
+li_special_charaters[17] = 37
+li_special_charaters[18] = 38
+li_special_charaters[19] = 39 
+li_special_charaters[20] = 96
+li_special_charaters[21] = 40
+li_special_charaters[22] = 41
+li_special_charaters[23] = 42
+li_special_charaters[24] = 43
+li_special_charaters[25] = 44
+li_special_charaters[26] = 47
+li_special_charaters[27] = 91
+li_special_charaters[28] = 92
+li_special_charaters[29] = 93
+li_special_charaters[30] = 94
+li_special_charaters[31] = 95
+
+//Check parameters
+If IsNull(as_source) Then
+	Boolean lb_null
+	SetNull(lb_null)
+	Return lb_null
+End If
+
+//Get the length
+ll_length = Len(as_source)
+
+//Check for at least one character
+If ll_length = 0 Then
+	Return False
+End If
+
+//Move string into array of chars
+lc_char = as_source
+
+//Perform loop around all characters
+//Quit loop if special character is found
+Do While ll_count < ll_length
+	ll_count ++
+	
+	//Get ASC code of character.
+	li_ascii = Asc(lc_char[ll_count])
+	
+	For li_i = 1 To UpperBound(li_special_charaters[])
+		If li_ascii = li_special_charaters[li_i] Then
+			Return True //String has at least 1 special character
+		End If
+	Next
+Loop
+	
+//Entire string has no special characters
+Return False
+//Alex Gerlants. 09/19/2018. Print cert label. End
+end function
+

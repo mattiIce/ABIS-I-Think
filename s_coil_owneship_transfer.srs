@@ -1,0 +1,6 @@
+$PBExportHeader$s_coil_owneship_transfer.srs
+global type s_coil_owneship_transfer from structure
+	string		coil_abc_nums
+	datawindow		coil_owneship_transfer
+end type
+

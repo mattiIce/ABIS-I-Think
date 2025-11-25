@@ -1,0 +1,33 @@
+$PBExportHeader$f_customer_863.srf
+global type f_customer_863 from function_object
+end type
+
+forward prototypes
+global function boolean f_customer_863 (long al_customer_id)
+end prototypes
+
+global function boolean f_customer_863 (long al_customer_id);//Alex Gerlants. Form_863 Cert Label. Begin
+/*
+Function:	f_customer_863
+Returns:		boolean	True  if al_customer_id exists for coils in data_in_863
+							False if al_customer_id does not exist for coils in data_in_863
+Arguments:	value		long	al_customer_id
+*/
+Boolean	lb_customer_863 = False
+Integer	li_count
+
+select	count(*)
+into		:li_count
+from		customer
+where		customer_id = :al_customer_id
+and		nvl(coil_cert_label_req, 'N') = 'Y'
+using		sqlca;
+
+If li_count > 0 Then
+	lb_customer_863 = True
+End If
+
+Return lb_customer_863
+//Alex Gerlants. Form_863 Cert Label. End
+end function
+

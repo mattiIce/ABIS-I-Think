@@ -1,0 +1,17 @@
+$PBExportHeader$d_item_details_per_skid.srd
+$PBExportComments$list of coil lot#, coil #,  pieces, notes of each skid, number of row = number of items in a skid
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no grid.lines=0 )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=58 color="536870912" )
+table(column=(type=char(18) updatewhereclause=yes name=coil_lot_num dbname="coil.lot_num" )
+ column=(type=char(32) updatewhereclause=yes name=coil_coil_org_num dbname="coil.coil_org_num" )
+ column=(type=decimal(0) updatewhereclause=yes name=production_sheet_item_prod_item_pieces dbname="production_sheet_item.prod_item_pieces" )
+ column=(type=char(255) updatewhereclause=yes name=production_sheet_item_prod_item_note dbname="production_sheet_item.prod_item_note" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"production_sheet_item~" )  TABLE(NAME=~"sheet_skid_detail~" )  TABLE(NAME=~"coil~" ) COLUMN(NAME=~"coil.lot_num~") COLUMN(NAME=~"coil.coil_org_num~") COLUMN(NAME=~"production_sheet_item.prod_item_pieces~") COLUMN(NAME=~"production_sheet_item.prod_item_note~")    JOIN (LEFT=~"sheet_skid_detail.prod_item_num~"    OP =~"=~"RIGHT=~"production_sheet_item.prod_item_num~" )    JOIN (LEFT=~"production_sheet_item.coil_abc_num~"    OP =~"=~"RIGHT=~"coil.coil_abc_num~" )WHERE(    EXP1 =~"~~~"SHEET_SKID_DETAIL~~~".~~~"SHEET_SKID_NUM~~~"~"   OP =~"=~"    EXP2 =~":al_skid_num~" ) ) ARG(NAME = ~"al_skid_num~" TYPE = number) " arguments=(("al_skid_num", number)) )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="8" y="3" height="52" width="505" format="[general]"  name=production_sheet_item_prod_item_pieces edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=1 alignment="0" tabsequence=0 border="0" color="0" x="523" y="3" height="52" width="388"  name=coil_lot_num  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=2 alignment="0" tabsequence=0 border="0" color="0" x="921" y="3" height="52" width="413"  name=coil_coil_org_num  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=0 border="0" color="0" x="1345" y="3" height="52" width="328"  name=production_sheet_item_prod_item_note  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

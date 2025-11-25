@@ -1,0 +1,88 @@
+$PBExportHeader$d_office_recap_job_details_display.srd
+$PBExportComments$ab job details for daily production entry screen
+release 9;
+datawindow(units=0 timer_interval=0 color=79741120 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=3 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=214 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=ab_job_ab_job_num dbname="ab_job.ab_job_num" )
+ column=(type=decimal(0) updatewhereclause=yes name=ab_job_line_num dbname="ab_job.line_num" )
+ column=(type=datetime updatewhereclause=yes name=ab_job_time_date_started dbname="ab_job.time_date_started" )
+ column=(type=datetime updatewhereclause=yes name=ab_job_time_date_finished dbname="ab_job.time_date_finished" )
+ column=(type=decimal(0) updatewhereclause=yes name=ab_job_number_of_men_used dbname="ab_job.number_of_men_used" )
+ column=(type=decimal(0) updatewhereclause=yes name=ab_job_job_status dbname="ab_job.job_status" values="Done	0/Processing	1/OnHold	4/Canceled	3/Open	2/" )
+ column=(type=char(255) updatewhereclause=yes name=ab_job_job_notes dbname="ab_job.job_notes" )
+ column=(type=char(18) updatewhereclause=yes name=customer_customer_short_name dbname="customer.customer_short_name" )
+ column=(type=char(18) updatewhereclause=yes name=order_item_sheet_type dbname="order_item.sheet_type" )
+ column=(type=decimal(0) updatewhereclause=yes name=order_item_quantity dbname="order_item.quantity" )
+ column=(type=char(255) updatewhereclause=yes name=order_item_surface dbname="order_item.surface" )
+ column=(type=char(255) updatewhereclause=yes name=order_item_oil_stencil_interleave dbname="order_item.oil_stencil_interleave" )
+ column=(type=decimal(0) updatewhereclause=yes name=order_item_max_skid_wt dbname="order_item.max_skid_wt" )
+ column=(type=char(255) updatewhereclause=yes name=line_line_desc dbname="line.line_desc" )
+ column=(type=char(8) updatewhereclause=yes name=order_item_temper dbname="order_item.temper" )
+ column=(type=decimal(5) updatewhereclause=yes name=order_item_gauge dbname="order_item.gauge" )
+ column=(type=decimal(5) updatewhereclause=yes name=order_item_theoretical_unit_wt dbname="order_item.theoretical_unit_wt" )
+ column=(type=number updatewhereclause=yes name=compute_0018 dbname="compute_0018" )
+ column=(type=number updatewhereclause=yes name=compute_0019 dbname="compute_0019" )
+ retrieve="  SELECT ~"AB_JOB~".~"AB_JOB_NUM~",   
+         ~"AB_JOB~".~"LINE_NUM~",   
+         ~"AB_JOB~".~"TIME_DATE_STARTED~",   
+         ~"AB_JOB~".~"TIME_DATE_FINISHED~",   
+         ~"AB_JOB~".~"NUMBER_OF_MEN_USED~",   
+         ~"AB_JOB~".~"JOB_STATUS~",   
+         ~"AB_JOB~".~"JOB_NOTES~",   
+         ~"CUSTOMER~".~"CUSTOMER_SHORT_NAME~",   
+         ~"ORDER_ITEM~".~"SHEET_TYPE~",   
+         ~"ORDER_ITEM~".~"QUANTITY~",   
+         ~"ORDER_ITEM~".~"SURFACE~",   
+         ~"ORDER_ITEM~".~"OIL_STENCIL_INTERLEAVE~",   
+         ~"ORDER_ITEM~".~"MAX_SKID_WT~",   
+         ~"LINE~".~"LINE_DESC~",   
+         ~"ORDER_ITEM~".~"TEMPER~",   
+         ~"ORDER_ITEM~".~"GAUGE~",   
+         ~"ORDER_ITEM~".~"THEORETICAL_UNIT_WT~",
+			F_GET_JOB_BALANCE_WT(AB_JOB.AB_JOB_NUM) ~"BAL WT~",
+			F_GET_JOB_BALANCE_PERCENT(AB_JOB.AB_JOB_NUM) ~"BAL PERCENT~"
+    FROM ~"AB_JOB~",   
+         ~"CUSTOMER_ORDER~",   
+         ~"ORDER_ITEM~",   
+         ~"CUSTOMER~",   
+         ~"LINE~"  
+   WHERE ( ~"AB_JOB~".~"ORDER_ABC_NUM~" = ~"CUSTOMER_ORDER~".~"ORDER_ABC_NUM~" ) and  
+         ( ~"ORDER_ITEM~".~"ORDER_ABC_NUM~" = ~"CUSTOMER_ORDER~".~"ORDER_ABC_NUM~" ) and  
+         ( ~"AB_JOB~".~"LINE_NUM~" = ~"LINE~".~"LINE_NUM~" ) and  
+         ( ~"AB_JOB~".~"ORDER_ITEM_NUM~" = ~"ORDER_ITEM~".~"ORDER_ITEM_NUM~" ) and  
+         ( ( ~"CUSTOMER_ORDER~".~"ORIG_CUSTOMER_ID~" = ~"CUSTOMER~".~"CUSTOMER_ID~" ) AND  
+         ( ~"AB_JOB~".~"AB_JOB_NUM~" = :prod_order_num ) )    
+" arguments=(("prod_order_num", number)) )
+text(band=detail alignment="0" text="Status" border="0" color="0" x="2472" y="7" height="61" width="311" html.valueishtml="0"  name=ab_job_job_status_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="5" color="0" x="2794" y="7" height="61" width="395" format="[general]" html.valueishtml="0"  name=ab_job_job_status visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=19 alignment="0" tabsequence=32766 border="5" color="0" x="2794" y="71" height="61" width="395" format="[general]" html.valueishtml="0"  name=compute_0019 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="5" color="0" x="2026" y="7" height="61" width="435" format="[general]" html.valueishtml="0"  name=order_item_sheet_type visible="1" edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=18 alignment="0" tabsequence=32766 border="5" color="0" x="2026" y="71" height="61" width="435" format="[general]" html.valueishtml="0"  name=compute_0018 visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="5" color="0" x="2026" y="135" height="61" width="1163" format="[general]" html.valueishtml="0"  name=ab_job_job_notes visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Sheet Type" border="0" color="0" x="1759" y="7" height="61" width="256" html.valueishtml="0"  name=order_item_sheet_type_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Heavy/Light" border="0" color="0" x="1759" y="71" height="61" width="256" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Hvy/Lt %" border="0" color="0" x="2472" y="71" height="61" width="311" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Started" border="0" color="0" x="7" y="67" height="61" width="256" html.valueishtml="0"  name=ab_job_time_date_started_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Line No." border="0" color="0" x="7" y="3" height="61" width="256" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Customer" border="0" color="0" x="640" y="3" height="61" width="282" html.valueishtml="0"  name=customer_customer_short_name_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="5" color="0" x="274" y="3" height="61" width="351" format="[general]" html.valueishtml="0"  name=line_line_desc visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="5" color="0" x="929" y="3" height="61" width="816" format="[general]" html.valueishtml="0"  name=customer_customer_short_name visible="1" edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="5" color="0" x="274" y="67" height="61" width="351" format="[shortdate] [time]" html.valueishtml="0"  name=ab_job_time_date_started visible="1" edit.name="MM/DD/YY HH:MM:SS" editmask.mask="MM/DD/YY HH:MM" editmask.imemode=0 editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Quan." border="0" color="0" x="640" y="67" height="61" width="282" html.valueishtml="0"  name=order_item_quantity_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="5" color="0" x="929" y="67" height="61" width="816" format="[general]" html.valueishtml="0"  name=order_item_quantity visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Max Skid Wt" border="0" color="0" x="640" y="131" height="61" width="282" html.valueishtml="0"  name=order_item_max_skid_wt_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Note" border="0" color="0" x="1759" y="135" height="61" width="256" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Theo Unit Wt" border="0" color="0" x="1200" y="135" height="61" width="278" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Finished" border="0" color="0" x="7" y="135" height="61" width="256" html.valueishtml="0"  name=ab_job_time_date_finished_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=17 alignment="0" tabsequence=32766 border="5" color="0" x="1485" y="135" height="61" width="260" format="[general]" html.valueishtml="0"  name=order_item_theoretical_unit_wt visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="5" color="0" x="929" y="135" height="61" width="256" format="[general]" html.valueishtml="0"  name=order_item_max_skid_wt visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="5" color="0" x="274" y="135" height="61" width="351" format="[shortdate] [time]" html.valueishtml="0"  name=ab_job_time_date_finished visible="1" edit.name="MM/DD/YY HH:MM:SS" editmask.mask="MM/DD/YY HH:MM" editmask.imemode=0 editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+ 

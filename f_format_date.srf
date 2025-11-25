@@ -1,0 +1,36 @@
+$PBExportHeader$f_format_date.srf
+global type f_format_date from function_object
+end type
+
+forward prototypes
+global function string f_format_date (string as_date_in, string as_date_format)
+end prototypes
+
+global function string f_format_date (string as_date_in, string as_date_format);//Alex Gerlants. 05/30/2018. Begin
+/*
+Function:	f_format_date
+				Format as_date_in as as_date_format
+Returns:		string
+Arguments:	value		string	as_date_in
+				value		string	as_date_format
+*/
+
+String	ls_date_out
+Date		ld_date
+Boolean	lb_isdate
+
+If IsNull(as_date_in) Then as_date_in = ""
+
+lb_isdate = IsDate(as_date_in)
+
+If lb_isdate Then
+	ld_date = Date(as_date_in)
+	ls_date_out = String(ld_date, as_date_format)
+Else
+	ls_date_out = as_date_in
+End If
+
+Return ls_date_out
+//Alex Gerlants. 05/30/2018. End
+end function
+

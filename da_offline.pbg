@@ -1,0 +1,40 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "da_offline.pbl" "";
+@end;
+@begin Objects
+ "d_job_schedule_offline.srd" "da_offline.pbl";
+ "s_shift_job_coil_skid.srs" "da_offline.pbl";
+ "d_offline_scrap_job.srd" "da_offline.pbl";
+ "d_offline_skid_tatal.srd" "da_offline.pbl";
+ "w_dt_summary_offline.srw" "da_offline.pbl";
+ "w_load_skid_offline.srw" "da_offline.pbl";
+ "d_offline_skid_job.srd" "da_offline.pbl";
+ "d_offline_job_done.srd" "da_offline.pbl";
+ "w_da_offline_sheet.srw" "da_offline.pbl";
+ "d_offline_scrap_total.srd" "da_offline.pbl";
+ "d_downtime_offline.srd" "da_offline.pbl";
+ "d_dt_cause_offline.srd" "da_offline.pbl";
+ "w_dt_enter_offline.srw" "da_offline.pbl";
+ "w_end_coil_offline.srw" "da_offline.pbl";
+ "w_end_skid_offline.srw" "da_offline.pbl";
+ "d_downtime_cause_type.srd" "da_offline.pbl";
+ "w_dt_log_offline.srw" "da_offline.pbl";
+ "u_da_offline_scrap_tabpg_bak.sru" "da_offline.pbl";
+ "w_da_tabpg_offline_skid_edit.srw" "da_offline.pbl";
+ "w_da_offline_sheet_backup.srw" "da_offline.pbl";
+ "d_scrap_edit.srd" "da_offline.pbl";
+ "w_da_tabpg_offline_scrap_edit.srw" "da_offline.pbl";
+ "d_offline_coil_waiting_to_be_processed.srd" "da_offline.pbl";
+ "u_da_offline_scrap_tabpg.sru" "da_offline.pbl";
+ "d_ab_job_current_partial_offline.srd" "da_offline.pbl";
+ "d_ab_job_process_partial_offline.srd" "da_offline.pbl";
+ "u_da_offline_skid_tabpg.sru" "da_offline.pbl";
+ "w_prod_order_details_offline.srw" "da_offline.pbl";
+ "w_coil_selection_offline.srw" "da_offline.pbl";
+ "w_job_selection_offline.srw" "da_offline.pbl";
+ "w_super_validation_offline.srw" "da_offline.pbl";
+ "d_offline_coil_processed.srd" "da_offline.pbl";
+ "u_da_offline_downtime_tabpg.sru" "da_offline.pbl";
+ "w_coil_detail_display_offline.srw" "da_offline.pbl";
+@end;

@@ -1,0 +1,49 @@
+$PBExportHeader$f_send_smtp_email.srf
+global type f_send_smtp_email from function_object
+end type
+
+forward prototypes
+global function boolean f_send_smtp_email (integer ai_port, string as_body, string as_server, string as_logfile, boolean ab_debugviewer, string as_subject, string as_from_email, string as_from_name, string as_send_email, string as_send_name)
+end prototypes
+
+global function boolean f_send_smtp_email (integer ai_port, string as_body, string as_server, string as_logfile, boolean ab_debugviewer, string as_subject, string as_from_email, string as_from_name, string as_send_email, string as_send_name);//Alex Gerlants. Communication_Code_Error_Message. 11/01/2017. Begin
+/*
+Function:	f_send_smtp_email
+Returns:		boolean
+Arguments:	value	integer	ai_port
+				value	string	as_body
+				value	string	as_server
+				value	string	as_logfile
+				value	boolean	ab_debugviewer
+				value	string	as_subject
+				value	string	as_from_email
+				value	string	as_from_name
+				value	string	as_send_email
+				value	string	as_send_name
+*/
+
+UInt 		lui_port
+Boolean	lb_Return
+n_smtp 	ln_smtp
+
+lui_port = Long(ai_port)
+
+// *** Set email properties *********************
+ln_smtp.of_ResetAll()
+
+ln_smtp.of_SetPort(lui_port)
+ln_smtp.of_SetServer(as_server)
+ln_smtp.of_SetLogFile(True, as_logfile)
+ln_smtp.of_SetDebugViewer(ab_debugviewer)
+ln_smtp.of_SetSubject(as_subject)
+ln_smtp.of_SetBody(as_body, False)
+ln_smtp.of_SetFrom(as_from_email, as_from_name)
+ln_smtp.of_AddAddress(as_send_email,as_send_name)
+
+// *** send the message *************************
+lb_Return = ln_smtp.of_SendMail()
+
+Return lb_Return
+//Alex Gerlants. Communication_Code_Error_Message. 11/01/2017. End
+end function
+

@@ -1,0 +1,30 @@
+$PBExportHeader$d_assigned_to_shipment_skid.srd
+$PBExportComments$list all skids assigned to toher shipment but not been sent yet
+release 6;
+datawindow(units=2 timer_interval=0 color=16777215 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 250 print.margin.right = 250 print.margin.top = 250 print.margin.bottom = 250 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=yes grid.lines=0 )
+header(height=275 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=166 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=sheet_packing_item_sh_packing_item dbname="sheet_packing_item.sh_packing_item" )
+ column=(type=decimal(0) updatewhereclause=yes name=sheet_packing_item_packing_list dbname="sheet_packing_item.packing_list" )
+ column=(type=decimal(0) updatewhereclause=yes name=sheet_packing_item_sheet_skid_num dbname="sheet_packing_item.sheet_skid_num" )
+ column=(type=decimal(0) updatewhereclause=yes name=sheet_packing_item_sheet_packaging_ticke dbname="sheet_packing_item.sheet_packaging_ticket" )
+ column=(type=decimal(0) updatewhereclause=yes name=shipment_shipment_status dbname="shipment.shipment_status" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"sheet_packing_item~" )  TABLE(NAME=~"shipment~" ) COLUMN(NAME=~"sheet_packing_item.sh_packing_item~") COLUMN(NAME=~"sheet_packing_item.packing_list~") COLUMN(NAME=~"sheet_packing_item.sheet_skid_num~") COLUMN(NAME=~"sheet_packing_item.sheet_packaging_ticket~") COLUMN(NAME=~"shipment.shipment_status~")    JOIN (LEFT=~"shipment.packing_list~"    OP =~"=~"RIGHT=~"sheet_packing_item.packing_list~" )WHERE(    EXP1 =~"~~~"SHIPMENT~~~".~~~"SHIPMENT_STATUS~~~"~"   OP =~">~"    EXP2 =~"0~" ) ) " )
+text(band=header alignment="2" text="Sheet Packing Item
+Sh Packing Item"border="0" color="0" x="16" y="8" height="266" width="1033"  name=sheet_packing_item_sh_packing_item_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sheet Packing Item
+Packing List"border="0" color="0" x="1066" y="8" height="266" width="1033"  name=sheet_packing_item_packing_list_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sheet Packing Item
+Sheet Skid Num"border="0" color="0" x="2116" y="8" height="266" width="1033"  name=sheet_packing_item_sheet_skid_num_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Sheet Packing Item
+Sheet Packaging Ticket"border="0" color="0" x="3166" y="8" height="266" width="1250"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Shipment
+Shipment Status"border="0" color="0" x="4433" y="8" height="266" width="866"  name=shipment_shipment_status_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="0" x="16" y="8" height="158" width="1033" format="[general]"  name=sheet_packing_item_sh_packing_item edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="1066" y="8" height="158" width="1033" format="[general]"  name=sheet_packing_item_packing_list edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="2116" y="8" height="158" width="1033" format="[general]"  name=sheet_packing_item_sheet_skid_num edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="0" x="3166" y="8" height="158" width="1250" format="[general]"  name=sheet_packing_item_sheet_packaging_ticke edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="0" x="4433" y="8" height="158" width="866" format="[general]"  name=shipment_shipment_status edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")

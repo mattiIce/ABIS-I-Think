@@ -1,0 +1,71 @@
+$PBExportHeader$d_order_entry_order_detail.srd
+$PBExportComments$order data input/display windows for table Customer_Order in w_order_entry
+release 6;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=3 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=262 color="536870912" )
+table(column=(type=decimal(0) update=yes updatewhereclause=yes name=orig_customer_id dbname="customer_order.orig_customer_id" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes key=yes name=order_abc_num dbname="customer_order.order_abc_num" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=enduser_id dbname="customer_order.enduser_id" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=order_type dbname="customer_order.order_type" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=reference dbname="customer_order.reference" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=term dbname="customer_order.term" values="Net 30 Days	30/Net 10 Days	10/Net 60 Days	60/Net 90 Days	90/" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=scrap_handing_type dbname="customer_order.scrap_handing_type" values="Accumulated	Accumulated/Scrap Credit	Scrap Credit/Return Scrap	Return Scrap/Hold Scrap	Hold Scrap/Trailer	Trailer/" )
+ column=(type=datetime update=yes updatewhereclause=yes name=created_date dbname="customer_order.created_date" )
+ column=(type=char(36) update=yes updatewhereclause=yes name=orig_customer_po dbname="customer_order.orig_customer_po" )
+ column=(type=char(36) update=yes updatewhereclause=yes name=enduser_po dbname="customer_order.enduser_po" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=cust_order_line_note dbname="customer_order.cust_order_line_note" values="24	24/36	36/60	60/75	75/108	108/110	110/84	84/" )
+ column=(type=char(255) update=yes updatewhereclause=yes name=cust_order_note dbname="customer_order.cust_order_note" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=order_contact_id dbname="customer_order.order_contact_id" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=sheet_handling_type dbname="customer_order.sheet_handling_type" values="Normal	0/Do not combine different lot numbers	1/" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=sale_order dbname="customer_order.sales_order" )
+ retrieve="  SELECT ~"CUSTOMER_ORDER~".~"ORIG_CUSTOMER_ID~",   
+         ~"CUSTOMER_ORDER~".~"ORDER_ABC_NUM~",   
+         ~"CUSTOMER_ORDER~".~"ENDUSER_ID~",   
+         ~"CUSTOMER_ORDER~".~"ORDER_TYPE~",   
+         ~"CUSTOMER_ORDER~".~"REFERENCE~",   
+         ~"CUSTOMER_ORDER~".~"TERM~",   
+         ~"CUSTOMER_ORDER~".~"SCRAP_HANDING_TYPE~",   
+         ~"CUSTOMER_ORDER~".~"CREATED_DATE~",   
+         ~"CUSTOMER_ORDER~".~"ORIG_CUSTOMER_PO~",   
+         ~"CUSTOMER_ORDER~".~"ENDUSER_PO~",   
+         ~"CUSTOMER_ORDER~".~"CUST_ORDER_LINE_NOTE~",   
+         ~"CUSTOMER_ORDER~".~"CUST_ORDER_NOTE~",   
+         ~"CUSTOMER_ORDER~".~"ORDER_CONTACT_ID~",   
+         ~"CUSTOMER_ORDER~".~"SHEET_HANDLING_TYPE~",   
+         ~"CUSTOMER_ORDER~".~"SALES_ORDER~"  
+    FROM ~"CUSTOMER_ORDER~"  
+   WHERE ~"CUSTOMER_ORDER~".~"ORDER_ABC_NUM~" = :order_number    
+" update="CUSTOMER_ORDER" updatewhere=0 updatekeyinplace=yes arguments=(("order_number", number)) )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="5" color="0" x="388" y="6" height="51" width="315" format="[general]"  name=order_abc_num edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="5" color="0" x="856" y="6" height="51" width="373" format="[shortdate] [time]"  name=created_date editmask.mask="mm/dd/yyyy hh:mm" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="1" text="Date:"border="0" color="0" x="717" y="6" height="51" width="124"  name=created_date_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="ABC Order No.:"border="0" color="0" x="15" y="6" height="51" width="362"  name=order_abc_num_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Customer:"border="0" color="0" x="15" y="70" height="54" width="245"  name=orig_customer_id_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=30 border="5" color="0" x="267" y="67" height="58" width="684" format="[general]"  name=orig_customer_id dddw.name=d_dddw_id_short dddw.displaycolumn=customer_short_name dddw.datacolumn=customer_id dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="0" text="Enduser:"border="0" color="0" x="15" y="138" height="51" width="223"  name=enduser_id_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=70 border="5" color="0" x="249" y="138" height="51" width="702" format="[general]"  name=enduser_id dddw.name=d_dddw_id_short dddw.displaycolumn=customer_short_name dddw.datacolumn=customer_id dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="0" text="Notes:"border="0" color="0" x="15" y="202" height="51" width="154"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=100 border="5" color="33554432" x="183" y="202" height="51" width="987" format="[general]"  name=cust_order_note edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=15 alignment="0" tabsequence=110 border="5" color="0" x="1467" y="205" height="51" width="516" format="[general]"  name=sales_order edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="0" text="Type:"border="0" color="0" x="2015" y="3" height="58" width="132"  name=order_type_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="5" color="0" x="2154" y="6" height="51" width="424" format="[general]"  name=order_type edit.limit=0 edit.case=any edit.autoselect=yes edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Term:"border="0" color="0" x="2593" y="6" height="51" width="146"  name=term_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=20 border="5" color="0" x="2765" y="6" height="51" width="563" format="[general]"  name=term ddlb.limit=18 ddlb.allowedit=no ddlb.case=any ddlb.useasborder=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="0" text="Reference:"border="0" color="0" x="2008" y="74" height="48" width="278"  name=reference_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=50 border="5" color="0" x="2293" y="70" height="54" width="538" format="[general]"  name=reference edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="0" text="Line No.:"border="0" color="0" x="2842" y="74" height="48" width="230"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=11 alignment="0" tabsequence=60 border="5" color="0" x="3076" y="70" height="54" width="252" format="[General]"  name=cust_order_line_note ddlb.limit=0 ddlb.sorted=yes ddlb.allowedit=no ddlb.case=any ddlb.useasborder=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="0" text="Scrap Handling:"border="0" color="0" x="2008" y="138" height="51" width="377"  name=scap_handing_type_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=90 border="5" color="0" x="2392" y="138" height="51" width="936" format="[general]"  name=scrap_handing_type ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.useasborder=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=detail alignment="0" text="Sheet Handling:"border="0" color="0" x="2008" y="202" height="51" width="377"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="0" tabsequence=120 border="5" color="0" x="2392" y="202" height="51" width="936" format="[General]"  name=sheet_handling_type ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.useasborder=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="0" text="Sales Order"border="0" color="0" x="1181" y="208" height="51" width="271"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Contact:"border="0" color="0" x="1262" y="6" height="51" width="201"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="12632256" )
+column(band=detail id=13 alignment="0" tabsequence=10 border="5" color="0" x="1481" y="6" height="51" width="512" format="[general]"  name=order_contact_id dddw.name=d_dddw_contact_name dddw.displaycolumn=full_name dddw.datacolumn=contact_id dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.nilisnull=yes dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=9 alignment="0" tabsequence=40 border="5" color="0" x="1317" y="70" height="54" width="666" format="[general]"  name=orig_customer_po edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="0" text="Customer PO:"border="0" color="0" x="980" y="70" height="54" width="329"  name=orig_customer_po_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=detail alignment="0" text="Enduser PO:"border="0" color="0" x="984" y="138" height="51" width="296"  name=enduser_po_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=80 border="5" color="0" x="1309" y="138" height="51" width="673" format="[general]"  name=enduser_po edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")  

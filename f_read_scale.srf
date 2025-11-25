@@ -1,0 +1,65 @@
+$PBExportHeader$f_read_scale.srf
+$PBExportComments$read scale from mcom port, return long
+global type f_read_scale from function_object
+end type
+
+forward prototypes
+global function long f_read_scale ()
+end prototypes
+
+global function long f_read_scale ();Long ll_rc
+String ls_put, ls_get, ls_scale_com_port
+Int li_com_port, li_start, li_end
+
+ls_put = "HELLO"
+ls_get = "1234567890000"
+//ls_msg = "1"
+//ls_get = "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
+ls_scale_com_port = ProfileString(gs_downtime_ini_file,"OPCItems","scale_com_port","5")
+li_com_port = Integer( ls_scale_com_port ) - 1
+
+string(SioKeycode(WSC_KEY_CODE))
+ll_rc = SioReset( li_com_port,512, 512)
+	if ll_rc < 0 then
+		SioWinError(ls_get,128)
+		MessageBox("System error", "Can not open serial port! " + ls_get)
+		return -1
+	end if
+	SioParms(li_com_port, WSC_NoParity, WSC_OneStopBit, WSC_WordLength8)
+	SioBaud( li_com_port,WSC_Baud9600)
+SioPutc( li_com_port, 'b') //'a' for ZERO, 'b' for Print
+sleep(2) //wait for data coming back
+SioGets( li_com_port,ls_get, 128)
+//MessageBox("back", ls_get)
+ls_get = Upper(ls_get)
+
+//ls_get = Trim(Upper(ls_get)) + " M"
+//li_end = Min(Pos(ls_get, "M"), Pos(ls_get, "LB"))
+//IF li_end > 0 THEN li_end = li_end - 1
+//ls_get = Trim(Mid(ls_get, 3, li_end)) //Trim non numaric char
+////MessageBox("back", ls_get)
+
+FOR li_start = 1 TO Len(ls_get)
+	IF isNumber(Mid(ls_get, li_start, 1)) THEN
+		EXIT
+	END IF
+NEXT
+
+FOR li_end = li_start TO Len(ls_get)
+	IF Not(isNumber(Mid(ls_get, li_end, 1)))  THEN
+		EXIT
+	END IF
+NEXT
+ls_get = Trim(Mid(ls_get, li_start, (li_end - li_start))) //Trim non numaric char
+	
+if isNumber(ls_get)  then
+	ll_rc = Long( ls_get )
+else
+	ll_rc = 0
+end if
+
+SioDone(li_com_port)
+return ll_rc
+
+end function
+

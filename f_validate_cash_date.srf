@@ -1,0 +1,151 @@
+$PBExportHeader$f_validate_cash_date.srf
+global type f_validate_cash_date from function_object
+end type
+
+forward prototypes
+global function integer f_validate_cash_date (long al_customer_id, long al_coil_abc_num, string as_cash_date, boolean ab_cash_date_required)
+end prototypes
+
+global function integer f_validate_cash_date (long al_customer_id, long al_coil_abc_num, string as_cash_date, boolean ab_cash_date_required);//Alex Gerlants. novelis testing. Begin
+/*
+Function:	f_validate_cash_date
+Returns:		integer	 1 if ok to save
+							-1 if not ok to save
+Arguments:	value	long		al_customer_id
+				value	long		al_coil_abc_num
+				value	string	as_cash_date
+				value	boolean	ab_cash_date_required
+*/
+Boolean	lb_cash_date_required, lb_all_cash_dates_ok = True, lb_valid_temp
+String	ll_find_string, ls_cash_date, ls_cash_date_formatted, ls_current_date, ls_month, ls_day, ls_year
+String	ls_coil_org_num, ls_invalid_cash_date_string, ls_null
+String	ls_customer_short_name, ls_missing_cash_date_string
+Integer	li_rtn = 1, li_month, li_day, li_year, li_current_year, li_answer
+Long		ll_coil_abc_num, ll_customer_id
+
+ls_current_date = String(Today())
+li_current_year = Integer(Right(ls_current_date, 4))
+SetNull(ls_null)
+
+ll_customer_id = al_customer_id
+ll_coil_abc_num = al_coil_abc_num
+ls_cash_date = Trim(as_cash_date)
+If IsNull(ls_cash_date) Then ls_cash_date = ""
+lb_cash_date_required = ab_cash_date_required
+
+If ls_cash_date <> "" Then
+	ls_month = Left(ls_cash_date, 2)
+	ls_day = Mid(ls_cash_date, 3, 2)
+	ls_year = Right(ls_cash_date, 4) 
+	ls_cash_date_formatted = ls_month + "/" + ls_day + "/" + ls_year
+	
+	If IsDate(ls_cash_date_formatted) Then
+		If Date(ls_cash_date_formatted) > Today() Then
+			li_rtn = -1
+			
+			If ll_coil_abc_num > 0 Then
+				MessageBox("Data input error",	"Error: Cash Date for Coil ABC Num " + String(ll_coil_abc_num) + &
+														" is in the future.~n~rPlease correct", StopSign!)
+			Else
+				MessageBox("Data input error",	"Error: Cash Date for this new coil is in the future.~n~rPlease correct", StopSign!)
+			End If
+			GoTo CONT
+		End If
+	End If
+	
+	If IsNumber(ls_month) Then
+		li_month = Integer(ls_month)
+	Else
+		li_month = 0
+	End If
+	
+	If IsNumber(ls_day) Then
+		li_day = Integer(ls_day)
+	Else
+		li_day = 0
+	End If
+	
+	If IsNumber(ls_year) Then
+		li_year = Integer(ls_year)
+	Else
+		li_year = 0
+	End If
+	
+	lb_valid_temp = True
+	
+	If li_month < 1 Or li_month > 12 Then
+		lb_valid_temp = False
+	End If
+	
+	If li_day < 1 Or li_day > 31 Then
+		lb_valid_temp = False
+	End If
+	
+	If li_year < li_current_year - 2 Or li_year > li_current_year Then
+		lb_valid_temp = False
+	End If
+	
+	If Not lb_valid_temp Then
+		If ll_coil_abc_num > 0 Then
+			ls_invalid_cash_date_string = "Coil ABC Num: " + String(ll_coil_abc_num)
+		Else
+			ls_invalid_cash_date_string = "New coil"
+		End If
+	End If
+Else //Cash date missing
+	If lb_cash_date_required Then
+		If ll_coil_abc_num > 0 Then
+			ls_missing_cash_date_string = "Coil ABC Num: " + String(ll_coil_abc_num)
+		Else
+			ls_missing_cash_date_string = "New coil"
+		End If
+	End If
+End If
+
+If ls_invalid_cash_date_string <> "" Or ls_missing_cash_date_string <> "" Then
+	ls_customer_short_name = f_get_customer_name(ll_customer_id, sqlca)
+	
+	If ls_invalid_cash_date_string <> "" And ls_missing_cash_date_string <> "" Then
+		li_rtn = -1
+		
+		If lb_cash_date_required Then //Cash date required
+			//I don't populate ls_missing_cash_date_string if cash date not required.
+			//Thus, it is always for customer that requires cash date: ls_invalid_cash_date_string <> "" And ls_missing_cash_date_string <> "" 
+			MessageBox("Data input error/warning", "Cash Date required for " + ls_customer_short_name + &
+					"~n~rHowever..." + &
+					"~n~r~n~rError:~n~rCash date invalid for the following coils. Please correct~n~r" + ls_invalid_cash_date_string + &
+					"~n~r~n~rWarning:~n~rCash date missing for the following coils. " + &
+					"~n~rOK to save after invalid cash dates for the coils above corrected~n~r" + ls_missing_cash_date_string, &
+					StopSign!)
+		Else //Cash date not required
+			//If user entered cash date, and it is invalid; it has to be corrected
+			MessageBox("Data input error", "Error: Cash date invalid for the following coil.~n~r" + ls_invalid_cash_date_string + &
+					"~n~rPlease correct.", StopSign!)
+		End If
+	ElseIf ls_invalid_cash_date_string <> "" Then
+		li_rtn = -1
+		
+		MessageBox("Data input error", "Error: Cash date invalid for the following coil.~n~r" + ls_invalid_cash_date_string + &
+				"~n~rPlease correct.", StopSign!)
+	Else //ls_missing_cash_date_string <> ""
+		If lb_cash_date_required Then //Cash date required
+			li_answer = MessageBox("Data input warning", "Cash Date required for " + ls_customer_short_name + &
+					"~n~rHowever," + &
+					"~n~rCash date missing for the following coil.~n~r" + ls_missing_cash_date_string + &
+					"~n~r~n~rAre you sure you want to save?", &
+					Question!, YesNo!, 2)
+					
+			If li_answer = 2 Then //User is not OK with missing cash date, and wants to correct
+				li_rtn = -1
+			End If
+		Else //If cash date not reuired for the customer, this is not an error.
+			//li_rtn = 1 at this point...OK to save
+		End If
+	End If
+End If
+
+CONT:
+Return li_rtn
+//Alex Gerlants. 12/28/2018. Cash_Date_not_Saved_at_Receiving. End
+end function
+

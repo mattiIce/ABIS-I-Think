@@ -1,0 +1,48 @@
+$PBExportHeader$f_get_ini_value.srf
+global type f_get_ini_value from function_object
+end type
+
+forward prototypes
+global function string f_get_ini_value (string as_process, string as_section, string as_key, string as_default)
+end prototypes
+
+global function string f_get_ini_value (string as_process, string as_section, string as_key, string as_default);//Alex Gerlants. 08/03/2016. Begin
+/*
+Function:	f_get_ini_value
+				It retrieves abis ini settings from table abis_ini instead of lion.ini
+Returns:		string <== abis_ini.value for as_section and as_key
+Arguments:	value	string	as_process <== Description of process from which abis sends SMTP email
+														This is abis_ini.process
+				value	string	as_section <== abis_ini.section. This is abis_ini.section	
+				value	string	as_key <== abis_ini.key. This is abis_ini.key
+				value	string	as_default <==  Default value supplied by the calling routine
+*/
+
+String	ls_value
+Integer	li_rtn
+
+select	value
+into		:ls_value
+from		dbo.abis_ini
+where		upper(process) = upper(:as_process)
+and		upper(section) = upper(:as_section)
+and		upper(key) = upper(:as_key)
+using 	sqlca;
+
+li_rtn = sqlca.sqlcode
+
+Choose Case li_rtn
+	Case 0 //Row found
+		If IsNull(ls_value) Then ls_value = ""
+		
+		If ls_value = "" Then //abis_ini.value is not set up
+			ls_value = as_default //Use default
+		End If
+	Case 100 //Row not found
+		ls_value = as_default //Use default
+End Choose
+
+Return ls_value
+//Alex Gerlants. 08/03/2016. End
+end function
+

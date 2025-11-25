@@ -1,0 +1,10 @@
+$PBExportHeader$s_dw_info.srs
+$PBExportComments$contain datawindow information
+global type s_dw_info from structure
+	long		width
+	long		length
+	boolean		v_bar
+	boolean		h_bar
+	boolean		front
+end type
+

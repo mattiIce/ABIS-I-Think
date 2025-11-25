@@ -1,0 +1,46 @@
+$PBExportHeader$d_coil_quality_flaw_mapping.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=58 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=83 color="536870912" )
+table(column=(type=decimal(0) update=yes updatewhereclause=yes key=yes name=coil_abc_num dbname="coil_quality_flaw_mapping.coil_abc_num" )
+ column=(type=char(32) update=yes updatewhereclause=yes key=yes name=coil_org_num dbname="coil_quality_flaw_mapping.coil_org_num" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes key=yes name=starting_position dbname="coil_quality_flaw_mapping.starting_position" )
+ column=(type=decimal(4) update=yes updatewhereclause=yes key=yes name=ending_position dbname="coil_quality_flaw_mapping.ending_position" )
+ column=(type=char(1) update=yes updatewhereclause=yes key=yes name=flaw_code dbname="coil_quality_flaw_mapping.flaw_code" )
+ column=(type=char(6) update=yes updatewhereclause=yes name=starting_position_uom dbname="coil_quality_flaw_mapping.starting_position_uom" )
+ column=(type=char(6) update=yes updatewhereclause=yes name=ending_position_uom dbname="coil_quality_flaw_mapping.ending_position_uom" )
+ column=(type=char(1) update=yes updatewhereclause=yes name=handling_code dbname="coil_quality_flaw_mapping.handling_code" )
+ retrieve="select	coil_abc_num,
+			coil_org_num,
+  			starting_position,
+ 	 		ending_position,
+  			flaw_code,
+  			starting_position_uom,
+  			ending_position_uom,
+			handling_code
+from		dbo.coil_quality_flaw_mapping" update="dbo.coil_quality_flaw_mapping" updatewhere=0 updatekeyinplace=yes )
+text(band=header alignment="0" text="Coil Org Num" border="0" color="33554432" x="421" y="3" height="51" width="380" html.valueishtml="0"  name=coil_org_num_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Coil ABC Num" border="0" color="33554432" x="0" y="3" height="51" width="380" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Starting Position" border="0" color="33554432" x="852" y="3" height="51" width="384" html.valueishtml="0"  name=starting_position_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Ending Position" border="0" color="33554432" x="1291" y="3" height="51" width="384" html.valueishtml="0"  name=ending_position_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Flaw Code" border="0" color="33554432" x="1737" y="3" height="51" width="249" html.valueishtml="0"  name=flaw_code_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Ending Position Uom" border="0" color="33554432" x="2633" y="3" height="51" width="505" html.valueishtml="0"  name=ending_position_uom_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Starting Position Uom" border="0" color="33554432" x="2041" y="3" height="51" width="505" html.valueishtml="0"  name=starting_position_uom_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Handling Code" border="0" color="33554432" x="3185" y="0" height="51" width="391" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=70 border="0" color="33554432" x="4" y="9" height="51" width="355" format="[general]" html.valueishtml="0"  name=coil_abc_num visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=10 border="0" color="33554432" x="421" y="3" height="61" width="384" format="[general]" html.valueishtml="0"  name=coil_org_num visible="1" edit.limit=32 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=20 border="0" color="33554432" x="852" y="3" height="61" width="384" format="[general]" html.valueishtml="0"  name=starting_position visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=30 border="0" color="33554432" x="1291" y="3" height="61" width="384" format="[general]" html.valueishtml="0"  name=ending_position visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="2" tabsequence=40 border="0" color="33554432" x="1737" y="3" height="61" width="249" format="[general]" html.valueishtml="0"  name=flaw_code visible="1" edit.limit=1 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="2" tabsequence=50 border="0" color="33554432" x="2041" y="3" height="61" width="505" format="[general]" html.valueishtml="0"  name=starting_position_uom visible="1" edit.limit=6 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="2" tabsequence=60 border="0" color="33554432" x="2633" y="3" height="61" width="505" format="[general]" html.valueishtml="0"  name=ending_position_uom visible="1" edit.limit=6 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="2" tabsequence=80 border="0" color="33554432" x="3185" y="0" height="51" width="362" format="[general]" html.valueishtml="0"  name=handling_code visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+ 

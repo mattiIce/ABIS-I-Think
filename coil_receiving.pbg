@@ -1,0 +1,35 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "coil_receiving.pbl" "";
+@end;
+@begin Objects
+ "d_coil_list_by_bol_add.srd" "coil_receiving.pbl";
+ "d_inbound_shipment_status.srd" "coil_receiving.pbl";
+ "d_inbound_coil_status_for_update.srd" "coil_receiving.pbl";
+ "d_dddw_line_codes.srd" "coil_receiving.pbl";
+ "d_coil_list_by_bol_edi.srd" "coil_receiving.pbl";
+ "s_bol_cust.srs" "coil_receiving.pbl";
+ "d_dddw_mill_id_codes.srd" "coil_receiving.pbl";
+ "f_insert_coil_track.srf" "coil_receiving.pbl";
+ "w_coil_receiving_bk.srw" "coil_receiving.pbl";
+ "d_coil_abc_list_by_bol.srd" "coil_receiving.pbl";
+ "d_searchincomingedi.srd" "coil_receiving.pbl";
+ "f_coil_quality_00.srf" "coil_receiving.pbl";
+ "d_data_861.srd" "coil_receiving.pbl";
+ "d_coil_barcode.srd" "coil_receiving.pbl";
+ "f_coil_quality_03.srf" "coil_receiving.pbl";
+ "f_coil_quality_04.srf" "coil_receiving.pbl";
+ "d_bol_archived.srd" "coil_receiving.pbl";
+ "d_inbound_coil_status.srd" "coil_receiving.pbl";
+ "d_coil_track.srd" "coil_receiving.pbl";
+ "w_coil_receiving.srw" "coil_receiving.pbl";
+ "d_searchbol.srd" "coil_receiving.pbl";
+ "s_coil_list_by_bol_created.srs" "coil_receiving.pbl";
+ "w_coil_receiving_barcode_printing.srw" "coil_receiving.pbl";
+ "d_coil_list_by_bol_archived.srd" "coil_receiving.pbl";
+ "d_edi_bol.srd" "coil_receiving.pbl";
+ "d_general_customer.srd" "coil_receiving.pbl";
+ "d_dddw_sample_requirement_codes.srd" "coil_receiving.pbl";
+ "d_coil_abc_list_by_bol_printing.srd" "coil_receiving.pbl";
+ "d_dddw_general_customer.srd" "coil_receiving.pbl";
+@end;

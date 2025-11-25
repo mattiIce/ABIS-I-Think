@@ -1,0 +1,19 @@
+$PBExportHeader$d_security_user_info.srd
+$PBExportComments$Display user/group info
+release 5;
+datawindow(units=0 timer_interval=0 color=77956459 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=225 color="536870912" )
+table(column=(type=decimal(0) update=yes updatewhereclause=yes name=user_type dbname="security_users.user_type" initial="0" values="User	0/Group	1/" )
+ column=(type=char(64) update=yes updatewhereclause=yes name=description dbname="security_users.user_description" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=priority dbname="security_users.priority" )
+ column=(type=char(16) update=yes updatewhereclause=yes key=yes name=name dbname="security_users.name" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"security_users~" ) COLUMN(NAME=~"security_users.user_type~") COLUMN(NAME=~"security_users.user_description~") COLUMN(NAME=~"security_users.priority~") COLUMN(NAME=~"security_users.name~")WHERE(    EXP1 =~"~~~"SECURITY_USERS~~~".~~~"NAME~~~"~"   OP =~"=~"    EXP2 =~":name~" ) ) ARG(NAME = ~"name~" TYPE = string) " update="SECURITY_USERS" updatewhere=1 updatekeyinplace=no arguments=(("name", string))  sort="user_type D " )
+text(band=detail alignment="1" text="Name : "border="0" color="33554432" x="132" y="3" height="58" width="164"  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+text(band=detail alignment="1" text="Description : "border="0" color="33554432" x="18" y="80" height="52" width="278"  name=user_description_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+text(band=detail alignment="1" text="Priority : "border="0" color="0" x="118" y="156" height="52" width="178"  name=priority_t  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+column(band=detail id=4 alignment="0" tabsequence=10 border="5" color="33554432" x="310" y="3" height="58" width="516" format="[general]"  name=name edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="5" color="33554432" x="310" y="76" height="61" width="516" format="[general]"  name=description edit.limit=32 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+column(band=detail id=3 alignment="1" tabsequence=30 border="5" color="0" x="310" y="153" height="61" width="207" format="[general]"  name=priority edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )

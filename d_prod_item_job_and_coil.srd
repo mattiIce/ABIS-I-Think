@@ -1,0 +1,17 @@
+$PBExportHeader$d_prod_item_job_and_coil.srd
+$PBExportComments$list production items based on ab_job and abc_coil_number
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=77 color="536870912" )
+table(column=(type=decimal(0) update=yes updatewhereclause=yes key=yes name=prod_item_num dbname="production_sheet_item.prod_item_num" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=coil_abc_num dbname="production_sheet_item.coil_abc_num" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=ab_job_num dbname="production_sheet_item.ab_job_num" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=prod_item_status dbname="production_sheet_item.prod_item_status" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"production_sheet_item~" ) COLUMN(NAME=~"production_sheet_item.prod_item_num~") COLUMN(NAME=~"production_sheet_item.coil_abc_num~") COLUMN(NAME=~"production_sheet_item.ab_job_num~") COLUMN(NAME=~"production_sheet_item.prod_item_status~")WHERE(    EXP1 =~"~~~"PRODUCTION_SHEET_ITEM~~~".~~~"COIL_ABC_NUM~~~"~"   OP =~"=~"    EXP2 =~":al_coil_num~"    LOGIC =~"and~" ) WHERE(    EXP1 =~"~~~"PRODUCTION_SHEET_ITEM~~~".~~~"AB_JOB_NUM~~~"~"   OP =~"=~"    EXP2 =~":al_ab_job_num~" ) ) ARG(NAME = ~"al_coil_num~" TYPE = number)  ARG(NAME = ~"al_ab_job_num~" TYPE = number) " update="PRODUCTION_SHEET_ITEM" updatewhere=1 updatekeyinplace=no arguments=(("al_coil_num", number),("al_ab_job_num", number)) )
+column(band=detail id=2 alignment="1" tabsequence=20 border="1" color="0" x="296" y="3" height="65" width="257" format="[general]"  name=coil_abc_num edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=30 border="1" color="0" x="580" y="3" height="61" width="257" format="[general]"  name=ab_job_num edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=40 border="1" color="0" x="872" y="3" height="61" width="257" format="[general]"  name=prod_item_status edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=10 border="1" color="0" x="8" y="3" height="61" width="257" format="[general]"  name=prod_item_num edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

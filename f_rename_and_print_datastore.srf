@@ -1,0 +1,35 @@
+$PBExportHeader$f_rename_and_print_datastore.srf
+global type f_rename_and_print_datastore from function_object
+end type
+
+forward prototypes
+global function integer f_rename_and_print_datastore (long al_packing_list, datastore ads)
+end prototypes
+
+global function integer f_rename_and_print_datastore (long al_packing_list, datastore ads);//Alex Gerlants. 10/21/2019. Begin
+/*
+Functioin:	f_rename_and_print_datastore
+Return:		integer	 1 if OK
+							-1 if error
+Arguments:	value	long			al_packing_list
+				value	datastore	ads
+*/
+
+Long		ll_job
+Integer	li_rtn = 1
+
+ads.Object.DataWindow.Print.DocumentName = "BOL-" + String(al_packing_list)
+ads.Print(True)
+
+//ll_job = PrintOpen("BOL-" + String(al_packing_list))
+//li_rtn = PrintDataWindow(ll_job, ads)
+//PrintClose(ll_job)
+//
+//If li_rtn <> 1 Then //Error in PrintDataWindow()
+//	MessageBox("Error printing", 	"Error while printing BOL for packing list " + String(al_packing_list) + "~n~r" + &
+//											"Please contact abis support")
+//End If
+
+Return li_rtn
+end function
+

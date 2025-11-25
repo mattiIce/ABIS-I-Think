@@ -1,0 +1,9 @@
+$PBExportHeader$s_skid_item.srs
+$PBExportComments$skid and item list
+global type s_skid_item from structure
+	long		skid_num
+	long		item_num
+	long		pc
+	long		net
+end type
+

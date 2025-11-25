@@ -1,0 +1,88 @@
+$PBExportHeader$d_report_skid_job_bol.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=67108864 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=528 color="536870912" )
+summary(height=86 color="536870912" )
+footer(height=77 color="536870912" )
+detail(height=67 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=bill_of_lading dbname="shipment.bill_of_lading" )
+ column=(type=decimal(0) updatewhereclause=yes name=packing_list dbname="shipment.packing_list" )
+ column=(type=decimal(0) updatewhereclause=yes name=ab_job_num dbname="ab_job.ab_job_num" )
+ column=(type=decimal(0) updatewhereclause=yes name=sheet_skid_num dbname="sheet_skid.sheet_skid_num" )
+ column=(type=decimal(0) updatewhereclause=yes name=sheet_net_wt dbname="sheet_skid.sheet_net_wt" )
+ column=(type=decimal(0) updatewhereclause=yes name=sheet_tare_wt dbname="sheet_skid.sheet_tare_wt" )
+ column=(type=decimal(0) updatewhereclause=yes name=sheet_theoretical_wt dbname="sheet_skid.sheet_theoretical_wt" )
+ column=(type=char(18) updatewhereclause=yes name=customer_name dbname="customer.customer_name" )
+ column=(type=char(18) updatewhereclause=yes name=enduser_name dbname="customer.enduser_name" )
+ column=(type=char(18) updatewhereclause=yes name=destination_name dbname="customer.destination_name" )
+ column=(type=datetime updatewhereclause=yes name=shipment_date dbname="shipment.shipment_date" )
+ retrieve="select 	shipment.bill_of_lading,
+       	shipment.packing_list,
+       	ab_job.ab_job_num,
+       	sheet_skid.sheet_skid_num,
+       
+       	sheet_skid.sheet_net_wt,
+       	sheet_skid.sheet_tare_wt,
+       	sheet_skid.sheet_theoretical_wt,
+       
+       	c_customer.customer_short_name customer_name,
+       	c_enduser.customer_short_name enduser_name,
+       	c_destination.customer_short_name destination_name,
+       	shipment.shipment_actualed_date_time shipment_date
+from		shipment 
+      	join sheet_packing_item on sheet_packing_item.packing_list = shipment.packing_list
+      	join sheet_skid on sheet_skid.sheet_skid_num = sheet_packing_item.sheet_skid_num
+      	join ab_job on ab_job.ab_job_num = sheet_skid.ab_job_num
+      	join customer_order on customer_order.order_abc_num = ab_job.order_abc_num
+      	join order_item on order_item.order_abc_num = ab_job.order_abc_num and order_item.order_item_num = ab_job.order_item_num
+      	join customer c_destination on c_destination.customer_id = shipment.des_sh_cust_id
+      	join customer c_customer on c_customer.customer_id = shipment.customer_id
+      	join customer c_enduser on c_enduser.customer_id = shipment.shipment_enduser_id
+where    shipment.shipment_status = 0" )
+text(band=header alignment="2" text="BOL-Job-Skid Report" border="0" color="33554432" x="1368" y="0" height="106" width="1104" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-16" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="" border="0" color="33554432" x="1258" y="144" height="51" width="1324" html.valueishtml="0"  name=date_from_to_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="" border="0" color="33554432" x="1258" y="198" height="51" width="1324" html.valueishtml="0"  name=customer_short_name_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Bill Of
+Lading" border="6" color="33554432" x="4" y="416" height="102" width="205" html.valueishtml="0"  name=bill_of_lading_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Packing
+List" border="6" color="33554432" x="219" y="416" height="102" width="205" html.valueishtml="0"  name=packing_list_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Ab Job
+Number" border="6" color="33554432" x="435" y="416" height="102" width="205" html.valueishtml="0"  name=ab_job_num_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Skid
+Number" border="6" color="33554432" x="651" y="416" height="102" width="205" html.valueishtml="0"  name=sheet_skid_num_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Customer Name" border="6" color="33554432" x="1799" y="416" height="102" width="563" html.valueishtml="0"  name=customer_name_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="End User Name" border="6" color="33554432" x="2377" y="413" height="102" width="563" html.valueishtml="0"  name=enduser_name_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Destination" border="6" color="33554432" x="2948" y="416" height="102" width="563" html.valueishtml="0"  name=destination_name_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Sheet
+Theo Weight" border="6" color="33554432" x="1488" y="416" height="102" width="300" html.valueishtml="0"  name=sheet_theoretical_wt_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Sheet
+Tare Weight" border="6" color="33554432" x="1181" y="416" height="102" width="300" html.valueishtml="0"  name=sheet_tare_wt_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="1" text="Sheet
+Net Weight" border="6" color="33554432" x="867" y="416" height="102" width="300" html.valueishtml="0"  name=sheet_net_wt_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Shipment Date" border="6" color="33554432" x="3522" y="416" height="102" width="344" html.valueishtml="0"  name=shipment_date_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=header alignment="1" expression="~"Run Date/Time: ~" + String( Today(), ~"mm/dd/yyyy hh:mm~"  )"border="0" color="33554432" x="2567" y="0" height="54" width="1298" format="[GENERAL]" html.valueishtml="0"  name=run_date_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="33554432" x="4" y="3" height="51" width="205" format="[general]" html.valueishtml="0"  name=bill_of_lading visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="536870912~tif ( mod(getrow(),2) = 0, RGB(255,127, 80), RGB(205, 198, 115) )" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="33554432" x="219" y="3" height="51" width="205" format="[general]" html.valueishtml="0"  name=packing_list visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="536870912~tif ( mod(getrow(),2) = 0, RGB(255,127, 80), RGB(205, 198, 115) )" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="435" y="3" height="51" width="205" format="[general]" html.valueishtml="0"  name=ab_job_num visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="536870912~tif ( mod(getrow(),2) = 0, RGB(255,127, 80), RGB(205, 198, 115) )" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="33554432" x="651" y="3" height="51" width="205" format="[general]" html.valueishtml="0"  name=sheet_skid_num visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="536870912~tif ( mod(getrow(),2) = 0, RGB(255,127, 80), RGB(205, 198, 115) )" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="0" color="33554432" x="1799" y="3" height="51" width="563" format="[general]" html.valueishtml="0"  name=customer_name visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="536870912~tif ( mod(getrow(),2) = 0, RGB(255,127, 80), RGB(205, 198, 115) )" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="0" color="33554432" x="2373" y="3" height="51" width="563" format="[general]" html.valueishtml="0"  name=enduser_name visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="536870912~tif ( mod(getrow(),2) = 0, RGB(255,127, 80), RGB(205, 198, 115) )" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="0" color="33554432" x="2948" y="3" height="51" width="563" format="[general]" html.valueishtml="0"  name=destination_name visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="536870912~tif ( mod(getrow(),2) = 0, RGB(255,127, 80), RGB(205, 198, 115) )" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="0" color="33554432" x="3522" y="3" height="51" width="344" format="mm/dd/yyyy" html.valueishtml="0"  name=shipment_date visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="536870912~tif ( mod(getrow(),2) = 0, RGB(255,127, 80), RGB(205, 198, 115) )" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="0" color="33554432" x="1488" y="3" height="51" width="300" format="###,###,##0" html.valueishtml="0"  name=sheet_theoretical_wt visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="536870912~tif ( mod(getrow(),2) = 0, RGB(255,127, 80), RGB(205, 198, 115) )" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="33554432" x="1178" y="3" height="51" width="300" format="###,###,##0" html.valueishtml="0"  name=sheet_tare_wt visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="536870912~tif ( mod(getrow(),2) = 0, RGB(255,127, 80), RGB(205, 198, 115) )" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="33554432" x="867" y="3" height="51" width="300" format="###,###,##0" html.valueishtml="0"  name=sheet_net_wt visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="536870912~tif ( mod(getrow(),2) = 0, RGB(255,127, 80), RGB(205, 198, 115) )" )
+text(band=summary alignment="1" text="Totals:" border="0" color="33554432" x="490" y="19" height="51" width="311" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="1" expression="sum(  sheet_theoretical_wt  for all )"border="0" color="33554432" x="1488" y="19" height="51" width="300" format="###,###,##0" html.valueishtml="0"  name=sum_theo_wt_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="1485" y1="3" x2="1788" y2="3"  name=l_3 visible="1" pen.style="0" pen.width="4" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum( sheet_tare_wt for all )"border="0" color="33554432" x="1178" y="19" height="51" width="300" format="###,###,##0" html.valueishtml="0"  name=sum_tare_wt_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="1174" y1="3" x2="1477" y2="3"  name=l_2 visible="1" pen.style="0" pen.width="4" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum( sheet_net_wt for all )"border="0" color="33554432" x="867" y="19" height="51" width="300" format="###,###,##0" html.valueishtml="0"  name=sum_net_wt_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=summary x1="863" y1="3" x2="1167" y2="3"  name=l_1 visible="1" pen.style="0" pen.width="4" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=footer alignment="2" expression="'Page ' + page() + ' of ' + pageCount()"border="0" color="0" x="1569" y="6" height="61" width="702" format="[general]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+ 

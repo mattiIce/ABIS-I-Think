@@ -1,0 +1,7 @@
+$PBExportHeader$s_shipment_customer.srs
+$PBExportComments$pass shipment and customer info
+global type s_shipment_customer from structure
+	long		shipment
+	long		customer
+end type
+

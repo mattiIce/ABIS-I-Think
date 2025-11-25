@@ -1,0 +1,156 @@
+$PBExportHeader$d_onhold_report_tracking.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=67 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=67 color="536870912" )
+table(column=(type=char(10) updatewhereclause=yes name=material dbname="material" )
+ column=(type=char(18) updatewhereclause=yes name=customer_name dbname="customer_name" )
+ column=(type=char(17) updatewhereclause=yes name=sheet_skid_num dbname="sheet_skid_num" )
+ column=(type=char(40) updatewhereclause=yes name=coil_abc_num dbname="coil_abc_num" )
+ column=(type=char(32) updatewhereclause=yes name=coil_org_num dbname="coil_org_num" )
+ column=(type=datetime updatewhereclause=yes name=transaction_date_time dbname="coil_track.transaction_date_time" )
+ column=(type=char(18) updatewhereclause=yes name=enduser_name dbname="enduser_name" )
+ column=(type=char(22) updatewhereclause=yes name=enduser_part_num dbname="enduser_part_num" )
+ column=(type=char(40) updatewhereclause=yes name=order_item_desc dbname="order_item_desc" )
+ column=(type=decimal(0) updatewhereclause=yes name=net_wt dbname="coil.net_wt" )
+ column=(type=char(11) updatewhereclause=yes name=skid_pieces dbname="skid_pieces" )
+ column=(type=char(11) updatewhereclause=yes name=status dbname="status" )
+ column=(type=char(11) updatewhereclause=yes name=status_pre dbname="status_pre" )
+ column=(type=char(11) updatewhereclause=yes name=status_cur dbname="status_cur" )
+ retrieve="select distinct     
+           'Coil' material,
+           ltrim(rtrim(cust_cust.customer_short_name)) customer_name,
+           '              ' sheet_skid_num, /* This is sheet_skid_num from the skid SQL below */
+           substr(to_char(coil.coil_abc_num), 1, 17) coil_abc_num,
+           substr(ltrim(ltrim(rtrim(coil.coil_org_num))), 1, 17) coil_org_num,
+           coil_track.coil_track_date transaction_date_time,
+           
+           ltrim(rtrim(cust_enduser.customer_short_name)) enduser_name,
+           ltrim(rtrim(order_item.enduser_part_num)) enduser_part_num,
+           substr(ltrim(rtrim(order_item.order_item_desc)), 1, 40) order_item_desc,
+           coil.net_wt net_wt,
+           '           ' skid_pieces, /*This is for sheet_skid.skid_pieces for skids */
+           substr(ltrim(rtrim(coil_status.coil_status_desc)), 1, 11) status,
+           substr(ltrim(rtrim(coil_status_pre.coil_status_desc)), 1, 11) status_pre,
+           substr(ltrim(rtrim(coil_status_cur.coil_status_desc)), 1, 11) status_cur
+from       coil
+           join coil_track on coil.coil_abc_num = coil_track.coil_abc_num
+           left outer join process_coil on coil.coil_abc_num = process_coil.coil_abc_num
+           left outer join ab_job on ab_job.ab_job_num = process_coil.ab_job_num
+           left outer join customer_order on customer_order.order_abc_num = ab_job.order_abc_num
+           left outer join order_item on order_item.order_abc_num = ab_job.order_abc_num and order_item.order_item_num = ab_job.order_item_num
+           left outer join customer cust_cust on cust_cust.customer_id = coil.customer_id
+           left outer join customer cust_enduser on cust_enduser.customer_id = customer_order.enduser_id
+           left outer join coil_status coil_status_pre on coil_status_pre.coil_status_code = coil_track.coil_pre_status
+           left outer join coil_status coil_status_cur on coil_status_cur.coil_status_code = coil_track.coil_cur_status
+           left outer join coil_status on coil_status.coil_status_code = coil.coil_status
+where      (coil_track.coil_pre_status = 4 or coil_track.coil_cur_status = 4)
+and        coil_track.coil_track_date between :ldt_date_from and :ldt_date_to
+
+union all
+
+select distinct     
+           'Skid' material,
+           ltrim(rtrim(cust_cust.customer_short_name)) customer_name,
+           substr(to_char(sheet_skid.sheet_skid_num), 1, 17) sheet_skid_num,
+			  to_char(coil.coil_abc_num) coil_abc_num,
+           to_char(coil.coil_org_num)  coil_org_num,
+           skid_track.log_date transaction_date_time,
+           
+           ltrim(rtrim(cust_enduser.customer_short_name)) enduser_name,
+           ltrim(rtrim(order_item.enduser_part_num)) enduser_part_num,
+           substr(ltrim(rtrim(order_item.order_item_desc)), 1, 40) order_item_desc,
+           production_sheet_item.prod_item_net_wt net_wt,
+           substr(ltrim(rtrim(to_char(production_sheet_item.prod_item_pieces))), 1, 11) skid_pieces,
+           substr(ltrim(rtrim(skid_status.skid_status_desc)), 1, 11) status,
+           substr(ltrim(rtrim(skid_pre_status.skid_status_desc)), 1, 11) status_pre,
+           substr(ltrim(rtrim(skid_cur_status.skid_status_desc)), 1, 11) status_cur
+from       sheet_skid
+           join sheet_skid_detail on sheet_skid.sheet_skid_num = sheet_skid_detail.sheet_skid_num
+           join production_sheet_item on sheet_skid_detail.prod_item_num = production_sheet_item.prod_item_num
+			  join coil on coil.coil_abc_num = production_sheet_item.coil_abc_num
+           join skid_track on sheet_skid.sheet_skid_num = skid_track.sheet_skid_num
+           left outer join ab_job on ab_job.ab_job_num = sheet_skid.ab_job_num
+           left outer join customer_order on customer_order.order_abc_num = ab_job.order_abc_num
+           left outer join order_item on order_item.order_abc_num = ab_job.order_abc_num and order_item.order_item_num = ab_job.order_item_num
+           left outer join customer cust_cust on cust_cust.customer_id = customer_order.orig_customer_id
+           left outer join customer cust_enduser on cust_enduser.customer_id = customer_order.enduser_id
+           left outer join skid_status skid_pre_status on skid_pre_status.skid_status_code = skid_track.pre_status
+           left outer join skid_status skid_cur_status on skid_cur_status.skid_status_code = skid_track.cur_status
+           left outer join skid_status on skid_status.skid_status_code = sheet_skid.skid_sheet_status
+where      (skid_track.pre_status = 4 or skid_track.cur_status = 4)
+and        skid_track.log_date between :ldt_date_from and :ldt_date_to
+
+union all
+
+select distinct     
+           'Scrap Skid' material,
+           ltrim(rtrim(cust_cust.customer_short_name)) customer_name,
+           substr(to_char(scraped_sheet_skid.sheet_skid_num), 1, 17) sheet_skid_num,
+           to_char(coil.coil_abc_num) coil_abc_num,
+           coil.coil_org_num coil_org_num,
+           skid_track.log_date transaction_date_time,
+           
+           ltrim(rtrim(cust_enduser.customer_short_name)) enduser_name,
+           ltrim(rtrim(order_item.enduser_part_num)) enduser_part_num,
+           substr(ltrim(rtrim(order_item.order_item_desc)), 1, 40) order_item_desc,
+           scrap_skid.scrap_net_wt net_wt,
+           substr(ltrim(rtrim(to_char(scraped_sheet_skid.skid_pieces))), 1, 11) skid_pieces,
+           substr(ltrim(rtrim(skid_status.skid_status_desc)), 1, 11) status,
+           substr(ltrim(rtrim(skid_pre_status.skid_status_desc)), 1, 11) status_pre,
+           substr(ltrim(rtrim(skid_cur_status.skid_status_desc)), 1, 11) status_cur
+from       scraped_sheet_skid
+           join scrap_skid on scraped_sheet_skid.scrap_skid_num = scrap_skid.scrap_skid_num
+           join scrap_skid_detail on scrap_skid.scrap_skid_num = scrap_skid_detail.scrap_skid_num
+           join return_scrap_item on scrap_skid_detail.return_scrap_item_num = return_scrap_item.return_scrap_item_num
+           join coil on coil.coil_abc_num = return_scrap_item.coil_abc_num
+           join skid_track on scraped_sheet_skid.sheet_skid_num = skid_track.sheet_skid_num
+           join ab_job on ab_job.ab_job_num = scraped_sheet_skid.ab_job_num
+           join customer_order on customer_order.order_abc_num = ab_job.order_abc_num
+           join order_item on order_item.order_abc_num = ab_job.order_abc_num and order_item.order_item_num = ab_job.order_item_num
+           join customer cust_cust on cust_cust.customer_id = customer_order.orig_customer_id
+           join customer cust_enduser on cust_enduser.customer_id = customer_order.enduser_id
+          
+           left outer join skid_status skid_pre_status on skid_pre_status.skid_status_code = skid_track.pre_status
+           left outer join skid_status skid_cur_status on skid_cur_status.skid_status_code = skid_track.cur_status
+           left outer join skid_status on skid_status.skid_status_code = scraped_sheet_skid.skid_sheet_status
+where      (skid_track.pre_status = 4 or skid_track.cur_status = 4)
+and        skid_track.log_date between :ldt_date_from and :ldt_date_to
+
+order by   1, 2, 3, 5" arguments=(("ldt_date_from", datetime),("ldt_date_to", datetime)) )
+text(band=header alignment="0" text="Customer Name" border="2" color="33554432" x="227" y="3" height="61" width="629" html.valueishtml="0"  name=customer_name_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Material" border="2" color="33554432" x="0" y="3" height="61" width="216" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Enduser Name" border="2" color="33554432" x="2677" y="3" height="61" width="417" html.valueishtml="0"  name=enduser_name_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Enduser Part Num" border="2" color="33554432" x="3109" y="3" height="61" width="417" html.valueishtml="0"  name=enduser_part_num_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Order Item Desc" border="2" color="33554432" x="3540" y="3" height="61" width="501" html.valueishtml="0"  name=order_item_desc_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Coil Status" border="2" color="33554432" x="4571" y="3" height="61" width="289" html.valueishtml="0"  name=coil_status_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Status Pre" border="2" color="33554432" x="4875" y="3" height="61" width="289" html.valueishtml="0"  name=status_pre_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Status Cur" border="2" color="33554432" x="5179" y="3" height="61" width="289" html.valueishtml="0"  name=status_cur_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Skid Pieces" border="2" color="33554432" x="4315" y="3" height="61" width="241" html.valueishtml="0"  name=skid_pieces_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Net Wt" border="2" color="33554432" x="4056" y="3" height="61" width="245" html.valueishtml="0"  name=et_wt_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Coil Org Num" border="2" color="33554432" x="1752" y="3" height="61" width="428" html.valueishtml="0"  name=coil_org_num_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Sheet Skid Num" border="2" color="33554432" x="867" y="3" height="61" width="432" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Coil Skid Track Date" border="2" color="33554432" x="2191" y="3" height="61" width="472" html.valueishtml="0"  name=coil_track_date_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Coil Abc Num" border="2" color="33554432" x="1309" y="3" height="61" width="432" html.valueishtml="0"  name=coil_abc_num_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="2" color="33554432" x="0" y="3" height="61" width="216" format="[general]" html.valueishtml="0"  name=material visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="2" color="33554432" x="4875" y="3" height="61" width="289" format="[general]" html.valueishtml="0"  name=status_pre visible="1" edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="2" color="33554432" x="5179" y="3" height="61" width="289" format="[general]" html.valueishtml="0"  name=status_cur visible="1" edit.limit=50 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="2" color="33554432" x="3109" y="3" height="61" width="417" format="[general]" html.valueishtml="0"  name=enduser_part_num visible="1" edit.limit=22 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="2" color="33554432" x="3540" y="3" height="61" width="501" format="[general]" html.valueishtml="0"  name=order_item_desc visible="1" edit.limit=255 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=11 alignment="0" tabsequence=32766 border="2" color="33554432" x="4315" y="3" height="61" width="241" format="[general]" html.valueishtml="0"  name=skid_pieces visible="1" edit.limit=40 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="2" color="33554432" x="4056" y="3" height="61" width="245" format="[general]" html.valueishtml="0"  name=net_wt visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="2" color="33554432" x="227" y="3" height="61" width="629" format="[general]" html.valueishtml="0"  name=customer_name visible="1" edit.limit=18 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="2" color="33554432" x="2677" y="3" height="61" width="417" format="[general]" html.valueishtml="0"  name=enduser_name visible="1" edit.limit=18 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="2" color="33554432" x="1752" y="3" height="61" width="428" format="[general]" html.valueishtml="0"  name=coil_org_num visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="2" color="33554432" x="2191" y="3" height="61" width="472" format="[shortdate] [time]" html.valueishtml="0"  name=transaction_date_time visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="2" color="33554432" x="867" y="3" height="61" width="432" format="[general]" html.valueishtml="0"  name=sheet_skid_num visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="2" color="33554432" x="1309" y="3" height="61" width="432" format="[general]" html.valueishtml="0"  name=coil_abc_num visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=12 alignment="0" tabsequence=0 border="0" color="33554432" x="5467" y="0" height="51" width="245" html.valueishtml="0"  name=status visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+ 

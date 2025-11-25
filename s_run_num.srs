@@ -1,0 +1,7 @@
+$PBExportHeader$s_run_num.srs
+global type s_run_num from structure
+	long		ab_job
+	integer		run_num
+	integer		new_run_num
+end type
+

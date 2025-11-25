@@ -1,0 +1,131 @@
+$PBExportHeader$d_report_prd_cust_allcoil.srd
+$PBExportComments$list each cust coil information in production order
+release 9;
+datawindow(units=2 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 1 print.margin.left = 250 print.margin.right = 250 print.margin.top = 250 print.margin.bottom = 250 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=yes print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=1083 color="536870912" )
+summary(height=341 color="536870912" )
+footer(height=183 color="536870912" )
+detail(height=183 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=ab_job_ab_job_num dbname="ab_job.ab_job_num" )
+ column=(type=decimal(0) updatewhereclause=yes name=ab_job_job_status dbname="ab_job.job_status" values="Done	0/InProcess	1/New	2/Canceled	3/OnHold	4/" )
+ column=(type=datetime updatewhereclause=yes name=ab_job_time_date_started dbname="ab_job.time_date_started" )
+ column=(type=decimal(0) updatewhereclause=yes name=ab_job_line_num dbname="ab_job.line_num" )
+ column=(type=decimal(0) updatewhereclause=yes name=customer_order_enduser_id dbname="customer_order.enduser_id" )
+ column=(type=decimal(0) updatewhereclause=yes name=customer_order_orig_customer_id dbname="customer_order.orig_customer_id" )
+ column=(type=char(18) updatewhereclause=yes name=customer_order_reference dbname="customer_order.reference" )
+ column=(type=decimal(0) updatewhereclause=yes name=process_coil_coil_abc_num dbname="process_coil.coil_abc_num" )
+ column=(type=datetime updatewhereclause=yes name=coil_date_received dbname="coil.date_received" )
+ column=(type=char(8) updatewhereclause=yes name=coil_coil_alloy2 dbname="coil.coil_alloy2" )
+ column=(type=char(8) updatewhereclause=yes name=coil_coil_temper dbname="coil.coil_temper" )
+ column=(type=decimal(4) updatewhereclause=yes name=coil_coil_gauge dbname="coil.coil_gauge" )
+ column=(type=decimal(2) updatewhereclause=yes name=coil_coil_width dbname="coil.coil_width" )
+ column=(type=char(18) updatewhereclause=yes name=coil_lot_num dbname="coil.lot_num" )
+ column=(type=decimal(0) updatewhereclause=yes name=coil_net_wt_balance dbname="coil.net_wt_balance" )
+ column=(type=char(32) updatewhereclause=yes name=coil_coil_org_num dbname="coil.coil_org_num" )
+ column=(type=decimal(0) updatewhereclause=yes name=coil_coil_status dbname="coil.coil_status" values="Done	0/InProcess	1/New	2/Rejected	3/OnHold	4/InTransit	5/Return	6/Rebanded	7/Retry	8/Gone	10/" )
+ column=(type=decimal(0) updatewhereclause=yes name=coil_net_wt dbname="coil.net_wt" )
+ column=(type=number updatewhereclause=yes name=cps_t dbname="ab_job.ps_t" )
+ column=(type=number updatewhereclause=yes name=cqc_t dbname="ab_job.qc_t" )
+ column=(type=number updatewhereclause=yes name=cscrap_t dbname="ab_job.scrap_t" )
+ column=(type=number updatewhereclause=yes name=crejcoil_t dbname="ab_job.rejcoil_t" )
+ retrieve="  SELECT ~"AB_JOB~".~"AB_JOB_NUM~", 
+			~"AB_JOB~".~"JOB_STATUS~",  
+			~"AB_JOB~".~"TIME_DATE_STARTED~",  
+			~"AB_JOB~".~"LINE_NUM~",  
+         ~"CUSTOMER_ORDER~".~"ENDUSER_ID~",   
+         ~"CUSTOMER_ORDER~".~"ORIG_CUSTOMER_ID~",   
+         ~"CUSTOMER_ORDER~".~"REFERENCE~",   
+         ~"PROCESS_COIL~".~"COIL_ABC_NUM~",   
+         ~"COIL~".~"DATE_RECEIVED~",   
+         ~"COIL~".~"COIL_ALLOY2~",   
+         ~"COIL~".~"COIL_TEMPER~",   
+         ~"COIL~".~"COIL_GAUGE~",   
+         ~"COIL~".~"COIL_WIDTH~",   
+         ~"COIL~".~"LOT_NUM~",   
+         ~"COIL~".~"NET_WT_BALANCE~",   
+         ~"COIL~".~"COIL_ORG_NUM~",   
+         ~"COIL~".~"COIL_STATUS~",   
+         ~"COIL~".~"NET_WT~",  
+			0 ~"PS_T~" ,
+			0 ~"QC_T~",
+			0 ~"SCRAP_T~",
+			0 ~"REJCOIL_T~"
+    FROM ~"AB_JOB~",   
+         ~"CUSTOMER_ORDER~",   
+         ~"PROCESS_COIL~",   
+         ~"COIL~"  
+   WHERE ( ~"AB_JOB~".~"ORDER_ABC_NUM~" = ~"CUSTOMER_ORDER~".~"ORDER_ABC_NUM~" ) and  
+         ( ~"PROCESS_COIL~".~"AB_JOB_NUM~" = ~"AB_JOB~".~"AB_JOB_NUM~" ) and  
+         ( ~"COIL~".~"COIL_ABC_NUM~" = ~"PROCESS_COIL~".~"COIL_ABC_NUM~" )" )
+group(level=1 header.height=183 trailer.height=241 by=("ab_job_ab_job_num" ) header.color="536870912" trailer.color="536870912" )
+bitmap(band=header filename="Abc2.jpg" x="50" y="25" height="700" width="808" border="0"  name=p_1 visible="1" )
+text(band=header alignment="2" text="Aluminum Blanking Co. Inc." border="0" color="0" x="850" y="41" height="666" width="966" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-14" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text=" Customer Production Coil Report" border="0" color="0" x="1900" y="266" height="275" width="8491" html.valueishtml="0"  name=title_t visible="1"  font.face="Arial" font.height="-16" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+compute(band=header alignment="0" expression="today()"border="0" color="0" x="8808" y="25" height="150" width="1575" format="mm/dd/yyyy hh:mm" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Ab Job  " border="0" color="0" x="16" y="925" height="133" width="450" html.valueishtml="0"  name=ab_job_ab_job_num_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="Line:" border="0" color="0" x="1900" y="550" height="150" width="316" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="EndUser:" border="0" color="0" x="3125" y="550" height="150" width="608" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="Start Time:" border="0" color="0" x="6308" y="550" height="150" width="716" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="Status:" border="0" color="0" x="8883" y="550" height="150" width="466" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="" border="0" color="0" x="2241" y="558" height="141" width="858" html.valueishtml="0"  name=line_t visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="" border="0" color="0" x="3750" y="558" height="141" width="2508" html.valueishtml="0"  name=enduser_t visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="" border="0" color="0" x="7041" y="558" height="141" width="1816" html.valueishtml="0"  name=date_t visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="" border="0" color="0" x="9375" y="558" height="141" width="1008" html.valueishtml="0"  name=status_t visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="      End User      " border="0" color="0" x="483" y="925" height="133" width="1891" html.valueishtml="0"  name=customer_order_enduser_id_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="Status" border="0" color="0" x="2400" y="925" height="133" width="466" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="Line" border="0" color="0" x="2875" y="925" height="133" width="450" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="Coil Abc #" border="0" color="0" x="3341" y="925" height="133" width="550" html.valueishtml="0"  name=process_coil_coil_abc_num_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="    Coil Orig #    " border="0" color="0" x="3908" y="925" height="133" width="866" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="      Lot #      " border="0" color="0" x="4791" y="925" height="133" width="775" html.valueishtml="0"  name=coil_lot_num_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="     Spec     " border="0" color="0" x="5583" y="925" height="133" width="758" html.valueishtml="0"  name=coil_coil_alloy_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="    Material    " border="0" color="0" x="6358" y="925" height="133" width="600" html.valueishtml="0"  name=coil_coil_gauge_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="CoilStatus" border="0" color="0" x="9883" y="925" height="133" width="566" html.valueishtml="0"  name=t_9 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="PrimeCoil" border="0" color="0" x="6975" y="925" height="133" width="591" html.valueishtml="0"  name=coil_net_wt_balance_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="PrimeSheet" border="0" color="0" x="7583" y="925" height="133" width="691" html.valueishtml="0"  name=t_10 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="   Scrap   " border="0" color="0" x="8841" y="925" height="133" width="508" html.valueishtml="0"  name=t_11 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="Rej. Coil" border="0" color="0" x="9366" y="925" height="133" width="500" html.valueishtml="0"  name=t_12 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="Q.C.Hold" border="0" color="0" x="8291" y="925" height="133" width="533" html.valueishtml="0"  name=t_13 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+column(band=header.1 id=1 alignment="0" tabsequence=32766 border="0" color="0" x="0" y="25" height="133" width="458" format="[general]" html.valueishtml="0"  name=ab_job_ab_job_num visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=header.1 id=5 alignment="2" tabsequence=32766 border="0" color="0" x="475" y="25" height="133" width="1891" format="[general]" html.valueishtml="0"  name=customer_order_enduser_id visible="1" dddw.name=d_dddw_id_short dddw.displaycolumn=customer_short_name dddw.datacolumn=customer_id dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any dddw.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=header.1 id=2 alignment="2" tabsequence=32766 border="0" color="0" x="2383" y="25" height="133" width="491" format="[general]" html.valueishtml="0"  name=ab_job_job_status visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=header.1 id=4 alignment="2" tabsequence=32766 border="0" color="0" x="2883" y="25" height="133" width="433" format="[general]" html.valueishtml="0"  name=ab_job_line_num visible="1" dddw.name=d_line_number dddw.displaycolumn=line_desc dddw.datacolumn=line_num dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any dddw.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=8 alignment="2" tabsequence=32766 border="0" color="0" x="3333" y="17" height="133" width="558" format="[general]" html.valueishtml="0"  name=process_coil_coil_abc_num visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=16 alignment="2" tabsequence=32766 border="0" color="0" x="3900" y="17" height="133" width="883" format="[general]" html.valueishtml="0"  name=coil_coil_org_num visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=14 alignment="2" tabsequence=32766 border="0" color="0" x="4800" y="17" height="133" width="750" format="[general]" html.valueishtml="0"  name=coil_lot_num visible="1" edit.limit=18 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="2" expression="Trim(String(coil_coil_gauge, ~"#.####~")) +  ~" X ~" + Trim(String( coil_coil_width, ~"#####.###~")) "border="0" color="0" x="5566" y="17" height="133" width="775" format="[general]" html.valueishtml="0"  name=spec_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=detail alignment="2" expression="Trim(coil_coil_alloy2) + ~"-~" +  coil_coil_temper"border="0" color="0" x="6350" y="17" height="133" width="625" format="[general]" html.valueishtml="0"  name=material_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=17 alignment="0" tabsequence=32766 border="0" color="0" x="9875" y="17" height="133" width="600" format="[general]" html.valueishtml="0"  name=coil_coil_status visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=15 alignment="2" tabsequence=32766 border="0" color="0" x="6975" y="17" height="133" width="591" format="[general]" html.valueishtml="0"  name=coil_net_wt_balance visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=19 alignment="2" tabsequence=32766 border="0" color="0" x="7583" y="17" height="133" width="691" format="[general]" html.valueishtml="0"  name=cps_t visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=21 alignment="2" tabsequence=32766 border="0" color="0" x="8833" y="17" height="133" width="516" format="[general]" html.valueishtml="0"  name=cscrap_t visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=22 alignment="2" tabsequence=32766 border="0" color="0" x="9358" y="17" height="133" width="508" format="[general]" html.valueishtml="0"  name=crejcoil_t visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=20 alignment="2" tabsequence=32766 border="0" color="0" x="8291" y="17" height="133" width="525" format="[general]" html.valueishtml="0"  name=cqc_t visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=trailer.1 alignment="0" text="Subtotal:" border="0" color="0" x="5925" y="41" height="150" width="591" html.valueishtml="0"  name=t_14 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=trailer.1 x1="6975" y1="16" x2="7566" y2="16"  name=l_1 visible="1" pen.style="0" pen.width="8" pen.color="0"  background.mode="1" background.color="553648127" )
+compute(band=trailer.1 alignment="2" expression="sum(  coil_net_wt_balance  for group 1 )"border="0" color="0" x="6975" y="58" height="133" width="583" format="[general]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=trailer.1 x1="7616" y1="16" x2="8233" y2="16"  name=l_2 visible="1" pen.style="0" pen.width="8" pen.color="0"  background.mode="1" background.color="553648127" )
+compute(band=trailer.1 alignment="2" expression="sum(  cps_t  for group 1 )"border="0" color="0" x="7625" y="58" height="133" width="600" format="[general]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=trailer.1 x1="8833" y1="16" x2="9333" y2="16"  name=l_3 visible="1" pen.style="0" pen.width="8" pen.color="0"  background.mode="1" background.color="553648127" )
+compute(band=trailer.1 alignment="2" expression="sum(  cscrap_t  for group 1 )"border="0" color="0" x="8816" y="58" height="133" width="550" format="[general]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=trailer.1 x1="9400" y1="16" x2="9866" y2="16"  name=l_4 visible="1" pen.style="0" pen.width="8" pen.color="0"  background.mode="1" background.color="553648127" )
+compute(band=trailer.1 alignment="2" expression="sum(  crejcoil_t  for group 1 )"border="0" color="0" x="9375" y="58" height="133" width="483" format="[general]" html.valueishtml="0"  name=compute_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=trailer.1 x1="8325" y1="16" x2="8791" y2="16"  name=l_5 visible="1" pen.style="0" pen.width="8" pen.color="0"  background.mode="1" background.color="553648127" )
+compute(band=trailer.1 alignment="2" expression="sum(  cqc_t  for group 1 )"border="0" color="0" x="8308" y="58" height="133" width="491" format="[general]" html.valueishtml="0"  name=compute_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=summary alignment="0" text="TOTAL:" border="0" color="0" x="5866" y="159" height="150" width="491" html.valueishtml="0"  name=t_15 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="2" expression="sum(coil_net_wt_balance for all)"border="0" color="0" x="6966" y="184" height="133" width="600" format="[general]" html.valueishtml="0"  name=compute_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="2" expression="sum(cps_t for all)"border="0" color="0" x="7600" y="184" height="133" width="658" format="[general]" html.valueishtml="0"  name=compute_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="2" expression="sum(cscrap_t for all)"border="0" color="0" x="8800" y="184" height="133" width="591" format="[general]" html.valueishtml="0"  name=compute_9 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=summary alignment="2" expression="sum(crejcoil_t for all)"border="0" color="0" x="9408" y="184" height="133" width="441" format="[general]" html.valueishtml="0"  name=compute_10 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+line(band=summary x1="6975" y1="134" x2="7566" y2="134"  name=l_6 visible="1" pen.style="0" pen.width="8" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=summary x1="7616" y1="134" x2="8233" y2="134"  name=l_7 visible="1" pen.style="0" pen.width="8" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=summary x1="8800" y1="134" x2="9383" y2="134"  name=l_8 visible="1" pen.style="0" pen.width="8" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=summary x1="9441" y1="134" x2="9850" y2="134"  name=l_9 visible="1" pen.style="0" pen.width="8" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=summary x1="8325" y1="134" x2="8791" y2="134"  name=l_10 visible="1" pen.style="0" pen.width="8" pen.color="0"  background.mode="1" background.color="553648127" )
+compute(band=summary alignment="2" expression="sum(cqc_t for all)"border="0" color="0" x="8316" y="184" height="133" width="475" format="[general]" html.valueishtml="0"  name=compute_11 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=footer alignment="0" expression="'Page ' + page() + ' of ' + pageCount()"border="0" color="0" x="4266" y="42" height="133" width="1583" format="[general]" html.valueishtml="0"  name=compute_12 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+ 

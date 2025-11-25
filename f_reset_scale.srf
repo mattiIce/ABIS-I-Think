@@ -1,0 +1,33 @@
+$PBExportHeader$f_reset_scale.srf
+$PBExportComments$reset scale, return integer
+global type f_reset_scale from function_object
+end type
+
+forward prototypes
+global function integer f_reset_scale ()
+end prototypes
+
+global function integer f_reset_scale ();int li_rc
+String ls_get, ls_msg, ls_scale_com_port
+Int li_com_port
+
+ls_get = "1"
+ls_msg = "1"
+ls_scale_com_port = ProfileString(gs_downtime_ini_file,"OPCItems","scale_com_port","5")
+li_com_port = Integer( ls_scale_com_port ) - 1
+
+string(SioKeycode(WSC_KEY_CODE))
+li_rc = SioReset( li_com_port,512, 512)
+if li_rc < 0 then
+	SioWinError(ls_msg,128)
+	MessageBox("System error", "Can not open serial port! " + ls_msg)
+	return -1
+end if
+SioParms(li_com_port, WSC_NoParity, WSC_OneStopBit, WSC_WordLength8)
+SioBaud( li_com_port,WSC_Baud9600)
+SioPutc( li_com_port, 'a') //'a' for ZERO, 'b' for Print
+SioDone(li_com_port)
+return 0
+
+end function
+

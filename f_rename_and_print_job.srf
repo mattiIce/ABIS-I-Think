@@ -1,0 +1,38 @@
+$PBExportHeader$f_rename_and_print_job.srf
+global type f_rename_and_print_job from function_object
+end type
+
+forward prototypes
+global function integer f_rename_and_print_job (string as_orig_customer_po, long al_ab_job_num, datawindow adw)
+end prototypes
+
+global function integer f_rename_and_print_job (string as_orig_customer_po, long al_ab_job_num, datawindow adw);//Alex Gerlants. 10/21/2019. Begin
+/*
+Function:	f_rename_and_print_job
+Return:		integer	 1 if OK
+							-1 if error
+Arguments:	value	string		as_orig_customer_po
+				value	long			al_ab_job_num
+				value	datawindow	adw
+*/
+
+Long		ll_job
+Integer	li_rtn = 1
+String	ls_name
+
+ls_name = "PO-" + as_orig_customer_po + "_Job-" + String(al_ab_job_num)
+adw.Object.DataWindow.Print.DocumentName = ls_name
+adw.Print(True)
+
+//ll_job = PrintOpen(ls_name)
+//li_rtn = PrintDataWindow(ll_job, adw)
+//PrintClose(ll_job)
+//
+//If li_rtn <> 1 Then //Error in PrintDataWindow()
+//	MessageBox("Error printing", 	"Error while printing " + ls_name + "~n~r" + &
+//											"Please contact abis support")
+//End If
+
+Return li_rtn
+end function
+

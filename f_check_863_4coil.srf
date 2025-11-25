@@ -1,0 +1,41 @@
+$PBExportHeader$f_check_863_4coil.srf
+global type f_check_863_4coil from function_object
+end type
+
+forward prototypes
+global function integer f_check_863_4coil (string as_coil_org_num, ref boolean ab_863_exists, n_tr_abc01 atr)
+end prototypes
+
+global function integer f_check_863_4coil (string as_coil_org_num, ref boolean ab_863_exists, n_tr_abc01 atr);//Alex Gerlants. 02/25/2019. Print Cert Label. Begin
+/*
+Function:	f_check_863_4coil
+Returns:		integer	 1 if ok
+							-1 if DB error
+Arguments:	value			string		as_coil_org_num
+				reference	boolean		ab_863_exists
+				value			n_tr_abc01	atr
+*/
+Integer	li_rtn = 1, li_counter
+
+select	count(*)
+into		:li_counter
+from		dbo.data_in_863
+where 	coil_num = :as_coil_org_num
+using		atr;
+
+If atr.sqlcode = 0 Then //OK
+	If li_counter > 0 Then
+		ab_863_exists = True
+	Else
+		ab_863_exists = False
+	End If
+Else //DB error
+	li_rtn = -1
+	MessageBox("Database error", 	"Database error occurred in wf_check_863_4coil for w_production~n~r~n~r" + &
+											"Error~n~r" + atr.sqlerrtext)
+End If
+
+Return li_rtn
+//Alex Gerlants. 02/25/2019. Print Cert Label. End
+end function
+

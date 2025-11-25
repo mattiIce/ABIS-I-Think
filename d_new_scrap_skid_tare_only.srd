@@ -1,0 +1,18 @@
+$PBExportHeader$d_new_scrap_skid_tare_only.srd
+$PBExportComments$list all new scrap tare only new skid
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no grid.lines=0 )
+header(height=65 color="536870912" )
+summary(height=4 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=77 color="536870912" )
+table(column=(type=decimal(0) update=yes updatewhereclause=yes key=yes name=scrap_skid_num dbname="scrap_skid.scrap_skid_num" )
+ column=(type=datetime update=yes updatewhereclause=yes name=scrap_date dbname="scrap_skid.scrap_date" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=skid_scrap_status dbname="scrap_skid.skid_scrap_status" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"scrap_skid~" ) COLUMN(NAME=~"scrap_skid.scrap_skid_num~") COLUMN(NAME=~"scrap_skid.scrap_date~") COLUMN(NAME=~"scrap_skid.skid_scrap_status~")WHERE(    EXP1 =~"~~~"SCRAP_SKID~~~".~~~"SKID_SCRAP_STATUS~~~"~"   OP =~"=~"    EXP2 =~"6~" ) ) " update="SCRAP_SKID" updatewhere=1 updatekeyinplace=yes )
+text(band=header alignment="2" text="Scrap Skid Num"border="0" color="0" x="8" y="6" height="52" width="363"  name=scrap_skid_num_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Scrap Date"border="0" color="0" x="377" y="6" height="52" width="470"  name=scrap_date_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Skid Scrap Status"border="0" color="0" x="854" y="6" height="52" width="399"  name=skid_scrap_status_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=10 border="0" color="0" x="8" y="9" height="61" width="363" format="[general]"  name=scrap_skid_num edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=20 border="0" color="0" x="377" y="9" height="61" width="470" format="[shortdate] [time]"  name=scrap_date edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=30 border="0" color="0" x="854" y="9" height="61" width="399" format="[general]"  name=skid_scrap_status edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )

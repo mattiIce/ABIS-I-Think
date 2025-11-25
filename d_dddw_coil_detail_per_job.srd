@@ -1,0 +1,18 @@
+$PBExportHeader$d_dddw_coil_detail_per_job.srd
+$PBExportComments$list coil's original numbers based on each ab_job
+release 6;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=67 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=process_coil_coil_abc_num dbname="process_coil.coil_abc_num" )
+ column=(type=char(32) updatewhereclause=yes name=coil_coil_org_num dbname="coil.coil_org_num" )
+ column=(type=char(18) updatewhereclause=yes name=coil_coil_mid_num dbname="coil.coil_mid_num" )
+ column=(type=char(18) updatewhereclause=yes name=coil_lot_num dbname="coil.lot_num" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"process_coil~" )  TABLE(NAME=~"coil~" ) COLUMN(NAME=~"process_coil.coil_abc_num~") COLUMN(NAME=~"coil.coil_org_num~") COLUMN(NAME=~"coil.coil_mid_num~") COLUMN(NAME=~"coil.lot_num~")    JOIN (LEFT=~"coil.coil_abc_num~"    OP =~"=~"RIGHT=~"process_coil.coil_abc_num~" )WHERE(    EXP1 =~"~~~"PROCESS_COIL~~~".~~~"AB_JOB_NUM~~~"~"   OP =~"=~"    EXP2 =~":al_job~" ) ) ARG(NAME = ~"al_job~" TYPE = number) " arguments=(("al_job", number)) )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="3046" y="3" height="61" width="267" format="[general]"  name=process_coil_coil_abc_num edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="0" expression="coil_coil_org_num + ~" Lot:~" +  coil_lot_num +~" Alt:~" +IF(IsNULL( coil_coil_mid_num), '    ', coil_coil_mid_num) + ~" ABCO:~" + String( process_coil_coil_abc_num )"border="0" color="0" x="0" y="3" height="61" width="1419" format="[general]"  name=display_t  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="2608" y="3" height="61" width="417" format="[general]"  name=coil_coil_mid_num edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1905" y="3" height="61" width="340" format="[general]"  name=coil_lot_num edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="2264" y="3" height="61" width="333" format="[general]"  name=coil_coil_org_num edit.limit=32 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")

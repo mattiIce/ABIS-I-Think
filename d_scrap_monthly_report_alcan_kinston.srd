@@ -1,0 +1,47 @@
+$PBExportHeader$d_scrap_monthly_report_alcan_kinston.srd
+release 6;
+datawindow(units=0 timer_interval=0 color=16777215 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no grid.lines=0 )
+header(height=115 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=74 color="536870912" )
+table(column=(type=char(18) updatewhereclause=yes name=customer_customer_short_name dbname="customer.customer_short_name" )
+ column=(type=decimal(0) updatewhereclause=yes name=shipment_packing_list dbname="shipment.packing_list" )
+ column=(type=datetime updatewhereclause=yes name=shipment_shipment_actualed_date_time dbname="shipment.shipment_actualed_date_time" )
+ column=(type=decimal(0) updatewhereclause=yes name=scrap_packing_item_scrap_skid_num dbname="scrap_packing_item.scrap_skid_num" )
+ column=(type=char(8) updatewhereclause=yes name=scrap_skid_scrap_alloy2 dbname="scrap_skid.scrap_alloy2" )
+ column=(type=decimal(0) updatewhereclause=yes name=scrap_skid_scrap_net_wt dbname="scrap_skid.scrap_net_wt" )
+ retrieve="  SELECT ~"CUSTOMER~".~"CUSTOMER_SHORT_NAME~",   
+         ~"SHIPMENT~".~"PACKING_LIST~",   
+         ~"SHIPMENT~".~"SHIPMENT_ACTUALED_DATE_TIME~",   
+         ~"SCRAP_PACKING_ITEM~".~"SCRAP_SKID_NUM~",   
+         ~"SCRAP_SKID~".~"SCRAP_ALLOY2~",   
+         ~"SCRAP_SKID~".~"SCRAP_NET_WT~"  
+    FROM ~"CUSTOMER~",   
+         ~"SCRAP_PACKING_ITEM~",   
+         ~"SCRAP_SKID~",   
+         ~"SHIPMENT~"  
+   WHERE ( ~"SCRAP_SKID~".~"SCRAP_SKID_NUM~" = ~"SCRAP_PACKING_ITEM~".~"SCRAP_SKID_NUM~" ) and  
+         ( ~"SHIPMENT~".~"PACKING_LIST~" = ~"SCRAP_PACKING_ITEM~".~"PACKING_LIST~" ) and  
+         ( ~"CUSTOMER~".~"CUSTOMER_ID~" = ~"SHIPMENT~".~"DES_SH_CUST_ID~" ) and  
+         ( ( ~"SHIPMENT~".~"CUSTOMER_ID~" = 1153 ) AND  
+         ( ~"SHIPMENT~".~"DES_SH_CUST_ID~" in ( 159,1174 ) ) )    
+" )
+text(band=header alignment="2" text="Customer
+Customer Short Name"border="0" color="0" x="7" y="6" height="102" width="508"  name=customer_customer_short_name_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Shipment
+Packing List"border="0" color="0" x="523" y="6" height="102" width="282"  name=shipment_packing_list_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Shipment
+Shipment Actualed Date Time"border="0" color="0" x="812" y="6" height="102" width="695"  name=shipment_shipment_actualed_date_time_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Scrap Packing Item
+Scrap Skid Num"border="0" color="0" x="1514" y="6" height="102" width="453"  name=scrap_packing_item_scrap_skid_num_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Scrap Skid
+Scrap Alloy2"border="0" color="0" x="1979" y="6" height="102" width="293"  name=scrap_skid_scrap_alloy2_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="7" y="7" height="61" width="508" format="[general]"  name=customer_customer_short_name edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="523" y="7" height="61" width="282" format="[general]"  name=shipment_packing_list edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="812" y="7" height="61" width="695" format="[shortdate] [time]"  name=shipment_shipment_actualed_date_time edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="1" tabsequence=32766 border="0" color="0" x="1514" y="7" height="61" width="453" format="[general]"  name=scrap_packing_item_scrap_skid_num edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="0" color="0" x="1979" y="7" height="48" width="293" format="[general]"  name=scrap_skid_scrap_alloy2 edit.limit=8 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=0 border="0" color="0" x="2282" y="0" height="51" width="940"  name=scrap_skid_scrap_net_wt  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="0" text="Scrap Skid Scrap Net Wt"border="0" color="0" x="2278" y="3" height="77" width="944"  font.face="Arial" font.height="-12" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")

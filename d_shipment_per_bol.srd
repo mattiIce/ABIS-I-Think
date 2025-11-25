@@ -1,0 +1,22 @@
+$PBExportHeader$d_shipment_per_bol.srd
+$PBExportComments$list all shipments under a bol
+release 9;
+datawindow(units=2 timer_interval=0 color=16777215 processing=1 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 250 print.margin.right = 250 print.margin.top = 250 print.margin.bottom = 250 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=yes print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no grid.lines=0 )
+header(height=141 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=166 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes key=yes name=packing_list dbname="shipment.packing_list" )
+ retrieve="  SELECT ~"SHIPMENT~".~"PACKING_LIST~"  
+    FROM ~"SHIPMENT~"  
+   WHERE ~"SHIPMENT~".~"BILL_OF_LADING~" = :al_bol  
+order by ~"SHIPMENT~".~"PACKING_LIST~"  /* Alex Gerlants. 11/21/2018. Added to avoid jumping BOL because ddlb_packinglist is sorted on w_shipping_2 */  
+" update="SHIPMENT" updatewhere=0 updatekeyinplace=no arguments=(("al_bol", number)) )
+text(band=header alignment="2" text="Packing List" border="0" color="0" x="16" y="8" height="133" width="641" html.valueishtml="0"  name=packing_list_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="0" x="16" y="9" height="158" width="641" format="[general]" html.valueishtml="0"  name=packing_list visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+ 

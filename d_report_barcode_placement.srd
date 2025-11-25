@@ -1,0 +1,14 @@
+$PBExportHeader$d_report_barcode_placement.srd
+$PBExportComments$get skid place data for barcode form
+release 6;
+datawindow(units=2 timer_interval=0 color=16777215 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 250 print.margin.right = 250 print.margin.top = 250 print.margin.bottom = 250 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=yes grid.lines=0 )
+header(height=275 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=166 color="536870912" )
+table(column=(type=char(18) updatewhereclause=yes name=production_sheet_item_prod_item_placemen dbname="production_sheet_item.prod_item_placement" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"production_sheet_item~" )  TABLE(NAME=~"sheet_skid_detail~" ) COLUMN(NAME=~"production_sheet_item.prod_item_placement~")    JOIN (LEFT=~"sheet_skid_detail.prod_item_num~"    OP =~"=~"RIGHT=~"production_sheet_item.prod_item_num~" )WHERE(    EXP1 =~"~~~"SHEET_SKID_DETAIL~~~".~~~"SHEET_SKID_NUM~~~"~"   OP =~"=~"    EXP2 =~":al_skid~" ) ) ARG(NAME = ~"al_skid~" TYPE = number) " arguments=(("al_skid", number)) )
+text(band=header alignment="2" text="Production Sheet Item
+Prod Item Placement"border="0" color="0" x="16" y="8" height="266" width="1183"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="16" y="25" height="125" width="1183" format="[general]"  name=production_sheet_item_prod_item_placemen edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")
