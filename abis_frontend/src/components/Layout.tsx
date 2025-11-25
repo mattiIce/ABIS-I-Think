@@ -9,6 +9,7 @@ import {
   LogOut,
   Menu,
   X,
+  FileText,
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -18,6 +19,7 @@ const navigation = [
   { name: 'Production', href: '/production/jobs', icon: Factory },
   { name: 'Shipping', href: '/shipping/shipments', icon: Truck },
   { name: 'Customers', href: '/customers', icon: Users },
+  { name: 'Reports', href: '/reports', icon: FileText },
 ]
 
 export default function Layout() {

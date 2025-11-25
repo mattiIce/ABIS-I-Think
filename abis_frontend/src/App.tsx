@@ -10,6 +10,7 @@ import JobList from './pages/production/JobList'
 import JobDetail from './pages/production/JobDetail'
 import ShipmentList from './pages/shipping/ShipmentList'
 import CustomerList from './pages/customers/CustomerList'
+import Reports from './pages/reports/Reports'
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated)
@@ -44,6 +45,9 @@ function App() {
         
         {/* Customer Routes */}
         <Route path="customers" element={<CustomerList />} />
+        
+        {/* Reports Routes */}
+        <Route path="reports" element={<Reports />} />
       </Route>
     </Routes>
   )
