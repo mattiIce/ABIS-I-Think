@@ -65,6 +65,12 @@ class NotificationService:
         Returns:
             Boolean indicating success
         """
+        # SAFETY: Check if in test/development mode - do not send real emails
+        if settings.DEBUG or getattr(settings, 'EMAIL_BACKEND', '') == 'django.core.mail.backends.console.EmailBackend':
+            logger.info(f"[TEST MODE] Email notification logged but not sent: {notification.subject}")
+            notification.mark_as_sent()
+            return True
+        
         try:
             # Get user preferences
             preferences, created = UserNotificationPreference.objects.get_or_create(

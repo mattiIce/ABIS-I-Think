@@ -5,6 +5,9 @@
 Date: December 3, 2025  
 Time: 17:26 UTC
 
+**🛡️ SAFETY NOTICE:** All external communications (email, EDI) are disabled for testing.  
+See [TESTING_SAFETY.md](TESTING_SAFETY.md) for complete safety documentation.
+
 ---
 
 ## 🎯 What's Been Accomplished

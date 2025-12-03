@@ -4,6 +4,9 @@
 
 Both backend and frontend servers are currently running and fully configured with sample data.
 
+**🛡️ TESTING SAFETY:** All external communications are disabled. No emails or EDI will be sent to external systems.  
+See [TESTING_SAFETY.md](TESTING_SAFETY.md) for details.
+
 ---
 
 ## 📍 Access Points
