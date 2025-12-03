@@ -138,8 +138,8 @@ class NotificationService:
             'job_number': job.job_number,
             'customer_name': job.customer.company_name if job.customer else 'N/A',
             'status': job.get_status_display(),
-            'quantity': getattr(job, 'ordered_quantity', 0),
-            'part_number': getattr(job, 'part_number', 'N/A'),
+            'quantity': job.ordered_quantity,
+            'part_number': job.part_number,
         }
         
         # Notify relevant users (e.g., production managers, customer service)
@@ -199,7 +199,7 @@ class NotificationService:
             'alloy': str(coil.alloy) if coil.alloy else 'N/A',
             'temper': str(coil.temper) if coil.temper else 'N/A',
             'weight': coil.net_weight,
-            'location': getattr(coil, 'location', 'Not specified'),
+            'location': coil.location or 'Not specified',
         }
         
         # Notify inventory managers
