@@ -1,0 +1,44 @@
+$PBExportHeader$d_fender_display_job.srd
+$PBExportComments$fender's specification displayonly
+release 9;
+datawindow(units=0 timer_interval=0 color=79741120 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=560 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes key=yes name=order_item_num dbname="fender.order_item_num" )
+ column=(type=decimal(0) updatewhereclause=yes key=yes name=order_abc_num dbname="fender.order_abc_num" )
+ column=(type=char(18) updatewhereclause=yes name=fe_die1 dbname="fender.fe_die1" )
+ column=(type=char(18) updatewhereclause=yes name=fe_die2 dbname="fender.fe_die2" )
+ column=(type=decimal(5) updatewhereclause=yes name=fe_side dbname="fender.fe_side" )
+ column=(type=decimal(6) updatewhereclause=yes name=fe_side_plus dbname="fender.fe_side_plus" )
+ column=(type=decimal(6) updatewhereclause=yes name=fe_side_minus dbname="fender.fe_side_minus" )
+ column=(type=number updatewhereclause=yes name=ab_job_die_id dbname="ab_job_die_id" )
+ retrieve="  SELECT ~"FENDER~".~"ORDER_ITEM_NUM~",   
+         ~"FENDER~".~"ORDER_ABC_NUM~",   
+         ~"FENDER~".~"FE_DIE1~",   
+         ~"FENDER~".~"FE_DIE2~",   
+         ~"FENDER~".~"FE_SIDE~",   
+         ~"FENDER~".~"FE_SIDE_PLUS~",   
+         ~"FENDER~".~"FE_SIDE_MINUS~",
+			(select die_id from ab_job where ab_job_num = :al_ab_job_num and order_item_num = fender.order_item_num and order_abc_num = fender.order_abc_num) ab_job_die_id   
+    FROM fender
+   WHERE ( ~"FENDER~".~"ORDER_ITEM_NUM~" = :al_item ) AND  
+         ( ~"FENDER~".~"ORDER_ABC_NUM~" = :al_order ) 
+" update="fender" updatewhere=0 updatekeyinplace=no arguments=(("al_item", number),("al_order", number),("al_ab_job_num", number)) )
+bitmap(band=detail filename="Fender.jpg" x="11" y="6" height="550" width="1068" border="6"  name=p_1 visible="1" )
+text(band=detail alignment="1" text="Width:" border="0" color="0" x="1101" y="19" height="51" width="150" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="5" color="0" x="1262" y="16" height="61" width="406" format="[general]" html.valueishtml="0"  name=fe_side visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="1" text="Plus:" border="0" color="0" x="1112" y="102" height="51" width="139" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="1" text="Minus:" border="0" color="0" x="1108" y="182" height="51" width="143" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="1" text="Die2:" border="0" color="0" x="1108" y="339" height="51" width="143" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="1" text="Die1:" border="0" color="0" x="1108" y="259" height="51" width="143" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="5" color="0" x="1262" y="96" height="61" width="406" format="[general]" html.valueishtml="0"  name=fe_side_plus visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=7 alignment="1" tabsequence=32766 border="5" color="0" x="1262" y="176" height="61" width="406" format="[general]" html.valueishtml="0"  name=fe_side_minus visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=4 alignment="0" tabsequence=20 border="5" color="0" x="1262" y="336" height="61" width="900" format="[general]" html.valueishtml="0"  name=fe_die2 visible="1" dddw.name=d_die_list_per_fender dddw.displaycolumn=show_t dddw.datacolumn=die_die_id dddw.percentwidth=180 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.imemode=0 dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+column(band=detail id=8 alignment="0" tabsequence=30 border="5" color="0" x="1262" y="259" height="51" width="900" format="[general]" html.valueishtml="0"  name=ab_job_die_id visible="1" dddw.name=d_die_list_per_fender dddw.displaycolumn=show_t dddw.datacolumn=die_die_id dddw.percentwidth=180 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.imemode=0 dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+ 

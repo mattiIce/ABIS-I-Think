@@ -1,0 +1,58 @@
+$PBExportHeader$f_get_package_num_min_max.srf
+global type f_get_package_num_min_max from function_object
+end type
+
+forward prototypes
+global function any f_get_package_num_min_max (n_tr_abc01 atr)
+end prototypes
+
+global function any f_get_package_num_min_max (n_tr_abc01 atr);//Alex Gerlants. 06/15/2018. Arconic_Package_Num. Begin
+/*
+Function:	f_get_package_num_min_max
+Returns:		integer	 1 if OK
+							-1 if DB error
+Arguments:	value	n_tr_abc01	atr
+*/
+Integer	li_rtn = 0, li_count
+Long		ll_package_num, ll_max_value, ll_last_number, ll_value_diff
+
+//Get dbo.package_num_seq_50 current value, max value, and difference between current value and max value
+//Warn the user if difference between current value and max value <= 100
+select	max_value, last_number, max_value - min_value
+into		:ll_max_value, :ll_last_number, :ll_value_diff
+from		all_sequences
+where		lower(sequence_owner) = 'dbo'   
+and		lower(sequence_name) = 'package_num_seq_50'
+using		atr;
+
+If sqlca.sqlcode = 0 Then
+	Choose Case ll_value_diff
+		Case Is <= 0 //Cannot generarate anymore package numbers
+			MessageBox("ERROR GENERATING NEXT CUSTOMER PACKAGE NUMBER", &
+					"Last Package Number generated:~t" + String(ll_last_number) + "~n~r" + &
+					"Maximum value of Package Number:~t" + String(ll_max_value) + "~n~r~n~r" + &
+					"THERE ARE NO MORE PACKAGE NUMBERS AVAILABLE!" + "~n~r" + &
+					"CANNOT SAVE THIS SKID!" + "~n~r~n~r" + &
+					"Please contact customer to obtain a new block of Customer Package Numbers", &
+					StopSign!)
+			li_rtn = -1
+		Case Is <= 100 //Warn user
+			MessageBox("Customer Package Number Warning", &
+					"This block of Package Numbers is getting close to the end" + "~n~r" + &
+					"Last Package Number generated:~t" + String(ll_last_number) + "~n~r" + &
+					"Maximum value of Package Numbers:~t" + String(ll_max_value) + "~n~r" + &
+					"There are only " + String(ll_value_diff) + " Package Numbers left~n~r~n~r" + &
+					"Please contact customer to obtain a new block of Customer Package Numbers")
+	End Choose
+Else //DB error
+	MessageBox("DB Error", "Database error occurred in f_assign_package_num while trying to get " + &
+									"attributes of package_num_seq_50." + &
+									"~n~r~n~rError:~n~r" + atr.sqlerrtext, &
+									StopSign!)
+	li_rtn = -1
+End If
+
+Return li_rtn
+//Alex Gerlants. 06/15/2018. Arconic_Package_Num. End
+end function
+

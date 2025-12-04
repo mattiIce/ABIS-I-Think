@@ -1,0 +1,9 @@
+# Migration Dependencies
+
+# Oracle database connectivity
+cx_Oracle==8.3.0
+
+# Already included in main requirements.txt:
+# Django==5.1.4
+# psycopg2-binary==2.9.10
+# python-dotenv==1.0.1

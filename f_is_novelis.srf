@@ -1,0 +1,33 @@
+$PBExportHeader$f_is_novelis.srf
+global type f_is_novelis from function_object
+end type
+
+forward prototypes
+global function boolean f_is_novelis (long al_customer_id)
+end prototypes
+
+global function boolean f_is_novelis (long al_customer_id);//Alex Gerlants. 03/22/2019. Form_863 Cert Label. Begin
+/*
+Function:	f_is_novelis
+Returns:		boolean	True  if al_customer_id is Novelis
+							False if al_customer_id is NOT Novelis
+Arguments:	value		long	al_customer_id
+*/
+Boolean	lb_is_novelis = False
+Integer	li_count
+
+select	count(*)
+into		:li_count
+from		customer
+where		customer_id = :al_customer_id
+and		lower(ltrim(rtrim(customer_short_name))) like '%novelis%'
+using		sqlca;
+
+If li_count > 0 Then
+	lb_is_novelis = True
+End If
+
+Return lb_is_novelis
+//Alex Gerlants. 03/22/2019. Form_863 Cert Label. End
+end function
+

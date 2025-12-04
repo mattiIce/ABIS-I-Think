@@ -1,0 +1,36 @@
+$PBExportHeader$f_filter_dddw.srf
+global type f_filter_dddw from function_object
+end type
+
+forward prototypes
+global subroutine f_filter_dddw (ref datawindowchild adw, string ls_column_name, string as_data)
+end prototypes
+
+global subroutine f_filter_dddw (ref datawindowchild adw, string ls_column_name, string as_data);/*
+Function:	f_filter_dddw
+Returns:		none
+Arguments:	reference	datawindow	adw				<== Datawindow to filter
+				value			string		ls_column_name	<== Column name on adw to filter by
+				value			string		as_data 			<== data from EditChanged event for user input datawindow
+*/
+
+String	ls_filter_string, ls_rtn, ls_data
+Integer	li_rtn
+Long		ll_rows, ll_filteredcount
+
+ls_data = Upper(as_data)
+
+If Len(as_data) > 0 Then
+	ls_filter_string = "Upper(" + "customer_short_name" + ") like '" + ls_data + "%'"
+Else
+	ls_filter_string = ""
+End If
+
+
+li_rtn = adw.SetFilter(ls_filter_string)
+li_rtn = adw.Filter()
+
+ll_rows = adw.RowCount()
+ll_filteredcount = adw.FilteredCount()
+end subroutine
+

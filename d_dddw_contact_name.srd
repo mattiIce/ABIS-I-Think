@@ -1,0 +1,16 @@
+$PBExportHeader$d_dddw_contact_name.srd
+$PBExportComments$list contact name list based on customer id
+release 5;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no )
+header(height=1 color="536870912" )
+summary(height=4 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=61 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=contact_id dbname="customer_contact.contact_id" )
+ column=(type=char(18) updatewhereclause=yes name=first_name dbname="customer_contact.first_name" )
+ column=(type=char(18) updatewhereclause=yes name=last_name dbname="customer_contact.last_name" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"customer_contact~" ) COLUMN(NAME=~"customer_contact.contact_id~") COLUMN(NAME=~"customer_contact.first_name~") COLUMN(NAME=~"customer_contact.last_name~")) ORDER(NAME=~"customer_contact.last_name~" ASC=yes )  ORDER(NAME=~"customer_contact.first_name~" ASC=yes ) " )
+compute(band=detail alignment="0" expression=" last_name + ~", ~" +  first_name "border="0" color="0" x="8" y="3" height="52" width="616" format="[general]"  name=full_name  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=1 alignment="2" tabsequence=32766 border="0" color="0" x="936" y="3" height="55" width="257" format="[general]"  name=contact_id edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="0" x="1241" y="3" height="55" width="406" format="[general]"  name=first_name edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="0" x="1725" y="3" height="55" width="406" format="[general]"  name=last_name edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )

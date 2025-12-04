@@ -1,0 +1,64 @@
+$PBExportHeader$f_datetime.srf
+$PBExportComments$Converts datetime string to datetime type. NULL if the string is invalid.
+global type f_datetime from function_object
+end type
+
+forward prototypes
+global function datetime f_datetime (string as_datetime)
+end prototypes
+
+global function datetime f_datetime (string as_datetime);//Function:  f_DateTime
+//
+//Parmeters: in - as_datetime:  Datetime value as a string
+//
+//Returns:  datetime, if input is valid and Null otherwise.
+
+DateTime ldtm_rc
+Time     ltm_Time
+long     ll_count
+string   ls_datetime[]
+boolean  lb_BadDateTime = False
+n_cst_string  lnv_string
+
+// Check arguments
+IF IsNull (as_datetime) THEN
+  lb_BadDateTime = True
+ELSE
+  // Validate datetime string
+  ll_count = lnv_string.of_ParseToArray (as_datetime, " ", ls_datetime)
+  IF ll_count <= 0 or ll_count > 2 THEN
+    lb_BadDateTime = True
+  END IF
+END IF
+
+// Now try to convert
+IF NOT lb_BadDateTime THEN
+
+  // Date string passed in
+  IF ll_count = 1 THEN
+    IF IsDate(as_datetime) THEN
+      ltm_Time = Time('00') // no time so default to 0:00
+      ldtm_rc = DateTime(Date(as_datetime), ltm_Time)
+    ELSE
+      lb_BadDateTime = True
+    END IF
+
+  // Datetime string passed in
+  ELSEIF ll_count = 2 THEN
+    IF IsDate(ls_datetime[1]) AND IsTime(ls_datetime[2]) THEN
+      ldtm_rc = DateTime(Date(ls_datetime[1]), Time(ls_datetime[2]))
+    ELSE
+      lb_BadDateTime = True
+    END IF
+  END IF
+END IF
+
+// set return code when bad date time found
+IF lb_BadDateTime THEN
+  SetNull(ldtm_rc)
+END IF
+
+Return ldtm_rc
+
+end function
+

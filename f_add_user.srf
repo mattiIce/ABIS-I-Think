@@ -1,0 +1,62 @@
+$PBExportHeader$f_add_user.srf
+$PBExportComments$add user to ORACLE database
+global type f_add_user from function_object
+end type
+
+forward prototypes
+global function integer f_add_user (string as_userid, string as_password)
+end prototypes
+
+global function integer f_add_user (string as_userid, string as_password);//////////////////////////////////////////////////////////////////////////////
+//
+//	Function:  f_add_user
+//
+//	Access:    Public
+//
+//	Arguments:
+//   as_userid
+//   as_password
+//
+//	Returns:   Integer
+//               1 = if it succeeds
+//              -1 = if an error occurs
+//              
+//	Description:this function add a new user to ORACLE database
+//////////////////////////////////////////////////////////////////////////////
+//
+//	Revision History
+//
+//	Version
+//	
+//
+//////////////////////////////////////////////////////////////////////////////
+
+String ls_adduser
+ls_adduser = "create user " + as_userid + " identified by " + as_password + " default tablespace silverdome temporary tablespace temp profile default "
+EXECUTE IMMEDIATE :ls_adduser USING SQLCA;
+IF f_check_sqlcode(SQLCA, FALSE, TRUE) < 0 THEN RETURN -1
+
+ls_adduser = "grant browser to " + as_userid
+EXECUTE IMMEDIATE :ls_adduser USING SQLCA;
+IF f_check_sqlcode(SQLCA, FALSE, TRUE) < 0 THEN RETURN -2
+
+ls_adduser = "grant connect to " + as_userid
+EXECUTE IMMEDIATE :ls_adduser USING SQLCA;
+IF f_check_sqlcode(SQLCA, FALSE, TRUE) < 0 THEN RETURN -3
+
+ls_adduser = "grant resource to " + as_userid
+EXECUTE IMMEDIATE :ls_adduser USING SQLCA;
+IF f_check_sqlcode(SQLCA, FALSE, TRUE) < 0 THEN RETURN -4
+
+ls_adduser = "grant update_role to " + as_userid 
+EXECUTE IMMEDIATE :ls_adduser USING SQLCA;
+IF f_check_sqlcode(SQLCA, FALSE, TRUE) < 0 THEN RETURN -5
+
+ls_adduser = "alter user " + as_userid + " default role connect, resource"
+EXECUTE IMMEDIATE :ls_adduser USING SQLCA;
+IF f_check_sqlcode(SQLCA, FALSE, TRUE) < 0 THEN RETURN -6
+
+return 1
+
+end function
+

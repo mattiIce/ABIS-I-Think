@@ -1,0 +1,60 @@
+$PBExportHeader$d_order_list.srd
+$PBExportComments$list all items in table Customer_Order
+release 6;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+header(height=61 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=61 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=order_abc_num dbname="CUSTOMER_ORDER.ORDER_ABC_NUM" )
+ column=(type=decimal(0) updatewhereclause=yes name=orig_customer_id dbname="CUSTOMER_ORDER.ORIG_CUSTOMER_ID" )
+ column=(type=decimal(0) updatewhereclause=yes name=enduser_id dbname="CUSTOMER_ORDER.ENDUSER_ID" )
+ column=(type=char(36) updatewhereclause=yes name=orig_customer_po dbname="CUSTOMER_ORDER.ORIG_CUSTOMER_PO" )
+ column=(type=char(36) updatewhereclause=yes name=enduser_po dbname="CUSTOMER_ORDER.ENDUSER_PO" )
+ column=(type=datetime updatewhereclause=yes name=created_date dbname="CUSTOMER_ORDER.CREATED_DATE" )
+ column=(type=char(18) updatewhereclause=yes name=order_item_sheet_type dbname="ORDER_ITEM.SHEET_TYPE" )
+ column=(type=char(22) updatewhereclause=yes name=order_item_enduser_part_num dbname="ORDER_ITEM.ENDUSER_PART_NUM" )
+ column=(type=char(8) updatewhereclause=yes name=order_item_alloy2 dbname="ORDER_ITEM.ALLOY2" )
+ column=(type=char(8) updatewhereclause=yes name=order_item_temper dbname="ORDER_ITEM.TEMPER" )
+ column=(type=decimal(5) updatewhereclause=yes name=order_item_gauge dbname="ORDER_ITEM.GAUGE" )
+ column=(type=decimal(0) updatewhereclause=yes name=order_item_item_status dbname="ORDER_ITEM.ITEM_STATUS" values="Done	0/InProcess	1/New	2/Canceled	3/OnHold	4/" )
+ retrieve="  SELECT ~"CUSTOMER_ORDER~".~"ORDER_ABC_NUM~",   
+         ~"CUSTOMER_ORDER~".~"ORIG_CUSTOMER_ID~",   
+         ~"CUSTOMER_ORDER~".~"ENDUSER_ID~",   
+         ~"CUSTOMER_ORDER~".~"ORIG_CUSTOMER_PO~",   
+         ~"CUSTOMER_ORDER~".~"ENDUSER_PO~",   
+         ~"CUSTOMER_ORDER~".~"CREATED_DATE~",   
+         ~"ORDER_ITEM~".~"SHEET_TYPE~",   
+         ~"ORDER_ITEM~".~"ENDUSER_PART_NUM~",   
+         ~"ORDER_ITEM~".~"ALLOY2~",   
+         ~"ORDER_ITEM~".~"TEMPER~",   
+         ~"ORDER_ITEM~".~"GAUGE~",   
+         ~"ORDER_ITEM~".~"ITEM_STATUS~"  
+    FROM ~"CUSTOMER_ORDER~",   
+         ~"ORDER_ITEM~"  
+   WHERE ( customer_order.order_abc_num = order_item.order_abc_num (+)) 
+ORDER by ~"CUSTOMER_ORDER~".~"ORDER_ABC_NUM~" DESC   
+" )
+text(band=header alignment="2" text="Order No."border="6" color="0" x="0" y="10" height="48" width="241"  name=order_abc_num_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Customer"border="6" color="0" x="252" y="10" height="48" width="519"  name=orig_customer_id_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="End User"border="6" color="0" x="783" y="10" height="48" width="453"  name=enduser_id_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Customer P.O."border="6" color="0" x="1243" y="10" height="48" width="428"  name=orig_customer_po_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="End User P.O."border="6" color="0" x="1679" y="10" height="48" width="435"  name=enduser_po_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Created"border="6" color="0" x="2121" y="10" height="48" width="256"  name=created_date_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="Shape"border="6" color="0" x="2384" y="10" height="48" width="267"  name=order_item_sheet_type_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Alloy"border="6" color="0" x="2662" y="10" height="48" width="146"  name=order_item_alloy2_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="Temp"border="6" color="0" x="2820" y="10" height="48" width="165"  name=order_item_temper_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="Gauge"border="6" color="0" x="2995" y="10" height="48" width="157"  name=order_item_gauge_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="Status"border="6" color="0" x="3167" y="10" height="48" width="238"  name=order_item_item_status_t  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="5" color="0~tcase(order_item_item_status when 0 then RGB(255,255,255) when 1 then  RGB(0,150,0)  when 2 then  RGB(0,0,0) when 3 then  RGB(150,0,0)  when 4 then  RGB(0,0,100) when 5 then RGB(100,100,0)  else RGB(0,0,0))" x="7" y="3" height="54" width="230" format="[general]"  name=order_abc_num edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="5" color="0~tcase(order_item_item_status when 0 then RGB(255,255,255) when 1 then  RGB(0,255,0)  when 2 then  RGB(0,0,0) when 3 then  RGB(255,0,0)  when 4 then  RGB(0,0,255)   else RGB(0,0,0))" x="1247" y="3" height="54" width="421" format="[general]"  name=orig_customer_po edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="0" tabsequence=32766 border="5" color="0~tcase(order_item_item_status when 0 then RGB(255,255,255) when 1 then  RGB(0,255,0)  when 2 then  RGB(0,0,0) when 3 then  RGB(255,0,0)  when 4 then  RGB(0,0,255)   else RGB(0,0,0))" x="1679" y="3" height="54" width="435" format="[general]"  name=enduser_po edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="5" color="0~tcase(order_item_item_status when 0 then RGB(255,255,255) when 1 then  RGB(0,255,0)  when 2 then  RGB(0,0,0) when 3 then  RGB(255,0,0)  when 4 then  RGB(0,0,255)   else RGB(0,0,0))" x="2121" y="3" height="54" width="260" format="[shortdate] [time]"  name=created_date editmask.required=yes editmask.mask="mm/dd/yyyy" editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="5" color="0~tcase(order_item_item_status when 0 then RGB(255,255,255) when 1 then  RGB(0,255,0)  when 2 then  RGB(0,0,0) when 3 then  RGB(255,0,0)  when 4 then  RGB(0,0,255)   else RGB(0,0,0))" x="2392" y="3" height="54" width="260" format=""  name=order_item_sheet_type edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=10 alignment="2" tabsequence=32766 border="5" color="0~tcase(order_item_item_status when 0 then RGB(255,255,255) when 1 then  RGB(0,255,0)  when 2 then  RGB(0,0,0) when 3 then  RGB(255,0,0)  when 4 then  RGB(0,0,255)   else RGB(0,0,0))" x="2816" y="3" height="54" width="176" format="[general]"  name=order_item_temper edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=11 alignment="2" tabsequence=32766 border="5" color="0~tcase(order_item_item_status when 0 then RGB(255,255,255) when 1 then  RGB(0,255,0)  when 2 then  RGB(0,0,0) when 3 then  RGB(255,0,0)  when 4 then  RGB(0,0,255)   else RGB(0,0,0))" x="2999" y="3" height="54" width="154" format="[general]"  name=order_item_gauge edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=12 alignment="0" tabsequence=32766 border="5" color="0~tcase(order_item_item_status when 0 then RGB(255,255,255) when 1 then  RGB(0,255,0)  when 2 then  RGB(0,0,0) when 3 then  RGB(255,0,0)  when 4 then  RGB(0,0,255)   else RGB(0,0,0))" x="3163" y="3" height="54" width="238" format="[general]"  name=order_item_item_status ddlb.limit=0 ddlb.allowedit=no ddlb.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="5" color="0~tcase(order_item_item_status when 0 then RGB(255,255,255) when 1 then  RGB(0,255,0)  when 2 then  RGB(0,0,0) when 3 then  RGB(255,0,0)  when 4 then  RGB(0,0,255)   else RGB(0,0,0))" x="249" y="3" height="54" width="519" format="[general]"  name=orig_customer_id dddw.name=d_dddw_id_short dddw.displaycolumn=customer_short_name dddw.datacolumn=customer_id dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="5" color="0~tcase(order_item_item_status when 0 then RGB(255,255,255) when 1 then  RGB(0,255,0)  when 2 then  RGB(0,0,0) when 3 then  RGB(255,0,0)  when 4 then  RGB(0,0,255)   else RGB(0,0,0))" x="783" y="3" height="54" width="453" format="[general]"  name=enduser_id dddw.name=d_dddw_id_short dddw.displaycolumn=customer_short_name dddw.datacolumn=customer_id dddw.percentwidth=100 dddw.lines=5 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=9 alignment="2" tabsequence=32766 border="5" color="0" x="2662" y="3" height="54" width="146" format="[general]"  name=order_item_alloy2 edit.limit=0 edit.case=any edit.autoselect=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")

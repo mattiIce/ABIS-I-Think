@@ -1,0 +1,14 @@
+$PBExportHeader$s_user.srs
+$PBExportComments$pass user inforamtion
+global type s_user from structure
+	string		login_id
+	string		user_last_name
+	string		user_first_name
+	string		user_middle_initial
+	string		password
+	integer		us_primary_type
+	integer		us_secondary_type
+	string		us_note
+	integer		user_id
+end type
+

@@ -1,0 +1,23 @@
+$PBExportHeader$d_security_window_list.srd
+$PBExportComments$Lists all of the windows for an application
+release 5;
+datawindow(units=0 timer_interval=0 color=77956459 processing=1 print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no grid.lines=0 grid.columnmove=no selected.mouse=no )
+header(height=68 color="536870912" )
+summary(height=1 color="536870912" )
+footer(height=1 color="536870912" )
+detail(height=61 color="536870912"  height.autosize=yes)
+table(column=(type=char(128) updatewhereclause=yes name=pbl dbname="pbl" )
+ column=(type=char(64) updatewhereclause=yes name=name dbname="name" )
+ column=(type=char(25) updatewhereclause=yes name=date dbname="date" )
+ column=(type=char(500) updatewhereclause=yes name=cmt dbname="cmt" )
+  sort="pbl A name A " )
+text(band=header alignment="0" text="Library"border="4" color="33554432" x="8" y="6" height="55" width="651"  name=pbl_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+text(band=header alignment="2" text="Comment"border="4" color="33554432" x="1739" y="6" height="55" width="939"  name=cmt_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+text(band=header alignment="2" text="Date"border="4" color="33554432" x="1302" y="6" height="55" width="431"  name=date_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+text(band=header alignment="2" text="Name"border="4" color="33554432" x="665" y="6" height="55" width="630"  name=name_t  font.face="MS Sans Serif" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="33554432" x="1739" y="6" height="55" width="939" format="[general]"  name=cmt height.autosize=yes edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="8" y="6" height="55" width="651" format="[general]"  name=pbl edit.limit=0 edit.case=any edit.autoselect=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+column(band=detail id=2 alignment="0" tabsequence=32766 border="0" color="33554432" x="665" y="6" height="55" width="630" format="[general]"  name=name edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="0" color="33554432" x="1302" y="6" height="55" width="431" format="[general]"  name=date edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes  font.face="MS Sans Serif" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="77956459" )
+
+sparse(names="pbl")

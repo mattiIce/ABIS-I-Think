@@ -1,0 +1,122 @@
+$PBExportHeader$d_office_recap_job_detail.srd
+$PBExportComments$ab job details for daily production entry screen
+release 9;
+datawindow(units=0 timer_interval=0 color=79741120 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=4 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=328 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=ab_job_ab_job_num dbname="ab_job.ab_job_num" )
+ column=(type=decimal(0) updatewhereclause=yes name=ab_job_line_num dbname="ab_job.line_num" )
+ column=(type=datetime updatewhereclause=yes name=ab_job_time_date_started dbname="ab_job.time_date_started" )
+ column=(type=datetime updatewhereclause=yes name=ab_job_time_date_finished dbname="ab_job.time_date_finished" )
+ column=(type=decimal(0) updatewhereclause=yes name=ab_job_number_of_men_used dbname="ab_job.number_of_men_used" )
+ column=(type=decimal(0) updatewhereclause=yes name=ab_job_job_status dbname="ab_job.job_status" values="Done	0/Processing	1/OnHold	4/Canceled	3/Open	2/" )
+ column=(type=char(1024) updatewhereclause=yes name=ab_job_job_notes dbname="ab_job.job_notes" )
+ column=(type=char(18) updatewhereclause=yes name=customer_customer_short_name dbname="customer.customer_short_name" )
+ column=(type=char(18) updatewhereclause=yes name=order_item_sheet_type dbname="order_item.sheet_type" )
+ column=(type=decimal(0) updatewhereclause=yes name=order_item_quantity dbname="order_item.quantity" )
+ column=(type=char(255) updatewhereclause=yes name=order_item_surface dbname="order_item.surface" )
+ column=(type=char(255) updatewhereclause=yes name=order_item_oil_stencil_interleave dbname="order_item.oil_stencil_interleave" )
+ column=(type=decimal(0) updatewhereclause=yes name=order_item_max_skid_wt dbname="order_item.max_skid_wt" )
+ column=(type=char(255) updatewhereclause=yes name=line_line_desc dbname="line.line_desc" )
+ column=(type=char(8) updatewhereclause=yes name=order_item_temper dbname="order_item.temper" )
+ column=(type=decimal(5) updatewhereclause=yes name=order_item_gauge dbname="order_item.gauge" )
+ column=(type=decimal(5) updatewhereclause=yes name=order_item_theoretical_unit_wt dbname="order_item.theoretical_unit_wt" )
+ column=(type=decimal(0) updatewhereclause=yes name=ab_job_order_item_num dbname="ab_job.order_item_num" )
+ column=(type=decimal(0) updatewhereclause=yes name=ab_job_order_abc_num dbname="ab_job.order_abc_num" )
+ column=(type=number updatewhereclause=yes name=h_l dbname="compute_0020" )
+ column=(type=number updatewhereclause=yes name=h_l_percent dbname="compute_0021" )
+ column=(type=number updatewhereclause=yes name=skid_cnt dbname="skid_cnt" )
+ column=(type=number updatewhereclause=yes name=skid_wt dbname="compute_0023" )
+ column=(type=number updatewhereclause=yes name=scrap_wt dbname="compute_0024" )
+ column=(type=decimal(0) updatewhereclause=yes name=customer_order_orig_customer_id dbname="customer_order.orig_customer_id" )
+ column=(type=char(8) updatewhereclause=yes name=order_item_alloy2 dbname="order_item.alloy2" )
+ column=(type=char(8) updatewhereclause=yes name=order_item_temper dbname="order_item.temper" )
+ column=(type=char(36) updatewhereclause=yes name=customer_order_orig_customer_po dbname="customer_order.orig_customer_po" )
+ column=(type=char(18) updatewhereclause=yes name=customer_order_scrap_handing_type dbname="customer_order.scrap_handing_type" )
+ retrieve="  SELECT ~"AB_JOB~".~"AB_JOB_NUM~",   
+         ~"AB_JOB~".~"LINE_NUM~",   
+         ~"AB_JOB~".~"TIME_DATE_STARTED~",   
+         ~"AB_JOB~".~"TIME_DATE_FINISHED~",   
+         ~"AB_JOB~".~"NUMBER_OF_MEN_USED~",   
+         ~"AB_JOB~".~"JOB_STATUS~",   
+         ~"AB_JOB~".~"JOB_NOTES~",   
+         ~"CUSTOMER~".~"CUSTOMER_SHORT_NAME~",   
+         ~"ORDER_ITEM~".~"SHEET_TYPE~",   
+         ~"ORDER_ITEM~".~"QUANTITY~",   
+         ~"ORDER_ITEM~".~"SURFACE~",   
+         ~"ORDER_ITEM~".~"OIL_STENCIL_INTERLEAVE~",   
+         ~"ORDER_ITEM~".~"MAX_SKID_WT~",   
+         ~"LINE~".~"LINE_DESC~",   
+         ~"ORDER_ITEM~".~"TEMPER~",   
+         ~"ORDER_ITEM~".~"GAUGE~",   
+         ~"ORDER_ITEM~".~"THEORETICAL_UNIT_WT~",
+			~"AB_JOB~".~"ORDER_ITEM_NUM~",
+			~"AB_JOB~".~"ORDER_ABC_NUM~",
+			F_GET_JOB_BALANCE_WT(AB_JOB.AB_JOB_NUM) ~"BAL WT~",
+			F_GET_JOB_BALANCE_PERCENT(AB_JOB.AB_JOB_NUM) ~"BAL PERCENT~",
+			f_get_skids_num_per_job(AB_JOB.AB_JOB_NUM) ~"SKID_CNT~",
+			F_GET_JOB_PRIME_WT(AB_JOB.AB_JOB_NUM) ~"SKID WT~",
+			F_GET_JOB_SCRAP_WT(AB_JOB.AB_JOB_NUM) ~"SCRAP WT~",
+			~"CUSTOMER_ORDER~".~"ORIG_CUSTOMER_ID~",
+			~"ORDER_ITEM~".~"ALLOY2~",
+			~"ORDER_ITEM~".~"TEMPER~",
+			~"CUSTOMER_ORDER~".~"ORIG_CUSTOMER_PO~",
+			~"CUSTOMER_ORDER~".~"SCRAP_HANDING_TYPE~"
+    FROM ~"AB_JOB~",   
+         ~"CUSTOMER_ORDER~",   
+         ~"ORDER_ITEM~",   
+         ~"CUSTOMER~",   
+         ~"LINE~"  
+   WHERE ( ~"AB_JOB~".~"ORDER_ABC_NUM~" = ~"CUSTOMER_ORDER~".~"ORDER_ABC_NUM~" ) and  
+         ( ~"ORDER_ITEM~".~"ORDER_ABC_NUM~" = ~"CUSTOMER_ORDER~".~"ORDER_ABC_NUM~" ) and  
+         ( ~"AB_JOB~".~"LINE_NUM~" = ~"LINE~".~"LINE_NUM~" ) and  
+         ( ~"AB_JOB~".~"ORDER_ITEM_NUM~" = ~"ORDER_ITEM~".~"ORDER_ITEM_NUM~" ) and  
+         ( ( ~"CUSTOMER_ORDER~".~"ORIG_CUSTOMER_ID~" = ~"CUSTOMER~".~"CUSTOMER_ID~" ) AND  
+         ( ~"AB_JOB~".~"AB_JOB_NUM~" = :prod_order_num ) )    
+" arguments=(("prod_order_num", number)) )
+text(band=detail alignment="0" text="Line No." border="0" color="0" x="9" y="4" height="60" width="238" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Started" border="0" color="0" x="9" y="68" height="60" width="238" html.valueishtml="0"  name=ab_job_time_date_started_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Finished" border="0" color="0" x="9" y="136" height="60" width="238" html.valueishtml="0"  name=ab_job_time_date_finished_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=14 alignment="0" tabsequence=32766 border="5" color="0" x="210" y="4" height="60" width="329" format="[general]" html.valueishtml="0"  name=line_line_desc visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=3 alignment="0" tabsequence=32766 border="5" color="0" x="210" y="68" height="60" width="329" format="[shortdate] [time]" html.valueishtml="0"  name=ab_job_time_date_started visible="1" edit.name="MM/DD/YY HH:MM:SS" editmask.mask="MM/DD/YY HH:MM" editmask.imemode=0 editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="5" color="0" x="210" y="136" height="60" width="329" format="[shortdate] [time]" html.valueishtml="0"  name=ab_job_time_date_finished visible="1" edit.name="MM/DD/YY HH:MM:SS" editmask.mask="MM/DD/YY HH:MM" editmask.imemode=0 editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Customer" border="0" color="0" x="576" y="4" height="60" width="279" html.valueishtml="0"  name=customer_customer_short_name_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Quan." border="0" color="0" x="576" y="68" height="60" width="279" html.valueishtml="0"  name=order_item_quantity_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Max Skid Wt" border="0" color="0" x="576" y="132" height="60" width="279" html.valueishtml="0"  name=order_item_max_skid_wt_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=13 alignment="0" tabsequence=32766 border="5" color="0" x="869" y="136" height="60" width="256" format="[general]" html.valueishtml="0"  name=order_item_max_skid_wt visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Theo Unit Wt" border="0" color="0" x="1143" y="136" height="60" width="274" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=17 alignment="0" tabsequence=32766 border="5" color="0" x="1426" y="136" height="60" width="219" format="[general]" html.valueishtml="0"  name=order_item_theoretical_unit_wt visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=8 alignment="0" tabsequence=32766 border="5" color="0" x="869" y="4" height="60" width="777" format="[general]" html.valueishtml="0"  name=customer_customer_short_name visible="1" edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=10 alignment="0" tabsequence=32766 border="5" color="0" x="869" y="68" height="60" width="777" format="[general]" html.valueishtml="0"  name=order_item_quantity visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Sheet Type" border="0" color="0" x="1673" y="8" height="60" width="256" html.valueishtml="0"  name=order_item_sheet_type_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Note" border="0" color="0" x="1673" y="136" height="60" width="256" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=7 alignment="0" tabsequence=32766 border="5" color="0" x="1938" y="136" height="60" width="773" format="[general]" html.valueishtml="0"  name=ab_job_job_notes visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Status" border="0" color="0" x="2226" y="8" height="60" width="242" html.valueishtml="0"  name=ab_job_job_status_t visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Skid Cnt" border="0" color="0" x="2734" y="4" height="52" width="238" html.valueishtml="0"  name=t_6 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=18 alignment="0" tabsequence=32766 border="0" color="0" x="3264" y="0" height="52" width="247" format="[general]" html.valueishtml="0"  name=ab_job_order_item_num visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=19 alignment="0" tabsequence=32766 border="0" color="0" x="3246" y="80" height="52" width="370" format="[general]" html.valueishtml="0"  name=ab_job_order_abc_num visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=9 alignment="0" tabsequence=32766 border="5" color="0" x="1938" y="8" height="60" width="270" format="[general]" html.valueishtml="0"  name=order_item_sheet_type visible="1" edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0 edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Heavy/Light" border="0" color="0" x="1673" y="72" height="60" width="256" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Hvy/Lt %" border="0" color="0" x="2226" y="72" height="60" width="242" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=21 alignment="0" tabsequence=32766 border="5" color="0" x="3433" y="140" height="64" width="256" format="[general]" html.valueishtml="0"  name=h_l_percent visible="0" edit.name="###,###.00" editmask.mask="###,###.000" editmask.imemode=0 editmask.focusrectangle=no  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif( abs( h_l_percent ) > 0.5, 255, 65280 )" )
+column(band=detail id=22 alignment="0" tabsequence=32766 border="5" color="0" x="2990" y="8" height="60" width="238" format="[general]" html.valueishtml="0"  name=skid_cnt visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Skid Wt." border="0" color="0" x="2734" y="72" height="52" width="238" html.valueishtml="0"  name=t_7 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=23 alignment="0" tabsequence=32766 border="5" color="0" x="2990" y="72" height="60" width="238" format="[general]" html.valueishtml="0"  name=skid_wt visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="0" text="Scrap Wt" border="0" color="0" x="2734" y="136" height="52" width="238" html.valueishtml="0"  name=t_8 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=24 alignment="0" tabsequence=32766 border="5" color="0" x="2990" y="136" height="60" width="238" format="[general]" html.valueishtml="0"  name=scrap_wt visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=25 alignment="0" tabsequence=32766 border="0" color="0" x="3483" y="0" height="52" width="274" format="[general]" html.valueishtml="0"  name=customer_order_orig_customer_id visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=26 alignment="0" tabsequence=32766 border="0" color="0" x="3625" y="80" height="52" width="174" format="[general]" html.valueishtml="0"  name=order_item_alloy2 visible="0" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=27 alignment="0" tabsequence=32766 border="0" color="0" x="3246" y="140" height="52" width="174" format="[general]" html.valueishtml="0"  name=order_item_temper visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=20 alignment="0" tabsequence=32766 border="5" color="0" x="1938" y="72" height="60" width="270" format="[general]" html.valueishtml="0"  name=h_l visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=6 alignment="0" tabsequence=32766 border="5" color="0" x="2459" y="8" height="60" width="256" format="[general]" html.valueishtml="0"  name=ab_job_job_status visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="0" expression="if(   h_l_percent  = 999, ~"N/A~",  string( round(h_l_percent , 2 ) ) + ~"%~"  )"border="5" color="0" x="2459" y="72" height="60" width="256" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="0" background.color="553648127~tif( h_l_percent >900, 255 , if( abs( h_l_percent ) > 0.5, 65535, 65280 )) " )
+column(band=detail id=28 alignment="0" tabsequence=0 border="0" color="0" x="3799" y="0" height="56" width="827" html.valueishtml="0"  name=customer_order_orig_customer_po visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=29 alignment="0" tabsequence=0 border="0" color="0" x="4626" y="0" height="56" width="416" html.valueishtml="0"  name=customer_order_scrap_handing_type visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0  template=(comment="" encoding="UTF-8" name="ddd" xml="<?xml version=~"1.0~" encoding=~"UTF-8~" standalone=~"no~"?><d_office_recap_job_detail><d_office_recap_job_detail_row __pbband=~"detail~"><ab_job_ab_job_num>ab_job_ab_job_num</ab_job_ab_job_num><ab_job_line_num>ab_job_line_num</ab_job_line_num><ab_job_time_date_started>ab_job_time_date_started</ab_job_time_date_started><ab_job_time_date_finished>ab_job_time_date_finished</ab_job_time_date_finished><ab_job_number_of_men_used>ab_job_number_of_men_used</ab_job_number_of_men_used><ab_job_job_status>ab_job_job_status</ab_job_job_status><ab_job_job_notes>ab_job_job_notes</ab_job_job_notes><customer_customer_short_name>customer_customer_short_name</customer_customer_short_name><order_item_sheet_type>order_item_sheet_type</order_item_sheet_type><order_item_quantity>order_item_quantity</order_item_quantity><order_item_surface>order_item_surface</order_item_surface><order_item_oil_stencil_interleave>order_item_oil_stencil_interleave</order_item_oil_stencil_interleave><order_item_max_skid_wt>order_item_max_skid_wt</order_item_max_skid_wt><line_line_desc>line_line_desc</line_line_desc><order_item_temper>order_item_temper</order_item_temper><order_item_gauge>order_item_gauge</order_item_gauge><order_item_theoretical_unit_wt>order_item_theoretical_unit_wt</order_item_theoretical_unit_wt><ab_job_order_item_num>ab_job_order_item_num</ab_job_order_item_num><ab_job_order_abc_num>ab_job_order_abc_num</ab_job_order_abc_num><compute_0020>h_l</compute_0020><compute_0021>h_l_percent</compute_0021><skid_cnt>skid_cnt</skid_cnt><compute_0023>skid_wt</compute_0023><compute_0024>scrap_wt</compute_0024></d_office_recap_job_detail_row></d_office_recap_job_detail>"))
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+ 

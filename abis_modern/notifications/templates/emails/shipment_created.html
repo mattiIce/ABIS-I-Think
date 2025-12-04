@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #8b5cf6;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+        .content {
+            background-color: #f9fafb;
+            padding: 30px;
+            border: 1px solid #e5e7eb;
+        }
+        .info-box {
+            background-color: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #8b5cf6;
+            border-radius: 4px;
+        }
+        .info-row {
+            margin: 10px 0;
+        }
+        .label {
+            font-weight: bold;
+            color: #6b7280;
+        }
+        .value {
+            color: #111827;
+        }
+        .footer {
+            background-color: #f3f4f6;
+            padding: 15px;
+            text-align: center;
+            font-size: 12px;
+            color: #6b7280;
+            border-radius: 0 0 8px 8px;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            background-color: #ddd6fe;
+            color: #5b21b6;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📦 Shipment Created</h1>
+    </div>
+    <div class="content">
+        <p>A new shipment has been created and is ready for processing.</p>
+        
+        <div class="info-box">
+            <div class="info-row">
+                <span class="label">Shipment ID:</span>
+                <span class="value">{{ shipment_id }}</span>
+            </div>
+            <div class="info-row">
+                <span class="label">BOL Number:</span>
+                <span class="value">{{ bol_number }}</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Customer:</span>
+                <span class="value">{{ customer_name }}</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Carrier:</span>
+                <span class="value">{{ carrier }}</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Ship Date:</span>
+                <span class="value">{{ ship_date }}</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Status:</span>
+                <span class="status">{{ status }}</span>
+            </div>
+        </div>
+        
+        <p>Please ensure all items are prepared and ready for pickup.</p>
+    </div>
+    <div class="footer">
+        <p>This is an automated notification from the ABIS Production Management System.</p>
+        <p>If you wish to change your notification preferences, please log in to the system.</p>
+    </div>
+</body>
+</html>

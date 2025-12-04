@@ -1,0 +1,31 @@
+$PBExportHeader$f_get_customer_name.srf
+global type f_get_customer_name from function_object
+end type
+
+forward prototypes
+global function string f_get_customer_name (long al_customer_id, n_tr_abc01 atr)
+end prototypes
+
+global function string f_get_customer_name (long al_customer_id, n_tr_abc01 atr);//Alex Gerlants. 01/04/2019. Begin
+/*
+Function:	f_get_customer_name
+Returns:		string <== customer.customer_short_name
+Arguments:	value	long			al_customer_id
+				value	n_tr_abc01	atr
+*/
+String	ls_customer_short_name
+
+select	customer_short_name
+into		:ls_customer_short_name
+from		customer
+where		customer_id = :al_customer_id
+using		atr;
+
+If atr.sqlcode <> 0 Then
+	ls_customer_short_name = ""
+End If
+
+Return ls_customer_short_name
+//Alex Gerlants. 01/04/2019. End
+end function
+

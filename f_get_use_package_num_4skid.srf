@@ -1,0 +1,69 @@
+$PBExportHeader$f_get_use_package_num_4skid.srf
+global type f_get_use_package_num_4skid from function_object
+end type
+
+forward prototypes
+global function integer f_get_use_package_num_4skid (long al_sheet_skid_num, n_tr_abc01 atr, string as_customer_short_name, ref boolean ab_use_package_num)
+end prototypes
+
+global function integer f_get_use_package_num_4skid (long al_sheet_skid_num, n_tr_abc01 atr, string as_customer_short_name, ref boolean ab_use_package_num);//Alex Gerlants. 06/15/2018. Arconic_Package_Num. Begin
+/*
+Function:	f_get_use_package_num_4skid
+Returns:		integer	 1 if OK
+							-1 if DB error
+Arguments:	value			long			al_sheet_skid_num
+				value			n_tr_abc01	atr
+				Reference	string		as_customer_short_name
+				reference	boolean		ab_use_package_num
+*/
+Integer	li_rtn = 0
+String	ls_use_package_num
+
+select   distinct upper(lower(nvl(customer.use_package_num, 'n'))), customer.customer_short_name
+into		:ls_use_package_num, :as_customer_short_name
+from     sheet_skid         
+		   join ab_job on ab_job.ab_job_num = sheet_skid.ab_job_num
+		   join customer_order on customer_order.order_abc_num = ab_job.order_abc_num
+		   join customer on customer.customer_id = customer_order.orig_customer_id
+where    sheet_skid.sheet_skid_num = :al_sheet_skid_num
+using		atr;
+
+If atr.sqlcode < 0 Then //DB error
+	ls_use_package_num = "N"
+	
+	MessageBox("DB Error", 	"Database error in f_get_use_package_num_4skid while trying to retrieve use_package_num " + &
+									"from table customer for skid " + String(al_sheet_skid_num) + &
+									"~n~r~n~rError:~n~r" + atr.sqlerrtext + &
+									"~n~r~n~rAssuming use_package_num = 'N', and continuing processing...", StopSign!)
+Else //OK
+	If IsNull(ls_use_package_num) Or ls_use_package_num = "" Then ls_use_package_num = "N"
+End If
+
+//If atr.sqlcode = 0 Then //OK
+//	If atr.sqlnrows > 0 Then
+//		If IsNull(ls_use_package_num) Then ls_use_package_num = "N"
+//	Else //atr.sqlnrows <= 0
+//		ls_use_package_num = "N"
+//	End If
+//Else //DB error
+//	//li_rtn = -1
+//	ls_use_package_num = "N"
+//	
+//	MessageBox("DB Error", 	"Database error in f_get_use_package_num_4skid while trying to retrieve use_package_num " + &
+//									"from table customer for skid " + String(al_sheet_skid_num) + &
+//									"~n~r~n~rError:~n~r" + atr.sqlerrtext + &
+//									"~n~r~n~rAssuming use_package_num = 'N', and continuing processing...", StopSign!)
+//End If
+
+If ls_use_package_num = "Y" Then 
+	ab_use_package_num = True
+Else
+	ab_use_package_num = False
+End If
+
+li_rtn = atr.sqlcode
+
+Return li_rtn
+//Alex Gerlants. 06/15/2018. Arconic_Package_Num. End
+end function
+

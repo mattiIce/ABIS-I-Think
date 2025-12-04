@@ -1,0 +1,53 @@
+$PBExportHeader$f_package_num_4packing_list.srf
+global type f_package_num_4packing_list from function_object
+end type
+
+forward prototypes
+global function integer f_package_num_4packing_list (ref datawindow adw_package_num_4packing_list, long al_packing_list, ref string as_skid_num_without_package_num)
+end prototypes
+
+global function integer f_package_num_4packing_list (ref datawindow adw_package_num_4packing_list, long al_packing_list, ref string as_skid_num_without_package_num);//Alex Gerlants. 06/15/2018. Arconic_Package_Num. Begin
+/*
+Function:	f_package_num_4packing_list
+Returns:		integer
+Arguments	value			long		al_packing_list
+				reference	string	as_skid_num_without_package_num
+*/
+Integer		li_rtn = 1
+Boolean		lb_use_package_num
+Long			ll_rows, ll_row, ll_sheet_skid_num_temp, ll_package_num_temp
+
+li_rtn = f_get_use_package_num_4shipment(al_packing_list, sqlca, lb_use_package_num)
+
+If lb_use_package_num Then
+	ll_rows = adw_package_num_4packing_list.Retrieve(al_packing_list)
+	
+	If ll_rows < 0 Then //DB error
+		li_rtn = -1
+		
+		MessageBox("DB Error", "Database error occurred in f_package_num_4packing_list while trying to retrieve " + &
+						"Customer Package Numbers for Packing List " + String(al_packing_list) + &
+						"~n~r~n~rError~n~r" + sqlca.sqlerrtext, StopSign!)
+	End If
+	
+	If li_rtn = 1 Then
+		For ll_row = 1 To ll_rows
+			ll_sheet_skid_num_temp = adw_package_num_4packing_list.Object.sheet_skid_num[ll_row]
+			ll_package_num_temp = adw_package_num_4packing_list.Object.package_num[ll_row]
+			
+			If ll_package_num_temp = 0 Then
+				as_skid_num_without_package_num = as_skid_num_without_package_num + String(ll_sheet_skid_num_temp) + ", "
+			End If
+		Next
+		
+		If as_skid_num_without_package_num <> "" Then
+			//Remove the last comma
+			as_skid_num_without_package_num = Left(as_skid_num_without_package_num, Len(as_skid_num_without_package_num) - 2)
+		End If
+	End If
+End If //If lb_use_package_num Then
+
+Return li_rtn
+//Alex Gerlants. 06/15/2018. Arconic_Package_Num. End
+end function
+

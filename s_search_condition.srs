@@ -1,0 +1,10 @@
+$PBExportHeader$s_search_condition.srs
+$PBExportComments$contains column name, opertaor, value information in search engine
+global type s_search_condition from structure
+	string		db_name
+	string		db_field
+	string		operator
+	string		value
+	string		col_type
+end type
+

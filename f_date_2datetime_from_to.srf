@@ -1,0 +1,23 @@
+$PBExportHeader$f_date_2datetime_from_to.srf
+global type f_date_2datetime_from_to from function_object
+end type
+
+forward prototypes
+global subroutine f_date_2datetime_from_to (date ad_from, date ad_to, ref datetime adt_from, ref datetime adt_to)
+end prototypes
+
+global subroutine f_date_2datetime_from_to (date ad_from, date ad_to, ref datetime adt_from, ref datetime adt_to);//Alex Gerlants. 08/17/2016. Begin
+/*
+Function:	f_date_2datetime_from_to
+				Convert ad_from and ad_to from data type Date to data type DateTime
+Returns:		none
+Arguments:	value			date		ad_from
+				value			date		ad_to
+				reference	datetime	adt_from
+				reference	datetime	adt_to
+*/
+adt_from = DateTime(ad_from, Time("00:00:00"))
+adt_to = DateTime(ad_to, Time("23:59:59"))
+//Alex Gerlants. 08/17/2016. End
+end subroutine
+

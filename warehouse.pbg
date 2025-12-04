@@ -1,0 +1,12 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "warehouse.pbl" "";
+@end;
+@begin Objects
+ "m_warehouse_main.srm" "warehouse.pbl";
+ "w_wh_business.srw" "warehouse.pbl";
+ "w_wh_detail.srw" "warehouse.pbl";
+ "d_wh_item.srd" "warehouse.pbl";
+ "d_wh_entry_skid_list_input.srd" "warehouse.pbl";
+ "d_wh_entry_skid_list_display.srd" "warehouse.pbl";
+@end;

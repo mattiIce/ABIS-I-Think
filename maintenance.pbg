@@ -1,0 +1,45 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "maintenance.pbl" "";
+@end;
+@begin Objects
+ "w_maint_pm_management.srw" "maintenance.pbl";
+ "d_parts_internal_id.srd" "maintenance.pbl";
+ "w_maint_main_backup.srw" "maintenance.pbl";
+ "d_report_parts_details.srd" "maintenance.pbl";
+ "w_maint_logs_details.srw" "maintenance.pbl";
+ "d_maint_pm_format_1_new.srd" "maintenance.pbl";
+ "d_maint_pm_format_2_new.srd" "maintenance.pbl";
+ "d_maint_pm_format_3_new.srd" "maintenance.pbl";
+ "d_maint_itemdevice.srd" "maintenance.pbl";
+ "d_parts_details.srd" "maintenance.pbl";
+ "d_part_maint_log.srd" "maintenance.pbl";
+ "d_parts_naming_list.srd" "maintenance.pbl";
+ "w_maint_parts_modify.srw" "maintenance.pbl";
+ "d_maint_groupdept.srd" "maintenance.pbl";
+ "d_report_pm_list.srd" "maintenance.pbl";
+ "d_maint_pm_new.srd" "maintenance.pbl";
+ "d_parts_modify.srd" "maintenance.pbl";
+ "d_maint_sysequip.srd" "maintenance.pbl";
+ "d_parts_category.srd" "maintenance.pbl";
+ "d_parts_new.srd" "maintenance.pbl";
+ "w_maint_parts_new.srw" "maintenance.pbl";
+ "w_maint_pm_new.srw" "maintenance.pbl";
+ "w_maint_logs_management.srw" "maintenance.pbl";
+ "w_maint_parts_management.srw" "maintenance.pbl";
+ "d_parts_status.srd" "maintenance.pbl";
+ "w_maint_main.srw" "maintenance.pbl";
+ "w_report_maint_parts_management.srw" "maintenance.pbl";
+ "d_parts_units.srd" "maintenance.pbl";
+ "d_maint_subsysequip.srd" "maintenance.pbl";
+ "d_maint_pm_details_1.srd" "maintenance.pbl";
+ "d_report_parts_full_list.srd" "maintenance.pbl";
+ "w_maint_parts.srw" "maintenance.pbl";
+ "w_maint_logs.srw" "maintenance.pbl";
+ "w_maint_pm.srw" "maintenance.pbl";
+ "d_pm_list.srd" "maintenance.pbl";
+ "d_maint_pm_format_1.srd" "maintenance.pbl";
+ "d_maint_pm_format_2.srd" "maintenance.pbl";
+ "d_maint_pm_format_3.srd" "maintenance.pbl";
+ "d_parts_vendor_part_num.srd" "maintenance.pbl";
+@end;

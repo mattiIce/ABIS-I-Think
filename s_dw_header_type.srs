@@ -1,0 +1,7 @@
+$PBExportHeader$s_dw_header_type.srs
+$PBExportComments$return dw's header and type
+global type s_dw_header_type from structure
+	string		col_type
+	string		dw_header
+end type
+

@@ -1,0 +1,51 @@
+$PBExportHeader$f_get_cash_date_required.srf
+global type f_get_cash_date_required from function_object
+end type
+
+forward prototypes
+global function integer f_get_cash_date_required (long al_customer_id, n_tr_abc01 atr, ref boolean ab_cash_date_required)
+end prototypes
+
+global function integer f_get_cash_date_required (long al_customer_id, n_tr_abc01 atr, ref boolean ab_cash_date_required);//Alex Gerlants. 08/21/2018. Add Cash Date 2BOL. Begin
+/*
+Function:	f_get_cash_date_required
+Returns:		integer	 1 if OK
+							-1 if DB error
+Arguments:	value			long			al_customer_id
+				value			n_tr_abc01	atr
+				reference	boolean		ab_cash_date_required
+*/
+Integer	li_rtn = 1
+String	ls_cash_date_required
+
+select   upper(nvl(customer.cash_date_required, 'N'))
+into		:ls_cash_date_required
+from     customer
+where    customer.customer_id = :al_customer_id
+using		atr;
+
+If atr.sqlcode = 0 Then //OK
+	If atr.sqlnrows > 0 Then
+		If IsNull(ls_cash_date_required) Then ls_cash_date_required = "N"
+	Else //atr.sqlnrows <= 0
+		ls_cash_date_required = "N"
+	End If
+Else //DB error
+	li_rtn = -1
+	ls_cash_date_required = "N"
+	
+	MessageBox("DB Error", "Database error in f_get_cash_date_required while trying to retrieve cash_date_required from table customer" + &
+									"~n~r~n~rError:~n~r" + atr.sqlerrtext + &
+									"~n~r~n~rAssuming cash_date_required = 'N', and continuing processing...", StopSign!)
+End If
+
+If ls_cash_date_required = "Y" Then 
+	ab_cash_date_required = True
+Else
+	ab_cash_date_required = False
+End If
+
+Return li_rtn
+//Alex Gerlants. 08/21/2018. Add Cash Date 2BOL. End
+end function
+

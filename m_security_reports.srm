@@ -1,0 +1,137 @@
+$PBExportHeader$m_security_reports.srm
+$PBExportComments$ Security Reports Menu
+forward
+global type m_security_reports from m_pfcsecurity_master
+end type
+end forward
+
+global type m_security_reports from m_pfcsecurity_master
+end type
+global m_security_reports m_security_reports
+
+on m_security_reports.create
+m_security_reports=this
+call super::create
+end on
+
+on m_security_reports.destroy
+call super::destroy
+end on
+
+on m_new.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_open.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_saveas.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash13.create
+call super::create
+this.Visible=true
+end on
+
+on m_dash23.create
+call super::create
+this.Visible=false
+end on
+
+on m_find.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_replace.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash24.create
+call super::create
+this.Visible=false
+end on
+
+on m_updatelinks.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_object1.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_ruler.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash31.create
+call super::create
+this.Visible=false
+end on
+
+on m_first.create
+call super::create
+this.ToolBarItemVisible=true
+end on
+
+on m_nextpage.create
+call super::create
+this.ToolBarItemVisible=true
+end on
+
+on m_priorpage.create
+call super::create
+this.ToolBarItemVisible=true
+end on
+
+on m_lastpage.create
+call super::create
+this.ToolBarItemVisible=true
+end on
+
+on m_insert.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_insertfile.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_picture.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+
+on m_dash41.create
+call super::create
+this.Visible=false
+end on
+
+on m_object.create
+call super::create
+this.Visible=false
+this.Enabled=false
+end on
+

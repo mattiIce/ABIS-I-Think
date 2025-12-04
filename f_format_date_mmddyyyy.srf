@@ -1,0 +1,42 @@
+$PBExportHeader$f_format_date_mmddyyyy.srf
+global type f_format_date_mmddyyyy from function_object
+end type
+
+forward prototypes
+global function string f_format_date_mmddyyyy (string as_date, boolean ab_add_slash)
+end prototypes
+
+global function string f_format_date_mmddyyyy (string as_date, boolean ab_add_slash);//Alex Gerlants. Customer_Shipment_Rpt_All_Together. Begin
+/*
+Function:	f_format_date_mmddyyyy
+				Remove the "/" from the incoming date.
+				Date comes in as for example: "12/14/2017", and returned as "12142017".
+Retuirns:	string
+Arguments:	value	string	as_date
+				value	boolean	ab_add_slash <== 	If True,  add slash to as_date
+															If False, remove slash from as_date
+*/
+
+String	ls_date_formatted
+Integer	li_pos
+
+//as_date = "12072017" //TEST ONLY TEST ONLY TEST ONLY TEST ONLY TEST ONLY TEST ONLY TEST ONLY TEST ONLY TEST ONLY
+
+ls_date_formatted = ""
+
+If ab_add_slash Then //Add slash to as_date
+	li_pos = Pos(as_date, "/", 1)
+	
+	If li_pos > 0 Then Return ls_date_formatted
+	
+	ls_date_formatted = Left(as_date, 2) + "/" + Mid(as_date, 3, 2) + "/" + Right(as_date, 4)
+Else //Remove slash from as_date
+	If Mid(as_date, 3, 1) <> "/" Then Return ls_date_formatted
+	
+	ls_date_formatted = Left(as_date, 2) + Mid(as_date, 4, 2) + Right(as_date, 4)
+End If
+
+Return ls_date_formatted
+//Alex Gerlants. Customer_Shipment_Rpt_All_Together. End
+end function
+

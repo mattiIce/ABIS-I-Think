@@ -1,0 +1,22 @@
+$PBExportHeader$po_n_cst_comm.srx
+$PBExportComments$Proxy object of n_cst_comm
+global type po_n_cst_comm from NonVisualObject
+   private string ProxyName = "n_cst_comm"
+public:
+// public instance variables
+// events
+end type
+
+forward prototypes
+public:
+   function long SetConnect (connection theConnection)
+
+   // public scripts from n_cst_comm
+   function integer beeper1 ()
+   function integer test1 ()
+end prototypes
+
+public function long SetConnect (connection theConnection)
+   return theConnection.CreateInstanceFromProxy(this)
+end function
+

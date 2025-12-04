@@ -1,0 +1,68 @@
+$PBExportHeader$d_carrier_detail.srd
+$PBExportComments$list detail of each carrier
+release 9;
+datawindow(units=0 timer_interval=0 color=12632256 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+summary(height=3 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=557 color="536870912" )
+table(column=(type=decimal(0) update=yes updatewhereclause=yes key=yes name=carrier_id dbname="carrier.carrier_id" )
+ column=(type=char(8) update=yes updatewhereclause=yes name=scac dbname="carrier.scac" )
+ column=(type=char(60) update=yes updatewhereclause=yes name=carrier_full_name dbname="carrier.carrier_full_name" )
+ column=(type=char(36) update=yes updatewhereclause=yes name=carrier_type_code dbname="carrier.carrier_type_code" )
+ column=(type=char(60) update=yes updatewhereclause=yes name=carrier_street dbname="carrier.carrier_street" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=carrier_city dbname="carrier.carrier_city" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=carrier_state dbname="carrier.carrier_state" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=carrier_zip dbname="carrier.carrier_zip" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=carrier_country dbname="carrier.carrier_country" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=carrier_phone_number dbname="carrier.carrier_phone_number" )
+ column=(type=char(255) update=yes updatewhereclause=yes name=carrier_note dbname="carrier.carrier_note" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=carrier_duns_number dbname="carrier.carrier_duns_number" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=status dbname="carrier.status" values="Inactive	0/Active	1/" )
+ retrieve="  SELECT ~"CARRIER~".~"CARRIER_ID~",   
+         ~"CARRIER~".~"SCAC~",   
+         ~"CARRIER~".~"CARRIER_FULL_NAME~",   
+         ~"CARRIER~".~"CARRIER_TYPE_CODE~",   
+         ~"CARRIER~".~"CARRIER_STREET~",   
+         ~"CARRIER~".~"CARRIER_CITY~",   
+         ~"CARRIER~".~"CARRIER_STATE~",   
+         ~"CARRIER~".~"CARRIER_ZIP~",   
+         ~"CARRIER~".~"CARRIER_COUNTRY~",   
+         ~"CARRIER~".~"CARRIER_PHONE_NUMBER~",   
+         ~"CARRIER~".~"CARRIER_NOTE~",   
+         ~"CARRIER~".~"CARRIER_DUNS_NUMBER~",
+			~"CARRIER~".~"STATUS~"    
+    FROM ~"CARRIER~"  
+   WHERE ~"CARRIER~".~"CARRIER_ID~" = :ai_carrier_id    
+" update="CARRIER" updatewhere=1 updatekeyinplace=yes arguments=(("ai_carrier_id", number)) )
+text(band=detail alignment="1" text="Carrier Id:" border="0" color="0" x="15" y="3" height="51" width="230" html.valueishtml="0"  name=carrier_id_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="5" color="0" x="252" y="6" height="51" width="168" format="[general]" html.valueishtml="0"  name=carrier_id visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="1" text="SCAC:" border="0" color="0" x="432" y="6" height="51" width="143" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=2 alignment="0" tabsequence=10 border="5" color="0" x="589" y="6" height="51" width="176" format="[general]" html.valueishtml="0"  name=scac visible="1" edit.limit=0 edit.case=upper edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="1" text="Type Code:" border="0" color="0" x="783" y="6" height="51" width="260" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="1" text="Full Name:" border="0" color="0" x="15" y="74" height="51" width="249" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="1" text="Address:" border="0" color="0" x="15" y="147" height="51" width="194" html.valueishtml="0"  name=carrier_street_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=detail alignment="1" text="Note:" border="0" color="0" x="15" y="368" height="51" width="121" html.valueishtml="0"  name=carrier_note_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=4 alignment="0" tabsequence=20 border="5" color="0" x="1050" y="3" height="51" width="527" format="[general]" html.valueishtml="0"  name=carrier_type_code visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=3 alignment="0" tabsequence=30 border="5" color="0" x="271" y="74" height="51" width="1306" format="[general]" html.valueishtml="0"  name=carrier_full_name visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=5 alignment="0" tabsequence=40 border="5" color="0" x="230" y="144" height="51" width="1346" format="[general]" html.valueishtml="0"  name=carrier_street visible="1" edit.limit=60 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=11 alignment="0" tabsequence=110 border="5" color="0" x="150" y="362" height="118" width="1426" format="[general]" html.valueishtml="0"  name=carrier_note visible="1" edit.limit=255 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="0" text="DUNs:" border="0" color="0" x="1031" y="288" height="51" width="150" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=10 alignment="0" tabsequence=90 border="5" color="0" x="640" y="288" height="51" width="377" format="[general]" html.valueishtml="0"  name=carrier_phone_number visible="1" edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="1" text=" Phone:" border="0" color="0" x="457" y="288" height="51" width="172" html.valueishtml="0"  name=carrier_phone_number_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=9 alignment="0" tabsequence=80 border="5" color="0" x="216" y="288" height="51" width="230" format="[general]" html.valueishtml="0"  name=carrier_country visible="1" edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="1" text="Country:" border="0" color="0" x="15" y="288" height="51" width="190" html.valueishtml="0"  name=carrier_country_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=8 alignment="0" tabsequence=70 border="5" color="0" x="1203" y="218" height="48" width="373" format="[general]" html.valueishtml="0"  name=carrier_zip visible="1" edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="1" text=" Zip:" border="0" color="0" x="1097" y="218" height="51" width="95" html.valueishtml="0"  name=carrier_zip_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=7 alignment="0" tabsequence=60 border="0" color="0" x="709" y="211" height="61" width="377" format="[general]" html.valueishtml="0"  name=carrier_state visible="1" dddw.name=d_state_usa dddw.displaycolumn=state_full_name dddw.datacolumn=state_full_name dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=yes dddw.case=any dddw.imemode=0 dddw.vscrollbar=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="1" text=" State:" border="0" color="0" x="556" y="218" height="51" width="146" html.valueishtml="0"  name=carrier_state_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=6 alignment="0" tabsequence=50 border="5" color="0" x="135" y="218" height="51" width="406" format="[general]" html.valueishtml="0"  name=carrier_city visible="1" edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+text(band=detail alignment="1" text="City:" border="0" color="0" x="15" y="218" height="51" width="102" html.valueishtml="0"  name=carrier_city_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=12 alignment="0" tabsequence=100 border="5" color="0" x="1181" y="288" height="51" width="384" format="[General]" html.valueishtml="0"  name=carrier_duns_number visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1090519039" )
+column(band=detail id=13 alignment="0" tabsequence=120 border="5" color="0" x="179" y="496" height="51" width="285" format="[General]" html.valueishtml="0"  name=status visible="1" ddlb.limit=0 ddlb.allowedit=no ddlb.case=any ddlb.useasborder=yes ddlb.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="1073741824" )
+text(band=detail alignment="2" text="Status:" border="0" color="0" x="4" y="496" height="51" width="165" html.valueishtml="0"  name=t_5 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+ 

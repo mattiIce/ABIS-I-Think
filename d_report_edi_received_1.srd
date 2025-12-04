@@ -1,0 +1,48 @@
+$PBExportHeader$d_report_edi_received_1.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=458 color="536870912" )
+summary(height=61 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=61 color="536870912" )
+table(column=(type=char(50) updatewhereclause=yes name=customer_name dbname="customer_duns_xref.customer_name" )
+ column=(type=char(10) updatewhereclause=yes name=transaction_date dbname="transaction_date" )
+ column=(type=number updatewhereclause=yes name=counter dbname="compute_0003" )
+ retrieve="select 	customer_duns_xref.customer_name,
+			to_char(to_date(dbo.inbound_transaction.transaction_date,'yy-mm-dd'), 'mm/dd/yyyy') transaction_date,
+			count(*)
+from		dbo.inbound_transaction
+        	join customer_duns_xref on customer_duns_xref.customer_duns_number_string = dbo.inbound_transaction.duns_from
+where		to_date(transaction_date,'yy-mm-dd') between to_date(:as_date_from, 'yy-mm-dd') and to_date(:as_date_to,'yy-mm-dd')
+and	 	duns_from in (:as_duns_in)
+group by	customer_duns_xref.customer_name,
+			to_char(to_date(dbo.inbound_transaction.transaction_date,'yy-mm-dd'), 'mm/dd/yyyy')
+order by customer_duns_xref.customer_name,
+         to_char(to_date(dbo.inbound_transaction.transaction_date,'yy-mm-dd'), 'mm/dd/yyyy')" arguments=(("as_duns_in", string),("as_date_from", string),("as_date_to", string)) )
+group(level=1 header.height=0 trailer.height=61 by=("customer_name" ) header.color="536870912" trailer.color="536870912" )
+text(band=header alignment="1" text="File
+Count" border="6" color="33554432" x="1935" y="349" height="102" width="238" html.valueishtml="0"  name=transaction_time_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="2" text="Transaction Date" border="6" color="33554432" x="1510" y="349" height="102" width="406" html.valueishtml="0"  name=transaction_date_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="0" text="Customer" border="6" color="33554432" x="1035" y="349" height="102" width="453" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+compute(band=header alignment="1" expression="~"Run Date/Time: ~" + String( Today(), ~"mm/dd/yyyy hh:mm AM/PM~"  )"border="0" color="33554432" x="1554" y="0" height="54" width="1057" format="[GENERAL]" html.valueishtml="0"  name=compute_run_date visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="ASN Received Report" border="0" color="0" x="1020" y="80" height="106" width="1178" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-16" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="Aluminum Blanking Co. Inc." border="0" color="0" x="347" y="16" height="256" width="424" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-14" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="1" background.color="553648127" )
+bitmap(band=header filename="Abc2.jpg" x="4" y="10" height="269" width="351" border="0"  name=p_1 visible="1" )
+text(band=header alignment="2" text="" border="0" color="0" x="816" y="192" height="51" width="1591" html.valueishtml="0"  name=t_customer visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="" border="0" color="0" x="816" y="253" height="51" width="1591" html.valueishtml="0"  name=t_date_from_to visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=2 alignment="2" tabsequence=32766 border="0" color="33554432" x="1514" y="0" height="51" width="399" format="[general]" html.valueishtml="0"  name=transaction_date visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="33554432" x="1035" y="0" height="51" width="453" format="[general]" html.valueishtml="0"  name=customer_name visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="33554432" x="1935" y="0" height="51" width="238" format="###,###,##0" html.valueishtml="0"  name=counter visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=trailer.1 alignment="0" expression="~"Total for ~" +  customer_name "border="0" color="33554432" x="1035" y="4" height="51" width="666" format="[GENERAL]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+line(band=trailer.1 x1="1891" y1="0" x2="2172" y2="0"  name=l_1 visible="1" pen.style="0" pen.width="4" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=trailer.1 alignment="1" expression="sum(  counter  for group 1 )"border="0" color="33554432" x="1847" y="4" height="51" width="325" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=summary alignment="1" text="Grand Total:" border="0" color="0" x="1035" y="7" height="51" width="289" html.valueishtml="0"  name=t_4 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+line(band=summary x1="1891" y1="0" x2="2172" y2="0"  name=l_2 visible="1" pen.style="0" pen.width="4" pen.color="0"  background.mode="2" background.color="16777215" )
+line(band=summary x1="1891" y1="7" x2="2172" y2="7"  name=l_3 visible="1" pen.style="0" pen.width="4" pen.color="0"  background.mode="2" background.color="16777215" )
+compute(band=summary alignment="1" expression="sum(  counter  for all )"border="0" color="33554432" x="1847" y="7" height="51" width="325" format="###,###,##0" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+ 

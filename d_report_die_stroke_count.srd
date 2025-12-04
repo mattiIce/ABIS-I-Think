@@ -1,0 +1,64 @@
+$PBExportHeader$d_report_die_stroke_count.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=1073741824 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 110 print.margin.right = 110 print.margin.top = 96 print.margin.bottom = 96 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=461 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=67 color="536870912" )
+detail(height=67 color="536870912" )
+table(column=(type=char(74) updatewhereclause=yes name=die_name dbname="die_name" )
+ column=(type=number updatewhereclause=yes name=num_of_strokes dbname="num_of_strokes" )
+ column=(type=number updatewhereclause=yes name=die_id dbname="compute_0003" )
+ retrieve="select   '                                                                          ' die_name,
+       sum (
+               (
+                  nvl(
+                        (
+                          select   sum(nvl(prod_item_pieces, 0))
+                          from     production_sheet_item
+                          where    ab_job_num = ab_job.ab_job_num
+                        )
+                      , 0)    
+               )
+                  +
+               (
+                  nvl(
+                        (
+                          select   sum(nvl(skid_pieces, 0))
+                          from     scraped_sheet_skid
+                          where    ab_job_num = ab_job.ab_job_num
+                        )
+                      , 0)    
+               ) 
+                  +
+               (
+                  nvl(
+                        (  select   sum(nvl(scrap_net_wt, 0))
+                           from     scrap_skid 
+                                    join scrap_type_desc on scrap_type_desc.scrap_type = scrap_skid.scrap_type
+                                    where    scrap_ab_job_num = ab_job.ab_job_num 
+                           and      scrap_type_desc.scrap_type in (1, 2, 3, 5, 6, 8)
+                        )
+                      , 0)
+               )
+             ) num_of_strokes,
+			dbo.f_get_die_id(ab_job.ab_job_num)
+from     ab_job
+         join order_item on order_item.order_abc_num = ab_job.order_abc_num and order_item.order_item_num = ab_job.order_item_num
+group by dbo.f_get_die_id(ab_job.ab_job_num)" )
+text(band=header alignment="2" text="Die Stroke Count Report" border="0" color="33554432" x="958" y="64" height="90" width="1203" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-16" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="" border="0" color="0" x="958" y="166" height="51" width="1203" html.valueishtml="0"  name=date_from_to_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="2" text="" border="0" color="0" x="351" y="234" height="51" width="2417" html.valueishtml="0"  name=die_name_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+text(band=header alignment="0" text="Die Name || Tool Number || Part Name" border="6" color="33554432" x="614" y="326" height="128" width="1788" html.valueishtml="0"  name=die_id_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+text(band=header alignment="1" text="Number
+Of Strokes" border="6" color="33554432" x="2428" y="326" height="128" width="322" html.valueishtml="0"  name=num_of_strokes_t visible="1"  font.face="Arial" font.height="-10" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="67108864" )
+compute(band=header alignment="1" expression="~"Run Date/Time: ~" + String( Today(), ~"mm/dd/yyyy hh:mm~"  )"border="0" color="33554432" x="1093" y="3" height="54" width="1657" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+rectangle(band=detail x="611" y="0" height="67" width="2150"  name=r_1 visible="1" brush.hatch="6" brush.color="134217738~tif ( mod(getrow(),2) = 0, RGB(255,127, 80), RGB(205, 198, 115) )" pen.style="0" pen.width="4" pen.color="16777215"  background.mode="2" background.color="8421504" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="2428" y="0" height="67" width="322" format="[general]" html.valueishtml="0"  name=num_of_strokes visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="614" y="0" height="67" width="1788" format="[general]" html.valueishtml="0"  name=die_name visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=no edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=footer alignment="2" expression="~"Page ~" + String(page()) + ~" of ~" + String(pageCount())"border="0" color="33554432" x="1335" y="6" height="51" width="446" format="[GENERAL]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+ 

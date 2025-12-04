@@ -1,0 +1,34 @@
+$PBExportHeader$f_coil_cert_label_req_4customer.srf
+global type f_coil_cert_label_req_4customer from function_object
+end type
+
+forward prototypes
+global function boolean f_coil_cert_label_req_4customer (long al_customer_id, n_tr_abc01 atr)
+end prototypes
+
+global function boolean f_coil_cert_label_req_4customer (long al_customer_id, n_tr_abc01 atr);//Alex Gerlants. 03/25/2019. Print cert label. Begin
+/*
+Function:	f_coil_cert_label_req_4customer
+Returns:		integer
+Arguments:	value			long			al_customer_id
+				value			n_tr_abc01	atr
+*/
+
+Boolean		lb_coil_cert_label_req = False
+Long			ll_rows, ll_row
+String		ls_coil_cert_label_req
+
+select	upper(nvl(coil_cert_label_req, 'N'))
+into		:ls_coil_cert_label_req
+from		customer
+where		customer_id = :al_customer_id
+using		atr;
+
+If ls_coil_cert_label_req = "Y" Then
+	lb_coil_cert_label_req = True
+End If
+
+Return lb_coil_cert_label_req
+//Alex Gerlants. 03/25/2019. Print cert label. End
+end function
+

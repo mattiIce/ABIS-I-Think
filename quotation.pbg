@@ -1,0 +1,17 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "quotation.pbl" "";
+@end;
+@begin Objects
+ "d_report_circpro_coil.srd" "quotation.pbl";
+ "d_circpro_plate.srd" "quotation.pbl";
+ "d_circpro_ave_coil.srd" "quotation.pbl";
+ "d_report_sheetpro.srd" "quotation.pbl";
+ "d_circpro_coil.srd" "quotation.pbl";
+ "d_circpro_skid.srd" "quotation.pbl";
+ "d_circpro_process.srd" "quotation.pbl";
+ "d_quote_datastore.srd" "quotation.pbl";
+ "w_quotation_new.srw" "quotation.pbl";
+ "w_circlepro.srw" "quotation.pbl";
+ "d_report_circpro2.srd" "quotation.pbl";
+@end;

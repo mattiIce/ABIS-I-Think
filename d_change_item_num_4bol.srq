@@ -1,0 +1,12 @@
+$PBExportHeader$d_change_item_num_4bol.srq
+select	order_item.enduser_part_num,
+			sheet_packing_item.sh_packing_item,   
+			sheet_packing_item.sheet_skid_num
+from		sheet_packing_item   
+			join sheet_skid on sheet_packing_item.sheet_skid_num = sheet_skid.sheet_skid_num
+			join ab_job on ab_job.ab_job_num = sheet_skid.ab_job_num
+			join customer_order on ab_job.order_abc_num = customer_order.order_abc_num 
+			join order_item on customer_order.order_abc_num = order_item.order_abc_num and order_item.order_item_num = ab_job.order_item_num
+where		sheet_packing_item.packing_list = :al_packing_list
+order by	order_item.enduser_part_num desc,
+         sheet_packing_item.sheet_skid_num ARG(NAME = "al_packing_list" TYPE = number) 

@@ -1,0 +1,111 @@
+$PBExportHeader$f_assign_package_num.srf
+global type f_assign_package_num from function_object
+end type
+
+forward prototypes
+global function integer f_assign_package_num (long al_ab_job_num, long al_sheet_skid_num, ref n_tr_abc01 atr)
+end prototypes
+
+global function integer f_assign_package_num (long al_ab_job_num, long al_sheet_skid_num, ref n_tr_abc01 atr);//Alex Gerlants. 06/15/2018. Arconic_Package_Num. Begin
+/*
+Function:	f_assign_package_num
+Returns:		integer	 1 if OK
+							-1 if DB error
+Arguments:	value			long			al_ab_job_num							
+				value			long			al_sheet_skid_num
+				reference	n_tr_abc01	atr
+				
+This function assumeas that this skid is for a customer with customer.use_package_num = 'y'				
+*/
+
+Integer	li_rtn = 0, li_count
+Long		ll_package_num, ll_max_value, ll_last_number, ll_value_diff
+
+//Check if this sheet_skid_num has already been assign a package_num
+//If yes, just exit with li_rtn = 0
+select	count(*)
+into		:li_count
+from		dbo.sheet_skid_package
+where		sheet_skid_num = :al_sheet_skid_num
+using		atr;
+
+If atr.sqlcode = 0 Then //OK
+	If li_count > 0 Then Return 0 //This sheet_skid_num has already been assign a package_num
+Else
+	MessageBox("DB Error", "Database error occurred in f_assign_package_num while trying to retrieve " + &
+									"from table dbo.sheet_skid_package." + &
+									"~n~r~n~rError:~n~r" + atr.sqlerrtext, &
+									StopSign!)
+									
+	Return -1
+End If
+	
+////Get dbo.package_num_seq_50 current value, max value, and difference between current value and max value
+////Warn the user if difference between current value and max value <= 100
+//select	max_value, last_number, max_value - min_value
+//into		:ll_max_value, :ll_last_number, :ll_value_diff
+//from		all_sequences
+//where		lower(sequence_owner) = 'dbo'   
+//and		lower(sequence_name) = 'package_num_seq_50'
+//using		atr;
+//
+//If sqlca.sqlcode = 0 Then
+//	Choose Case ll_value_diff
+//		Case Is <= 0 //Cannot generarate anymore package numbers
+//			MessageBox("ERROR GENERATING NEXT CUSTOMER PACKAGE NUMBER", &
+//					"Job " + String(al_ab_job_num) + ", " + "Skid: " + String(al_sheet_skid_num) + "~n~r~n~r" + &
+//					"Last Package Number generated:~t" + String(ll_last_number) + "~n~r" + &
+//					"Maximum value of Package Number:~t" + String(ll_max_value) + "~n~r~n~r" + &
+//					"THERE ARE NO MORE PACKAGE NUMBERS AVAILABLE!" + "~n~r" + &
+//					"CANNOT SAVE THIS SKID!" + "~n~r~n~r" + &
+//					"Please contact customer to obtain a new block of Customer Package Numbers", &
+//					StopSign!)
+//			Return -1
+//		Case Is <= 100 //Warn user
+//			MessageBox("Customer Package Number Warning", &
+//					"Job " + String(al_ab_job_num) + ", " + "Skid: " + String(al_sheet_skid_num) + "~n~r~n~r" + &
+//					"This block of Package Numbers is getting close to the end" + "~n~r" + &
+//					"Last Package Number generated:~t" + String(ll_last_number) + "~n~r" + &
+//					"Maximum value of Package Numbers:~t" + String(ll_max_value) + "~n~r" + &
+//					"There are only " + String(ll_value_diff) + " Package Numbers left~n~r~n~r" + &
+//					"Please contact customer to obtain a new block of Customer Package Numbers")
+//	End Choose
+//Else //DB error
+//	MessageBox("DB Error", "Database error occurred in f_assign_package_num while trying to get " + &
+//									"attributes of package_num_seq_50." + &
+//									"~n~r~n~rError:~n~r" + atr.sqlerrtext, &
+//									StopSign!)
+//	Return -1
+//End If
+
+li_rtn = f_get_package_num_min_max(atr)
+
+If li_rtn = -1 Then //Error message is in f_get_package_num_min_max()
+	Return li_rtn
+End If
+		
+		
+li_rtn = f_get_next_package_num(atr, ll_package_num) //li_rtn = sqlca.sqlcode in f_get_next_package_num()
+
+If li_rtn = 0 Then //OK above
+	//Insert into table sheet_skid_package
+	insert into dbo.sheet_skid_package values(:al_sheet_skid_num, :ll_package_num) using atr;
+	
+	If atr.sqlcode <> 0 Then
+		//li_rtn = -1
+		
+		MessageBox("DB Error", "Database error occurred in f_assign_package_num while trying to insert row " + &
+										"into table sheet_skid_package:" + &
+										"~n~rsheet_skid_num = " + String(al_sheet_skid_num) + &
+										"~n~rpackage_num    = " + String(ll_package_num) +  + &
+										"~n~r~n~rError:~n~r" + atr.sqlerrtext, &
+										StopSign!)
+	End If
+End If
+
+li_rtn = atr.sqlcode
+
+Return li_rtn
+//Alex Gerlants. 06/15/2018. Arconic_Package_Num. End
+end function
+

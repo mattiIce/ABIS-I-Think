@@ -1,0 +1,8 @@
+$PBExportHeader$s_shipping_report.srs
+$PBExportComments$contains data for shipment report
+global type s_shipping_report from structure
+	long		shipment_id
+	long		customer_id
+	long		report_type_id
+end type
+

@@ -1,0 +1,61 @@
+$PBExportHeader$d_report_shipment_backup.srd
+release 9;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 94 print.margin.bottom = 94 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=381 color="536870912" )
+summary(height=131 color="536870912" )
+footer(height=54 color="536870912" )
+detail(height=77 color="536870912" )
+table(column=(type=decimal(0) updatewhereclause=yes name=packing_list dbname="shipment.packing_list" )
+ column=(type=decimal(0) updatewhereclause=yes name=bill_of_lading dbname="shipment.bill_of_lading" )
+ column=(type=decimal(0) updatewhereclause=yes name=des_sh_cust_id dbname="shipment.des_sh_cust_id" )
+ column=(type=datetime updatewhereclause=yes name=shipment_actualed_date_time dbname="shipment.shipment_actualed_date_time" )
+ column=(type=decimal(0) updatewhereclause=yes name=customer_id dbname="shipment.customer_id" )
+ column=(type=decimal(0) updatewhereclause=yes name=shipment_enduser_id dbname="shipment.shipment_enduser_id" )
+ column=(type=decimal(5) updatewhereclause=yes name=compute_0007 dbname="compute_0007" )
+ column=(type=decimal(5) updatewhereclause=yes name=compute_0008 dbname="compute_0008" )
+ retrieve="SELECT     ~"SHIPMENT~".~"PACKING_LIST~" ,
+           ~"SHIPMENT~".~"BILL_OF_LADING~" ,
+           ~"SHIPMENT~".~"DES_SH_CUST_ID~" ,
+           ~"SHIPMENT~".~"SHIPMENT_ACTUALED_DATE_TIME~" ,
+           ~"SHIPMENT~".~"CUSTOMER_ID~" ,
+           ~"SHIPMENT~".~"SHIPMENT_ENDUSER_ID~",
+            dbo.f_get_shipment_netw_all(shipment.packing_list),
+            dbo.f_get_shipment_grossw_all(shipment.packing_list)
+    
+FROM ~"SHIPMENT~"      
+WHERE ( ~"SHIPMENT~".~"CUSTOMER_ID~" = :al_cust_id ) and 
+      ( ~"SHIPMENT~".~"SHIPMENT_STATUS~"= 0) and
+      ( ~"SHIPMENT~".~"SHIPMENT_ACTUALED_DATE_TIME~" >= :ad_from) and
+      ( ~"SHIPMENT~".~"SHIPMENT_ACTUALED_DATE_TIME~" <= :ad_to) " arguments=(("al_cust_id", number),("ad_from", date),("ad_to", date)) )
+bitmap(band=header filename="abc2.jpg" x="51" y="6" height="294" width="384" border="0"  name=p_1 visible="1" )
+text(band=header alignment="2" text="Customer Shipment Report " border="0" color="0" x="947" y="26" height="93" width="1317" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-14" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.underline="1" background.mode="1" background.color="553648127" )
+compute(band=header alignment="0" expression="today()"border="0" color="0" x="3054" y="26" height="144" width="435" format="[general]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="" border="0" color="0" x="1057" y="173" height="77" width="1093" html.valueishtml="0"  name=customer_t visible="1"  font.face="Arial" font.height="-12" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" font.italic="1" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="" border="0" color="0" x="2754" y="179" height="58" width="651" html.valueishtml="0"  name=date_t visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="2" text="Packing List" border="0" color="0" x="0" y="317" height="48" width="289" html.valueishtml="0"  name=packing_list_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="BOL" border="0" color="0" x="399" y="317" height="48" width="121" html.valueishtml="0"  name=bill_of_lading_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Destination" border="0" color="0" x="677" y="317" height="48" width="315" html.valueishtml="0"  name=des_sh_cust_id_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Date Shipped" border="0" color="0" x="1112" y="317" height="48" width="373" html.valueishtml="0"  name=shipment_actualed_date_time_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Customer" border="0" color="0" x="1660" y="317" height="48" width="271" html.valueishtml="0"  name=customer_id_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text=" End User" border="0" color="0" x="2198" y="317" height="48" width="267" html.valueishtml="0"  name=shipment_enduser_id_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Net Weight" border="0" color="0" x="2662" y="317" height="48" width="278" html.valueishtml="0"  name=compute_0017_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=header alignment="2" text="Gross Weight" border="0" color="0" x="3039" y="317" height="48" width="329" html.valueishtml="0"  name=compute_0018_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=1 alignment="1" tabsequence=32766 border="0" color="0" x="4" y="3" height="58" width="249" format="[general]" html.valueishtml="0"  name=packing_list visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="267" y="3" height="58" width="249" format="[general]" html.valueishtml="0"  name=bill_of_lading visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=3 alignment="1" tabsequence=32766 border="0" color="0" x="527" y="3" height="58" width="552" format="[general]" html.valueishtml="0"  name=des_sh_cust_id visible="1" dddw.name=d_dddw_id_short dddw.displaycolumn=customer_short_name dddw.datacolumn=customer_id dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any dddw.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="1090" y="3" height="58" width="464" format="[shortdate] [time]" html.valueishtml="0"  name=shipment_actualed_date_time visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="0" x="1565" y="3" height="58" width="501" format="[general]" html.valueishtml="0"  name=customer_id visible="1" dddw.name=d_dddw_id_short dddw.displaycolumn=customer_short_name dddw.datacolumn=customer_id dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any dddw.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=6 alignment="1" tabsequence=32766 border="0" color="0" x="2077" y="3" height="58" width="578" format="[general]" html.valueishtml="0"  name=shipment_enduser_id visible="1" dddw.name=d_dddw_id_short dddw.displaycolumn=customer_short_name dddw.datacolumn=customer_id dddw.percentwidth=100 dddw.lines=0 dddw.limit=0 dddw.allowedit=no dddw.useasborder=no dddw.case=any dddw.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=7 alignment="2" tabsequence=32766 border="0" color="0" x="2662" y="3" height="58" width="267" format="[general]" html.valueishtml="0"  name=compute_0007 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=8 alignment="2" tabsequence=32766 border="0" color="0" x="3039" y="3" height="58" width="304" format="[general]" html.valueishtml="0"  name=compute_0008 visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="2" expression="sum(compute_0007 for all)"border="0" color="0" x="2662" y="73" height="48" width="315" format="[general]" html.valueishtml="0"  name=compute_2 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=summary alignment="2" expression="sum(compute_0008 for all)"border="0" color="0" x="3039" y="73" height="48" width="362" format="[general]" html.valueishtml="0"  name=compute_3 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=summary alignment="0" text="Total Net(LB):" border="0" color="0" x="2662" y="12" height="48" width="373" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+text(band=summary alignment="0" text="Total Gross(LB):" border="0" color="0" x="3039" y="12" height="48" width="399" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+compute(band=footer alignment="0" expression="'Page ' + page() + ' of ' + pageCount()"border="0" color="0" x="1536" y="3" height="67" width="837" format="[general]" html.valueishtml="0"  name=compute_4 visible="1"  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+ 

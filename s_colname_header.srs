@@ -1,0 +1,8 @@
+$PBExportHeader$s_colname_header.srs
+$PBExportComments$match colname and header and type
+global type s_colname_header from structure
+	string		col_name
+	string		dw_header
+	string		col_type
+end type
+

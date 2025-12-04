@@ -1,0 +1,28 @@
+$PBExportHeader$d_report_sketch_profiler_backup.srd
+$PBExportComments$print out sketch in profiler
+release 9;
+datawindow(units=0 timer_interval=0 color=1090519039 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 2 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no ole.client.class="DataWindow" ole.client.name="Untitled" )
+header(height=2394 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=13 color="536870912"  height.autosize=yes)
+table(column=(type=char(16) updatewhereclause=yes name=sketch_sketch_name dbname="sketch.sketch_name" )
+ column=(type=char(1024) updatewhereclause=yes name=sketch_notes dbname="sketch.sketch_notes" )
+ column=(type=decimal(0) updatewhereclause=yes name=sketch_status dbname="sketch.sketch_status" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"sketch~" ) COLUMN(NAME=~"sketch.sketch_name~") COLUMN(NAME=~"sketch.sketch_notes~") COLUMN(NAME=~"sketch.sketch_status~")WHERE(    EXP1 =~"~~~"SKETCH~~~".~~~"SKETCH_ID~~~"~"   OP =~"=~"    EXP2 =~":al_id~" ) ) ARG(NAME = ~"al_id~" TYPE = number) " arguments=(("al_id", number)) )
+bitmap(band=header filename="sketch.bmp" x="274" y="544" height="1667" width="2926" border="2"  name=p_1 visible="1" )
+line(band=header x1="362" y1="90" x2="3101" y2="90"  name=l_1 visible="1" pen.style="0" pen.width="4" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=header x1="362" y1="205" x2="3101" y2="205"  name=l_2 visible="1" pen.style="0" pen.width="4" pen.color="0"  background.mode="1" background.color="553648127" )
+line(band=header x1="362" y1="320" x2="3101" y2="320"  name=l_3 visible="1" pen.style="0" pen.width="4" pen.color="0"  background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Sketch # " border="0" color="0" x="91" y="26" height="58" width="263" html.valueishtml="0"  name=t_1 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=header id=1 alignment="0" tabsequence=32766 border="0" color="0" x="358" y="26" height="58" width="713" format="[general]" html.valueishtml="0"  name=sketch_sketch_name visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Notes" border="0" color="0" x="91" y="141" height="58" width="172" html.valueishtml="0"  name=t_2 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=header id=2 alignment="0" tabsequence=32766 border="0" color="0" x="362" y="144" height="54" width="2809" format="[general]" html.valueishtml="0"  name=sketch_notes visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+text(band=header alignment="0" text="Status" border="0" color="0" x="91" y="256" height="58" width="190" html.valueishtml="0"  name=t_3 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=header alignment="0" expression="if(  sketch_status = 0,~"Obsolete~", ~"In Use~" )"border="0" color="0" x="358" y="259" height="54" width="355" format="[general]" html.valueishtml="0"  name=status visible="1"  font.face="Arial" font.height="-9" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+ 

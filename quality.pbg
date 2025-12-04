@@ -1,0 +1,42 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "quality.pbl" "";
+@end;
+@begin Objects
+ "d_recovery_customer_list.srd" "quality.pbl";
+ "d_recovery_product_type_worksheet.srd" "quality.pbl";
+ "w_recovery.srw" "quality.pbl";
+ "w_customer_recovery_report_setup.srw" "quality.pbl";
+ "d_report_recovery_yearlysummary.srd" "quality.pbl";
+ "d_recovery_job_coil.srd" "quality.pbl";
+ "w_recovery_delete.srw" "quality.pbl";
+ "w_recovery_backup.srw" "quality.pbl";
+ "d_recovery_info_main.srd" "quality.pbl";
+ "w_recovery_selection.srw" "quality.pbl";
+ "d_recovery_customer_defect_list.srd" "quality.pbl";
+ "d_recovery_info_main_coil_details.srd" "quality.pbl";
+ "d_update_coil_job_defects.srd" "quality.pbl";
+ "d_product_type_list.srd" "quality.pbl";
+ "d_existing_coil_job_defects_office.srd" "quality.pbl";
+ "d_recovery_info_main_all.srd" "quality.pbl";
+ "d_existing_coil_job_defects_das.srd" "quality.pbl";
+ "s_cust_datetime.srs" "quality.pbl";
+ "d_report_recovery_daily_alcoa_lancaster.srd" "quality.pbl";
+ "d_recovery_info_main_deletion.srd" "quality.pbl";
+ "d_report_recovery_scrapdefectdetails.srd" "quality.pbl";
+ "d_report_recovery_daily_main.srd" "quality.pbl";
+ "d_recovery_setup_customer_defect_list.srd" "quality.pbl";
+ "w_recovery_coil_details.srw" "quality.pbl";
+ "d_recovery_setup_customer_nondefect_list.srd" "quality.pbl";
+ "d_report_recovery_rej_coil_yearly.srd" "quality.pbl";
+ "d_recovery_customer_defect_worksheet.srd" "quality.pbl";
+ "d_report_daily_samuel_detroit.srd" "quality.pbl";
+ "dddw_colors.srd" "quality.pbl";
+ "d_report_recovery_product_type_summary.srd" "quality.pbl";
+ "d_recovery_defect_input.srd" "quality.pbl";
+ "u_tabpg_fileview_recovery.sru" "quality.pbl";
+ "d_report_recovery_historical_data.srd" "quality.pbl";
+ "d_recovery_customer_report_template.srd" "quality.pbl";
+ "d_report_recovery_daily_constellium.srd" "quality.pbl";
+ "d_report_recovery_product_type_summar_bk.srd" "quality.pbl";
+@end;

@@ -1,0 +1,48 @@
+$PBExportHeader$d_carrier_list.srd
+$PBExportComments$list all carriers in table Carrier
+release 9;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=no print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=64 color="536870912" )
+summary(height=3 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=67 color="536870912" )
+table(column=(type=decimal(0) update=yes updatewhereclause=yes key=yes name=carrier_id dbname="carrier.carrier_id" )
+ column=(type=char(8) update=yes updatewhereclause=yes name=scac dbname="carrier.scac" )
+ column=(type=char(60) update=yes updatewhereclause=yes name=carrier_full_name dbname="carrier.carrier_full_name" )
+ column=(type=char(36) update=yes updatewhereclause=yes name=carrier_type_code dbname="carrier.carrier_type_code" )
+ column=(type=char(60) update=yes updatewhereclause=yes name=carrier_street dbname="carrier.carrier_street" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=carrier_city dbname="carrier.carrier_city" )
+ column=(type=char(30) update=yes updatewhereclause=yes name=carrier_state dbname="carrier.carrier_state" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=carrier_zip dbname="carrier.carrier_zip" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=carrier_country dbname="carrier.carrier_country" )
+ column=(type=char(18) update=yes updatewhereclause=yes name=carrier_phone_number dbname="carrier.carrier_phone_number" )
+ column=(type=char(255) update=yes updatewhereclause=yes name=carrier_note dbname="carrier.carrier_note" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=carrier_duns_number dbname="carrier.carrier_duns_number" )
+ column=(type=decimal(0) update=yes updatewhereclause=yes name=status dbname="carrier.status" )
+ retrieve="  SELECT ~"CARRIER~".~"CARRIER_ID~",   
+         ~"CARRIER~".~"SCAC~",   
+         ~"CARRIER~".~"CARRIER_FULL_NAME~",   
+         ~"CARRIER~".~"CARRIER_TYPE_CODE~",   
+         ~"CARRIER~".~"CARRIER_STREET~",   
+         ~"CARRIER~".~"CARRIER_CITY~",   
+         ~"CARRIER~".~"CARRIER_STATE~",   
+         ~"CARRIER~".~"CARRIER_ZIP~",   
+         ~"CARRIER~".~"CARRIER_COUNTRY~",   
+         ~"CARRIER~".~"CARRIER_PHONE_NUMBER~",   
+         ~"CARRIER~".~"CARRIER_NOTE~",   
+         ~"CARRIER~".~"CARRIER_DUNS_NUMBER~",
+			~"CARRIER~".~"STATUS~"  
+    FROM ~"CARRIER~"   
+" update="CARRIER" updatewhere=1 updatekeyinplace=yes )
+text(band=header alignment="2" text="SCAC" border="6" color="0" x="355" y="6" height="51" width="194" html.valueishtml="0"  name=scac_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+text(band=header alignment="2" text="Carrier Full Name" border="6" color="0" x="560" y="6" height="51" width="1302" html.valueishtml="0"  name=carrier_full_name_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+text(band=header alignment="2" text="Carrier Id" border="6" color="0" x="91" y="6" height="51" width="260" html.valueishtml="0"  name=carrier_id_t visible="1"  font.face="Arial" font.height="-8" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+column(band=detail id=1 alignment="2" tabsequence=32766 border="5" color="0" x="91" y="3" height="61" width="256" format="[general]" html.valueishtml="0"  name=carrier_id visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="79741120" )
+column(band=detail id=2 alignment="0" tabsequence=10 border="5" color="0~tIF (MOD(GETROW(),2)=0, RGB(100,100,100), RGB(0,0,0))" x="355" y="3" height="61" width="190" format="[general]" html.valueishtml="0"  name=scac visible="1" edit.limit=8 edit.case=upper edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+column(band=detail id=3 alignment="0" tabsequence=20 border="5" color="0~tIF (MOD(GETROW(),2)=0, RGB(100,100,100), RGB(0,0,0))" x="556" y="3" height="61" width="1302" format="[general]" html.valueishtml="0"  name=carrier_full_name visible="1" edit.limit=60 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.imemode=0  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="2" background.color="16777215" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+ 

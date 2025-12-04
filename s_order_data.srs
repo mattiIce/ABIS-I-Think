@@ -1,0 +1,9 @@
+$PBExportHeader$s_order_data.srs
+$PBExportComments$contains data from an customer order
+global type s_order_data from structure
+	long		order_num
+	long		customer_num
+	long		ab_job_num
+	long		order_item_num
+end type
+

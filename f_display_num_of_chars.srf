@@ -1,0 +1,32 @@
+$PBExportHeader$f_display_num_of_chars.srf
+global type f_display_num_of_chars from function_object
+end type
+
+forward prototypes
+global subroutine f_display_num_of_chars (datawindow adw, string as_data, string as_field_name)
+end prototypes
+
+global subroutine f_display_num_of_chars (datawindow adw, string as_data, string as_field_name);//Alex Gerlants. 03/13/2017
+/*
+Function:	f_display_num_of_chars
+Returns:		none
+Arguments:	value		datawindow	adw
+				value		string		as_data
+				value		string		as_field_name
+*/
+
+String	ls_column_name, ls_modstring
+Long		ll_string_length
+
+ll_string_length = Len(as_data)
+
+If ll_string_length > 0 Then
+	ls_modstring = as_field_name + ".Text ='" + String(ll_string_length) + " characters'"
+	adw.Modify(ls_modstring)
+Else
+	ls_modstring = as_field_name + ".Text =''"
+	adw.Modify(ls_modstring)
+End If
+
+end subroutine
+

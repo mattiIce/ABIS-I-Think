@@ -1,0 +1,13 @@
+$PBExportHeader$d_customer_short_list.srd
+$PBExportComments$Only list customer short name
+release 6;
+datawindow(units=0 timer_interval=0 color=16777215 processing=0 print.documentname="" print.orientation = 0 print.margin.left = 107 print.margin.right = 107 print.margin.top = 97 print.margin.bottom = 97 print.paper.source = 0 print.paper.size = 0 print.prompt=no print.buttons=no print.preview.buttons=no )
+summary(height=0 color="536870912" )
+footer(height=0 color="536870912" )
+detail(height=67 color="536870912" )
+table(column=(type=char(18) updatewhereclause=yes name=customer_short_name dbname="customer.customer_short_name" )
+ column=(type=decimal(0) updatewhereclause=yes name=customer_id dbname="customer.customer_id" )
+ retrieve="PBSELECT( VERSION(400) TABLE(NAME=~"customer~" ) COLUMN(NAME=~"customer.customer_short_name~") COLUMN(NAME=~"customer.customer_id~")) "  sort="customer_short_name A " )
+column(band=detail id=1 alignment="0" tabsequence=10 border="2" color="0" x="0" y="3" height="61" width="585" format="[general]"  name=customer_short_name edit.limit=18 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+column(band=detail id=2 alignment="1" tabsequence=20 border="2" color="0" x="1130" y="3" height="58" width="260" format="[general]"  name=customer_id edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.autohscroll=yes edit.displayonly=yes  font.face="Arial" font.height="-8" font.weight="400"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="536870912" )
+htmltable(border="1" cellpadding="0" cellspacing="0" generatecss="no" nowrap="yes")

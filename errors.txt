@@ -1,0 +1,50 @@
+Library: Q:\silverdome\PFCDWSRV.PBL
+    Object: pfc_n_cst_dwsrv_multitable
+        Instance Variables
+            (0003): Warning     C0190: Instance variables of local structure type ('os_updcharacteristics') will be implicitly private in the next release.
+    Object: pfc_n_cst_dwsrv_querymode
+        Instance Variables
+            (0006): Warning     C0190: Instance variables of local structure type ('os_querymodeinfo') will be implicitly private in the next release.
+    Object: pfc_n_cst_dwsrv_resize
+        Instance Variables
+            (0026): Warning     C0190: Instance variables of local structure type ('os_resize') will be implicitly private in the next release.
+    Object: pfc_n_cst_dwsrv_dropdownsearch
+        Instance Variables
+            (0003): Warning     C0190: Instance variables of local structure type ('os_columns') will be implicitly private in the next release.
+    Object: pfc_n_cst_dssrv_multitable
+        Instance Variables
+            (0003): Warning     C0190: Instance variables of local structure type ('os_updcharacteristics') will be implicitly private in the next release.
+Library: Q:\silverdome\PFCMAIN.PBL
+    Object: pfc_u_tv
+        Instance Variables
+            (0007): Warning     C0190: Instance variables of local structure type ('os_datasource') will be implicitly private in the next release.
+Library: Q:\silverdome\PFCWNSRV.PBL
+    Object: pfc_n_cst_resize
+        Instance Variables
+            (0037): Warning     C0190: Instance variables of local structure type ('os_resize') will be implicitly private in the next release.
+    Object: pfc_n_cst_winsrv_sheetmanager
+        Instance Variables
+            (0004): Warning     C0190: Instance variables of local structure type ('os_sheet') will be implicitly private in the next release.
+    Object: pfc_n_cst_winsrv_statusbar
+        Instance Variables
+            (0063): Warning     C0190: Instance variables of local structure type ('os_dwobjects') will be implicitly private in the next release.
+    Object: pfc_w_toolbars
+        Instance Variables
+            (0007): Warning     C0190: Instance variables of local structure type ('os_toolbar') will be implicitly private in the next release.
+Library: Q:\silverdome\PFCAPSRV.PBL
+    Object: pfc_n_cst_dwcache
+        Instance Variables
+            (0023): Warning     C0190: Instance variables of local structure type ('os_cachelist') will be implicitly private in the next release.
+    Object: pfc_n_cst_trregistration
+        Instance Variables
+            (0004): Warning     C0190: Instance variables of local structure type ('os_transentry') will be implicitly private in the next release.
+Library: Q:\silverdome\edi.pbl
+    Object: m_edi_main
+        Event: m_reports::<unknown>
+            (0001): Error       C0049: Illegal data type for on statement: m_coilinventoryreport
+    Object: f_edi_870
+        Function Source
+            (0031): Error       C0084: Bad number of arguments for function: f_edi_log
+            (0033): Error       C0084: Bad number of arguments for function: f_edi_log
+            (0039): Error       C0084: Bad number of arguments for function: f_edi_log
+            (0041): Error       C0084: Bad number of arguments for function: f_edi_log

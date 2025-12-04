@@ -1,0 +1,32 @@
+$PBExportHeader$d_report_prod_order_label.srd
+$PBExportComments$poduction order's label
+release 9;
+datawindow(units=2 timer_interval=0 color=16777215 processing=0 HTMLDW=no print.printername="" print.documentname="" print.orientation = 0 print.margin.left = 250 print.margin.right = 250 print.margin.top = 250 print.margin.bottom = 250 print.paper.source = 0 print.paper.size = 0 print.canusedefaultprinter=yes print.prompt=no print.buttons=no print.preview.buttons=yes print.cliptext=no print.overrideprintjob=no print.collate=yes hidegrayline=no )
+header(height=175 color="536870912" )
+summary(height=0 color="536870912" )
+footer(height=166 color="536870912" )
+detail(height=666 color="536870912" )
+table(column=(type=char(64) updatewhereclause=no name=cust_name dbname="cust_name" )
+ column=(type=char(10) updatewhereclause=no name=job_num dbname="job_num" )
+ column=(type=char(64) updatewhereclause=no name=cust_po dbname="cust_po" )
+ column=(type=char(20) updatewhereclause=no name=alloy dbname="alloy" )
+ column=(type=char(64) updatewhereclause=no name=spec dbname="spec" )
+ column=(type=char(8) updatewhereclause=no name=cust_prod_line_id dbname="cust_prod_line_id" )
+ )
+column(band=detail id=2 alignment="1" tabsequence=32766 border="0" color="0" x="2900" y="183" height="150" width="741" format="[general]" html.valueishtml="0"  name=job_num visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=5 alignment="1" tabsequence=32766 border="0" color="0" x="1466" y="500" height="150" width="2175" format="[general]" html.valueishtml="0"  name=spec visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=1 alignment="0" tabsequence=32766 border="0" color="0" x="441" y="183" height="158" width="2441" format="[general]" html.valueishtml="0"  name=cust_name visible="1" edit.limit=0 edit.case=any edit.focusrectangle=no edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+column(band=detail id=4 alignment="0" tabsequence=32766 border="0" color="0" x="441" y="500" height="150" width="1008" format="[general]" html.valueishtml="0"  name=alloy visible="1" edit.limit=0 edit.case=any edit.autoselect=yes edit.imemode=0  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+compute(band=detail alignment="2" expression="if ( cust_prod_line_id  = ~"~" , cust_po , cust_po + ~"-~" +  cust_prod_line_id )
+
+/*
+Alex Gerlants. 07/11/2016
+1. Removed  column  cust_po from screen
+2. Added this computed object to screen
+*/"border="0" color="0" x="441" y="341" height="150" width="3200" format="[GENERAL]" html.valueishtml="0"  name=compute_1 visible="1"  font.face="Arial" font.height="-9" font.weight="700"  font.family="2" font.pitch="2" font.charset="0" background.mode="1" background.color="553648127" )
+htmltable(border="1" )
+htmlgen(clientevents="1" clientvalidation="1" clientcomputedfields="1" clientformatting="0" clientscriptable="0" generatejavascript="1" encodeselflinkargs="1" netscapelayers="0" )
+export.xml(headgroups="1" includewhitespace="0" metadatatype=0 savemetadata=0 )
+import.xml()
+export.pdf(method=0 distill.custompostscript="0" xslfop.print="0" )
+ 

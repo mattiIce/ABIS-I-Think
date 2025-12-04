@@ -1,0 +1,7 @@
+$PBExportHeader$s_job_and_coil.srs
+$PBExportComments$pass current job number and coil number
+global type s_job_and_coil from structure
+	long		job_num
+	long		coil_num
+end type
+

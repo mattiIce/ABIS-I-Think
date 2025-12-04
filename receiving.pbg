@@ -1,0 +1,13 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "receiving.pbl" "";
+@end;
+@begin Objects
+ "d_receiving_coil_list.srd" "receiving.pbl";
+ "w_receiving_dock.srw" "receiving.pbl";
+ "m_receive_coil.srm" "receiving.pbl";
+ "d_receive_coil_list.srd" "receiving.pbl";
+ "w_receive_coil.srw" "receiving.pbl";
+ "d_receiving_coil_detail.srd" "receiving.pbl";
+ "d_receive_coil_list_editor.srd" "receiving.pbl";
+@end;

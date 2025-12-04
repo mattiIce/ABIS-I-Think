@@ -1,0 +1,41 @@
+[DataBase]
+DBMS=O73 ORACLE 7.3
+Database=
+UserId=
+DatabasePassword =
+LogId=bl110
+LogPassword=albl
+ServerName=@bdb_abc01
+DbParm=
+[WINDOW]
+@default_window=w_da_offline_sheet
+@default_window=w_qc_sheet
+default_window=w_display_da_apps
+[OPCItems]
+RemoteHost=localhost
+DeviceName=PLC5-BL110.
+is_coil=abcoil 
+is_job=abjob
+is_override=abshiftoverride 
+is_shift=abshift
+is_skid=abskid 
+is_noauto=noauto
+is_automode=automode
+is_autorunning=autorunning
+is_coilinfeeder=coilinfeeder
+is_coilunload=coilunload
+is_coilunloadreset=coilunloadreset
+is_feedlength=feedlength
+is_goodpartcnt=goodpartcnt
+is_rejectpartcnt=rejectpartcnt
+is_rejectlength=rejectlength
+is_partno=partno
+is_strokes=strokecnt
+scale_com_port=3
+is_maintenance_password = 5678
+is_prod_control_password = 2345
+is_shift_super_password = 1234
+is_skid=abskid
+is_feedreject=feedreject
+is_plc_fault=activefault
+is_opc_error=_Attributes._ErrorCode

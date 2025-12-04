@@ -1,0 +1,17 @@
+Save Format v3.0(19990112)
+@begin Libraries
+ "die_tool.pbl" "";
+@end;
+@begin Objects
+ "d_shapes_4die_id.srd" "die_tool.pbl";
+ "d_die_detail_list.srd" "die_tool.pbl";
+ "w_report_die_tool.srw" "die_tool.pbl";
+ "w_die_detail_list.srw" "die_tool.pbl";
+ "d_die_display.srd" "die_tool.pbl";
+ "d_die_print.srd" "die_tool.pbl";
+ "d_die_new.srd" "die_tool.pbl";
+ "d_die_detail_2.srd" "die_tool.pbl";
+ "d_die_list.srd" "die_tool.pbl";
+ "d_shapes.srd" "die_tool.pbl";
+ "w_die_new.srw" "die_tool.pbl";
+@end;
