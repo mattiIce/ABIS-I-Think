@@ -65,6 +65,12 @@ class NotificationService:
         Returns:
             Boolean indicating success
         """
+        # SAFETY: Check if in test/development mode - do not send real emails
+        if settings.DEBUG or getattr(settings, 'EMAIL_BACKEND', '') == 'django.core.mail.backends.console.EmailBackend':
+            logger.info(f"[TEST MODE] Email notification logged but not sent: {notification.subject}")
+            notification.mark_as_sent()
+            return True
+        
         try:
             # Get user preferences
             preferences, created = UserNotificationPreference.objects.get_or_create(
@@ -136,10 +142,10 @@ class NotificationService:
         context = {
             'job_id': job.job_id,
             'job_number': job.job_number,
-            'customer_name': job.customer.name if job.customer else 'N/A',
+            'customer_name': job.customer.company_name if job.customer else 'N/A',
             'status': job.get_status_display(),
-            'quantity': job.quantity,
-            'alloy': job.alloy,
+            'quantity': job.ordered_quantity,
+            'part_number': job.part_number,
         }
         
         # Notify relevant users (e.g., production managers, customer service)
@@ -195,10 +201,10 @@ class NotificationService:
         """Send notification for inventory events"""
         context = {
             'coil_id': coil.coil_id,
-            'heat_number': coil.heat_number,
-            'alloy': coil.alloy,
-            'temper': coil.temper,
-            'quantity': coil.quantity,
+            'coil_number': coil.abc_coil_number,
+            'alloy': str(coil.alloy) if coil.alloy else 'N/A',
+            'temper': str(coil.temper) if coil.temper else 'N/A',
+            'weight': coil.net_weight,
             'location': coil.location or 'Not specified',
         }
         

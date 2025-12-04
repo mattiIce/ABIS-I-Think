@@ -49,6 +49,23 @@ class EDITransactionViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['post'])
     def generate_856(self, request):
         """Generate EDI 856 Ship Notice from shipment."""
+        # SAFETY: Prevent external EDI transmission in test/development mode
+        from django.conf import settings
+        import os
+        
+        edi_enabled = os.getenv('EDI_ENABLED', 'False') == 'True'
+        edi_test_mode = os.getenv('EDI_TEST_MODE', 'True') == 'True'
+        
+        if settings.DEBUG or edi_test_mode or not edi_enabled:
+            return Response(
+                {
+                    'status': 'test_mode',
+                    'message': 'EDI transmission disabled in test/development mode. Transaction logged but not transmitted.',
+                    'note': 'Set EDI_ENABLED=True and EDI_TEST_MODE=False in production to enable external transmission.'
+                },
+                status=status.HTTP_200_OK
+            )
+        
         serializer = EDIGenerateRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         
@@ -183,6 +200,23 @@ class EDITransactionViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['post'])
     def generate_863(self, request):
         """Generate EDI 863 Material Test Report from coil."""
+        # SAFETY: Prevent external EDI transmission in test/development mode
+        from django.conf import settings
+        import os
+        
+        edi_enabled = os.getenv('EDI_ENABLED', 'False') == 'True'
+        edi_test_mode = os.getenv('EDI_TEST_MODE', 'True') == 'True'
+        
+        if settings.DEBUG or edi_test_mode or not edi_enabled:
+            return Response(
+                {
+                    'status': 'test_mode',
+                    'message': 'EDI transmission disabled in test/development mode. Transaction logged but not transmitted.',
+                    'note': 'Set EDI_ENABLED=True and EDI_TEST_MODE=False in production to enable external transmission.'
+                },
+                status=status.HTTP_200_OK
+            )
+        
         serializer = EDIGenerateRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         
@@ -295,6 +329,23 @@ class EDITransactionViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['post'])
     def generate_870(self, request):
         """Generate EDI 870 Order Status Report from job."""
+        # SAFETY: Prevent external EDI transmission in test/development mode
+        from django.conf import settings
+        import os
+        
+        edi_enabled = os.getenv('EDI_ENABLED', 'False') == 'True'
+        edi_test_mode = os.getenv('EDI_TEST_MODE', 'True') == 'True'
+        
+        if settings.DEBUG or edi_test_mode or not edi_enabled:
+            return Response(
+                {
+                    'status': 'test_mode',
+                    'message': 'EDI transmission disabled in test/development mode. Transaction logged but not transmitted.',
+                    'note': 'Set EDI_ENABLED=True and EDI_TEST_MODE=False in production to enable external transmission.'
+                },
+                status=status.HTTP_200_OK
+            )
+        
         serializer = EDIGenerateRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         
