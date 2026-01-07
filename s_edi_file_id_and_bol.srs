@@ -1,7 +1,0 @@
-$PBExportHeader$s_edi_file_id_and_bol.srs
-global type s_edi_file_id_and_bol from structure
-	long		edi_file_id
-	string		bol
-	long		customer_id
-end type
-

@@ -1,9 +1,0 @@
-$PBExportHeader$s_security_data.srs
-$PBExportComments$contain who/ when/ security level information
-global type s_security_data from structure
-	string		who
-	integer		security_level
-	datetime		when
-	string		pass
-end type
-

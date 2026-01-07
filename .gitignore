@@ -1,3 +1,88 @@
-# Ignore zip files
-*.zip
-*.ZIP
+# Python
+*.py[cod]
+*$py.class
+*.so
+__pycache__/
+*.egg-info/
+dist/
+build/
+
+# Django
+*.log
+db.sqlite3
+db.sqlite3-journal
+/media
+/staticfiles
+
+# Environment
+.env
+.venv
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+
+# Testing
+.pytest_cache/
+.tox/
+
+# Logs
+logs/
+*.log
+
+# Legacy PowerBuilder files (for safety)
+*.pbl
+*.dll
+*.exe
+*.pbd
+*.pbg
+*.pbr
+*.pbt
+*.pbw
+*.pbc
+*.srd
+*.srw
+*.srf
+*.sru
+*.srm
+*.srs
+*.srq
+*.srj
+*.srx
+*.sra
+*.ini
+*.INI
+*.bmp
+*.BMP
+*.ico
+*.gif
+*.WAV
+*.cur
+*.dat
+*.fun
+*.DBF
+*.INF
+*.MDX
+*.db
+*.hlp
+*.cnt
+*.rtf
+*.lnk
