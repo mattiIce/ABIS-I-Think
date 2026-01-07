@@ -1,9 +1,0 @@
-$PBExportHeader$str_wait.srs
-global type str_wait from structure
-	long		number_of_seconds
-	string		unit_of_measure
-	string		header_line1
-	string		header_line2
-	string		header_line3
-end type
-

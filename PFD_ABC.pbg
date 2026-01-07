@@ -1,7 +1,0 @@
-Save Format v3.0(19990112)
-@begin Libraries
- "PFD_ABC.PBL" "";
-@end;
-@begin Objects
- "w_report.srw" "PFD_ABC.PBL";
-@end;

@@ -1,2 +1,0 @@
-$PBExportHeader$query_scrap.srq
-PBSELECT( VERSION(400) TABLE(NAME="scrap_skid" ) COLUMN(NAME="scrap_skid.scrap_skid_num") COLUMN(NAME="scrap_skid.scrap_type") COLUMN(NAME="scrap_skid.scrap_temper") COLUMN(NAME="scrap_skid.scrap_net_wt") COLUMN(NAME="scrap_skid.scrap_tare_wt") COLUMN(NAME="scrap_skid.scrap_ab_job_num") COLUMN(NAME="scrap_skid.scrap_cust_po") COLUMN(NAME="scrap_skid.scrap_date") COLUMN(NAME="scrap_skid.skid_scrap_status")WHERE(    EXP1 ="~"SCRAP_SKID~".~"SCRAP_SKID_NUM~""   OP ="="    EXP2 =":al_scrap_id" ) ) ARG(NAME = "al_scrap_id" TYPE = number) 
