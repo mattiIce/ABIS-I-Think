@@ -106,6 +106,10 @@ pytest                                   # Run tests (pytest + pytest-django)
 python manage.py createsuperuser         # Create admin user
 python manage.py collectstatic --noinput # Collect static files
 python manage.py loaddata <fixture>      # Load fixture data
+
+# Management commands
+python manage.py init_notification_templates  # Seed default notification templates (8 types)
+python manage.py migrate_legacy_data          # Migrate from Oracle 11g (--dry-run, --entity, --check-only, --validate, --resume)
 ```
 
 ### Frontend
@@ -126,6 +130,21 @@ docker compose up -d                     # Start all services (db, redis, web, c
 docker compose down                      # Stop all services
 ```
 
+## Celery Beat Schedule (Periodic Tasks)
+
+| Task | Schedule | Function |
+|------|----------|----------|
+| Process incoming EDI files | Every 15 minutes | `edi.tasks.process_incoming_edi` |
+| Generate daily production reports | Daily at 7:00 AM | `reports.tasks.generate_daily_production_report` |
+| Check inventory alerts | Every 2 hours | `inventory.tasks.check_inventory_alerts` |
+
+## Docker Details
+
+- **Base image**: `python:3.12-slim`
+- **Non-root user**: `abis` (UID 1000) for security
+- **Health check**: `curl -f http://localhost:8000/api/health/` (30s interval, 10s timeout, 3 retries, 40s start period)
+- **Gunicorn**: 4 workers, 2 threads/worker, 60s timeout, stdout logging
+
 ## Environment Variables
 
 Key variables (see `.env.example` for full list):
@@ -140,7 +159,14 @@ Key variables (see `.env.example` for full list):
 | `EDI_ENABLED` | `False` | Enable EDI transmission (safety flag) |
 | `EDI_TEST_MODE` | `True` | EDI test mode — logs but doesn't transmit |
 | `TIME_ZONE` | `America/New_York` | Server timezone |
+| `SCALE_COM_PORT` | `/dev/ttyUSB0` | Serial port for scale integration |
+| `SCALE_BAUDRATE` | `9600` | Scale serial baud rate |
+| `BARCODE_PRINTER_IP` | `192.168.1.100` | Barcode printer IP address |
+| `BARCODE_PRINTER_PORT` | `9100` | Barcode printer port |
+| `ORACLE_USER` / `ORACLE_PASSWORD` | — | Legacy Oracle 11g credentials (for data migration) |
+| `ORACLE_TNS_NAME` | — | Oracle TNS name (or use ORACLE_HOST/PORT/SERVICE) |
 | `VITE_API_URL` | `http://localhost:8000/api` | Frontend API base URL |
+| `VITE_APP_NAME` | `ABIS Modern` | Frontend app display name |
 
 ## Database Schema
 
@@ -524,6 +550,28 @@ Notifications are sent to users in relevant groups (Production, Managers, Custom
 - Charts: Recharts (Line, Bar, Pie)
 - Toasts: react-hot-toast (top-right position)
 - Date formatting: date-fns
+
+## Middleware Stack (order matters)
+
+1. `CorsMiddleware` — must be first for CORS preflight
+2. `SecurityMiddleware` — security headers
+3. `WhiteNoiseMiddleware` — compressed static file serving
+4. `SessionMiddleware` — session management
+5. `CommonMiddleware` — APPEND_SLASH, etc.
+6. `CsrfViewMiddleware` — CSRF protection
+7. `AuthenticationMiddleware` — user authentication
+8. `MessageMiddleware` — Django messages framework
+9. `XFrameOptionsMiddleware` — clickjacking protection
+
+## Notification Email Templates
+
+HTML templates in `notifications/templates/emails/`:
+- `job_started.html`, `job_completed.html` — Job lifecycle notifications
+- `shipment_created.html` — New shipment notification
+- `qa_failed.html` — QA failure alert
+- `inventory_low.html` — Low inventory warning
+
+Templates use Django template variables (e.g., `{{ job_number }}`, `{{ customer_name }}`). Seeded via `python manage.py init_notification_templates`.
 
 ## Key Safety Features
 
